@@ -1,0 +1,18 @@
+.nested-fields.option-fields
+  .row
+    .col-xs-9.col-sm-10
+      .input-group
+        span.input-group-addon
+          = "答案"
+          span.option-number
+            = (f.index.to_i + 65).chr
+          = ": "
+          - if survey.has_answers?
+            - if grouped
+              = f.radio_button :correct, true, 'data-grouped' => grouped
+            - else
+              = f.input_field :correct, boolean_style: :inline, 'data-grouped' => grouped
+        = f.input_field :text, class: 'form-control'
+        = f.input_field :position, as: :hidden
+    .col-xs-3.col-sm-2.links
+      = link_to_remove_association "删除答案", f, class: 'pull-right'

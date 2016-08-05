@@ -1,0 +1,10 @@
+tr id="#{dom_id(project)}"
+  td width=14
+    span.glyphicon.glyphicon-move
+  td
+    == link_to project.name, [:admin, project]
+  td
+    .btn-group.pull-right
+      = link_to '详情', [:admin, project], class: 'btn btn-info'
+      = link_to '编辑', [:edit, :admin, project], class: 'btn btn-primary'
+      = link_to '删除', [:admin, project], method: :delete, class: 'btn btn-danger', data: { confirm: '你确认要删除这个项目吗?' }

@@ -1,0 +1,11 @@
+= render partial: 'attempts/question_header', locals: { question: question, index: index }
+
+.row
+  .col-xs-12
+    .pull-left 平均分
+    .pull-right.average-rating
+        = question.average_rating.to_i
+.row
+  - question.statistics.each do |key, value|
+    .col-xs-12
+      = question_bar_chart_option key, value * 100/question.answers.count, value, class: 'wrong'

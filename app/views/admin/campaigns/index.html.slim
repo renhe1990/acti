@@ -1,0 +1,20 @@
+.row
+  .col-sm-2
+    = link_to '创建模块', [:new, :admin, @project, :campaign], class: 'btn btn-primary btn-block'
+br
+
+.row
+  .col-sm-12
+    table.table.table-striped.table-bordered
+      thead
+        th
+        th 名称
+        th
+      tbody.sortable data-param_name='campaigns' data-sort_url="#{ sort_admin_project_campaigns_url(@project) }"
+        = render partial: 'campaign', collection: @campaigns
+
+  .col-sm-12
+    = paginate @campaigns, views_prefix: 'admin'
+
+- title '模块列表'
+- breadcrumb :admin_campaigns, @project

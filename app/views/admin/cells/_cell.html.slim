@@ -1,0 +1,12 @@
+tr id="cell_#{cell.id}"
+  td width=14
+    span.glyphicon.glyphicon-move
+  td width=60
+    = image_tag cell.icon, size: '60x60', style: 'background-color: #000000'
+  td= cell.title
+  td= cell.active ? '已激活' : '未激活'
+  td.position
+    = cell.position
+  td
+    span.pull-right
+      = link_to '编辑', [:edit, :admin, @project, cell], class: 'btn btn-primary'

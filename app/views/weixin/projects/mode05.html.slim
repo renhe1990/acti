@@ -1,0 +1,20 @@
+.welcome style="background: url(#{@project.wechat_background.url}) no-repeat center center fixed;"
+  .row
+    .col-xs-12 style="padding: 60px 0;"
+  br
+  .row
+    - @cells.each do |cell|
+      .col-xs-6 class="#{ cycle('left', 'right') }"
+        = link_to cell_path(cell) do
+          .cell.media
+            .pull-left
+              = image_tag cell.icon.url, class: 'icon media-object'
+            .media-body
+              span.title= cell.title
+  .row
+    .col-xs-12.copyright
+      .text-center © 2014安利 (中国) 培训中心
+
+- title '首页'
+- content_for :stylesheet do
+  = stylesheet_link_tag "weixin/#{@project.template}", media: 'all'

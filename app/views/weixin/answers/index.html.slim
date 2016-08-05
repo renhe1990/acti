@@ -1,0 +1,12 @@
+.row
+  .col-sm-12
+    table.table.table-bordered.table-striped
+      thead
+        tr
+          th 序号
+          th 答案
+      tbody
+        - @answers.each_with_index do |answer, index|
+          tr
+            td= index + 1
+            td= answer.text

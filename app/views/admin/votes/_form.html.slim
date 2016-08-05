@@ -1,0 +1,85 @@
+= simple_form_for [:admin, @course, @vote] do |f|
+  = f.input :title
+  = f.input :description
+
+  .form-group
+    = f.label :user_ids, '选择特定学员'
+    p
+      = link_to '选择所有', '#', class: 'select-all', 'data-target' => '#vote_user_ids'
+      | \
+      = link_to '取消所有', '#', class: 'deselect-all', 'data-target' => '#vote_user_ids'
+
+    == f.input_field :user_ids, collection: @vote.course.users, multiple: true, class: 'multi-select'
+
+  hr
+  p 投票项设置
+  #vote_items
+    = f.simple_fields_for :vote_items do |vote_item_fields|
+      = render 'vote_item_fields', f: vote_item_fields
+
+  = link_to_add_association '添加投票项', f, :vote_items, 'data-association-insertion-method' => :append,
+                                                          'data-association-insertion-node' => '#vote_items'
+
+  br
+  br
+  = f.submit '保存投票', class: 'btn btn-primary', 'data-loading-text' => '正在保存...', autocomplete: 'off'
+
+- content_for :javascript do
+  javascript:
+    var lecturersData = #{@lecturers.to_s.html_safe};
+    lecturers = new Bloodhound({
+      datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+      queryTokenizer: Bloodhound.tokenizers.whitespace,
+      local: lecturersData,
+    });
+    lecturers.initialize();
+
+    var studentsData = #{@students.to_s.html_safe};
+    students = new Bloodhound({
+      datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+      queryTokenizer: Bloodhound.tokenizers.whitespace,
+      local: studentsData
+    });
+    students.initialize();
+
+    function registerTypeahead(selector) {
+      $(selector).typeahead({
+        highlight: true
+      },
+      {
+        name: 'lecturers',
+        displayKey: 'name',
+        source: lecturers.ttAdapter(),
+        templates: {
+          header: '<h3>讲师</h3>'
+        }
+      },
+      {
+        name: 'students',
+        displayKey: 'name',
+        source: students.ttAdapter(),
+        templates: {
+          header: '<h3>特定学员</h3>'
+        }
+      }).on('typeahead:selected', function(env, data) {
+        $(env.target).closest('.nested-fields').find("input[type='hidden']").val(data.id);
+      }).on('typeahead:closed', function(env, data) {
+        var name = $(env.target).val();
+        var selected = false;
+        $.each(lecturersData.concat(studentsData), function(index, data) {
+          if(data.name == name) {
+            selected = true;
+            return false;
+          }
+        });
+        if(!selected) {
+          $(env.target).closest('.nested-fields').find("input[type='hidden']").val('');
+        }
+      });
+    }
+
+    registerTypeahead('#vote_items .typeahead');
+
+    $('#vote_items').on('cocoon:after-insert', function(e, insertedItem) {
+      registerTypeahead($(insertedItem).find('.typeahead'));
+    });

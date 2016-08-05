@@ -1,0 +1,23 @@
+.row
+  .col-sm-2
+    = link_to '创建课程', [:new, :admin, @campaign, :course], class: 'btn btn-primary btn-block'
+
+br
+
+.row
+  .col-sm-12
+    table.table.table-striped.table-bordered
+      thead
+        th
+        th 名称
+        th 开始日期
+        th 结束日期
+        th
+      tbody.sortable data-param_name='courses' data-sort_url="#{ sort_admin_campaign_courses_url(@campaign) }"
+        = render partial: 'course', collection: @courses
+
+  .col-sm-12
+    = paginate @courses, views_prefix: 'admin'
+
+- title '课程列表'
+- breadcrumb :admin_courses, @campaign

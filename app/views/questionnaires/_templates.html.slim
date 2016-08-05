@@ -1,0 +1,3 @@
+.templates
+  - questionnaires.each do |questionnaire|
+    = link_to "复制试卷: #{questionnaire.name}", copy_questionnaire_path(questionnaire, course_id: params[:course_id])

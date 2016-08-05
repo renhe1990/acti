@@ -1,0 +1,22 @@
+.row
+  .col-sm-2
+    = link_to '创建课程安排', [:new, :admin, @schedule, :lesson], class: 'btn btn-primary btn-block'
+br
+
+.row
+  .col-sm-12
+    table.table.table-striped.table-bordered
+      thead
+        th 时间
+        th 名称
+        th 地点
+        th
+      tbody
+        = render partial: 'lesson', collection: @lessons
+
+  .col-sm-12
+    = paginate @lessons, views_prefix: 'admin'
+
+- title '课程安排列表'
+
+- breadcrumb :admin_lessons, @schedule

@@ -1,0 +1,22 @@
+.row
+  .col-sm-12.col-xs-12
+    h1= @lucky_draw.title
+    p= @lucky_draw.description
+
+.row
+  - @lucky_draw.draw_items.each do |draw_item|
+    .col-sm-12.col-xs-12
+      = "#{draw_item.title}: "
+      span.red= "#{draw_item.quantity}名"
+      = draw_item.description
+
+br
+.row
+  .col-sm-12.col-xs-12
+    = simple_form_for @draw_result, url: weixin_lucky_draw_lucky_draw_results_url(@lucky_draw) do |f|
+      = f.submit '抽奖', class: 'btn btn-primary btn-block', 'data-loading-text' => '正在提交...', autocomplete: 'off'
+
+br
+br
+
+- title '课程抽奖'

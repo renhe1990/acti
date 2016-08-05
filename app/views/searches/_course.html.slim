@@ -1,0 +1,6 @@
+tr
+  th
+    - if course.public
+      = link_to course.name, public_course_path(course), target: '_blank'
+    - else
+      = link_to course.name, course, target: '_blank'

@@ -1,0 +1,19 @@
+.row
+  .col-sm-12
+    = simple_form_for [:admin, @article] do |f|
+      = f.input :title, label: '添加标题:', placeholder: '请输入标题'
+      = f.association :article_category, collection: @article_categories, label: '选择分类:', prompt: '请选择'
+      = f.input :keyword_list, label: '设置关键词:', placeholder: '请输入关键词, 输入回车键结束'
+      = f.input :body, label: '添加正文:', placeholder: '请添加文字和图片', input_html: { class: 'tinymce', rows: 15 }
+
+      = f.submit '预览', class: 'btn btn-default', name: 'preview'
+      = f.submit '发布', class: 'btn btn-primary', name: 'publish'
+      = f.submit '保存草稿', class: 'btn btn-default'
+
+
+- content_for :javascript do
+  = tinymce theme_advanced_buttons1: 'bold,italic,underline,|,bullist,numlist,|,outdent,indent,alignleft,aligncenter,alignright,|,image',
+            plugins: 'image'
+
+  javascript:
+    $('#article_keyword_list').select2({tags: ["#{@article.keyword_list}"]})

@@ -1,0 +1,9 @@
+tr id="#{dom_id(vote)}"
+  td width=14
+    span.glyphicon.glyphicon-move
+  td= vote.title
+  td
+    .btn-group.pull-right
+      = link_to '详情', [:admin, @course, vote], class: 'btn btn-info'
+      = link_to '编辑', [:edit, :admin, @course, vote], class: 'btn btn-primary'
+      = link_to '删除', [:admin, @course, vote], method: :delete, class: 'btn btn-danger', data: { confirm: '你确定要删除这个问卷吗?' }

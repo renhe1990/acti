@@ -1,0 +1,8 @@
+.well
+  .row
+    .col-sm-12.col-xs-12
+      = "#{(vote_item_counter + 1).to_words}. #{vote_item.title}"
+    .col-sm-12.col-xs-12
+      = vote_item.description
+    .col-sm-12.col-xs-12
+      = render partial: 'vote_item_option', collection: vote_item.vote_item_options, locals: { f: f, index: vote_item_counter }

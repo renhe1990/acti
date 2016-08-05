@@ -1,0 +1,14 @@
+= simple_form_for [:admin, @course, @speech_draw] do |f|
+  = f.input :title
+  = f.input :description, input_html: { rows: 5 }
+
+  .form-group
+    = f.label :user_ids, '选择特定学员'
+    p
+      = link_to '选择所有', '#', class: 'select-all', 'data-target' => '#speech_draw_user_ids'
+      | \
+      = link_to '取消所有', '#', class: 'deselect-all', 'data-target' => '#speech_draw_user_ids'
+
+    == f.input_field :user_ids, collection: @course.users, multiple: true, class: 'multi-select'
+
+  = f.submit '保存演讲抽签', class: 'btn btn-primary', 'data-loading-text' => '正在保存...', autocomplete: 'off'

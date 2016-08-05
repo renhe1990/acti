@@ -1,0 +1,41 @@
+h1 数据统计
+
+.row
+  .col-xs-10
+    = "数据统计: #{@survey.name}"
+  .col-xs-2
+    = link_to '导出', '#', class: 'btn btn-default btn-block pull-right'
+
+hr
+- name = I18n.t("activerecord.models.#{ @survey.type.underscore }")
+.row
+  .col-xs-12
+    p
+      = "#{ name }浏览次数 (UV): #{ @survey.impressionist_count }"
+    p
+      = "#{ name }提交份数: #{ @attempts.count }"
+    - if @survey.will_score?
+      p
+        = "平均分数: #{ @survey.average_score }"
+
+
+hr
+
+- if @survey.comment.present?
+  .row
+    .col-xs-12
+      = I18n.t("activerecord.attributes.#{@survey.type.underscore}.comment")
+  .well
+    = @survey.comment
+
+  hr
+
+- @survey.questions.each_with_index do |question, index|
+  = render partial: "#{question.type.underscore}", locals: { survey: @survey, question: question, index: index }
+  br
+
+- content_for :javascript do
+  = javascript_include_tag "highcharts", "chartkick"
+
+- title '数据统计'
+

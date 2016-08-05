@@ -1,0 +1,45 @@
+.row
+  .col-sm-3
+    = link_to '发起新课程', new_course_url, class: 'btn btn-block btn-primary', style: 'margin-top: 15px;'
+
+br
+ul.nav.nav-tabs
+  li class="#{ 'active' if @state == 'pending' }"
+    = link_to '尚未进行', courses_url(state: :pending)
+  li class="#{ 'active' if @state == 'ongoing' }"
+    = link_to '正在进行', courses_url(state: :ongoing)
+  li class="#{ 'active' if @state == 'completed' }"
+    = link_to '已经完成', courses_url(state: :completed)
+
+br
+
+.row
+  .col-sm-12
+    table.table.table-bordered.table-condensed.table-striped
+      thead
+        tr
+          th 课程名称
+          th 授课时间
+          th 操作
+
+      tbody
+        - @courses.each do |course|
+          tr
+            td= course.name
+            td= course_date_range_label(course)
+            td
+              .btn-group.pull-right
+                = link_to '查看详情', course, class: 'btn btn-info'
+                = link_to '删除', course, method: :delete, class: 'btn btn-danger', data: { confirm: '确认要删除此课程吗?' }
+
+.row
+  .col-sm-12
+    = paginate @courses, params: { state: params[:state] }
+    - if @courses.count == 0
+      .alert.alert-success
+        button type='button' class='close' data-dismiss='alert' &times;
+        '您当前还没有创建课程，请在“首页”或“发起课程”页面发起您的新课程。
+
+- title '我的课程'
+- breadcrumb :courses
+

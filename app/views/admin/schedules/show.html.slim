@@ -1,0 +1,25 @@
+.row
+  .col-sm-12
+    .btn-group.pull-right
+      = link_to '课程安排列表', [:admin, @schedule, :lessons], class: 'btn btn-success'
+      = link_to '活动列表', [:admin, @schedule, :activities], class: 'btn btn-info'
+      = link_to '编辑', [:edit, :admin, @campaign, @schedule], class: 'btn btn-primary'
+      = link_to '删除', [:admin, @campaign, @schedule], method: 'delete', class: 'btn btn-danger', data: { confirm: '确定要删除吗?' }
+
+.row
+  .col-sm-12 日期
+  .col-sm-12= @schedule.date
+br
+
+.row
+  .col-sm-12 标题
+  .col-sm-12= @schedule.title
+br
+
+.row
+  .col-sm-12 提示
+  .col-sm-12= @schedule.hint
+
+- title '日程安排详情'
+
+- breadcrumb :admin_schedule, @campaign, @schedule

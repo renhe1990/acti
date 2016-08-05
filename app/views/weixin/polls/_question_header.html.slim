@@ -1,0 +1,7 @@
+.row
+  .col-xs-12
+    p= "题目#{ (index+1).to_words } (#{ I18n.t('activerecord.models.' + question.type.underscore) })"
+.row
+  .col-xs-12
+    p= question.title
+

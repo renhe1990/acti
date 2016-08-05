@@ -1,0 +1,3 @@
+- hash = question.selected_options_in_hash
+- question.options.each_with_index do |option, index|
+  = question_bar_chart_option "选择#{ (65 + index).chr }", survey.attempts.count == 0 ? 0 : hash[option.id].count * 100/survey.attempts.count, hash[option.id].count, class: :wrong

@@ -1,0 +1,68 @@
+.navbar-fixed-bottom {
+  margin-bottom: 0;
+}
+
+#navigation li {
+  min-width: 150px;
+}
+
+.btn {
+  min-width: 90px;
+}
+
+.navbar-brand {
+  padding-left: 0px;
+}
+
+.navbar-collapse.collapse {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.panel-default {
+  border-color: transparent;
+}
+
+.panel-default > .panel-heading {
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.panel-heading {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.panel-body {
+  padding: 20px 10px;
+  border: 1px solid #ddd;
+}
+
+hr.black {
+  border-top-color: #000000;
+}
+
+hr.thick {
+  border-top-width: 3px;
+
+}
+
+select.datetime, select.date, select.time {
+  width: auto;
+  display: inline;
+}
+
+.table > tbody > tr > td {
+  vertical-align: middle;
+}
+
+.page-title {
+  padding: 7px 12px;
+  padding-left: 0px;
+  font-size: 16px;
+  line-height: 1.42857143;
+}
+
+hr.seperator {
+  @extend %clearfix;
+}

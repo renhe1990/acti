@@ -1,0 +1,3 @@
+.templates
+  - polls.each do |poll|
+    = link_to "复制问卷: #{poll.name}", copy_poll_path(poll, course_id: params[:course_id])

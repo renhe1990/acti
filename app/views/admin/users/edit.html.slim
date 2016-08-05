@@ -1,0 +1,31 @@
+.row
+  .col-sm-6.col-sm-offset-3
+    h1.text-center 编辑用户
+    hr.black
+    = simple_form_for [:admin, @user], wrapper: 'horizontal_form', html: { class: 'form-horizontal' } do |f|
+      = f.association :role, collection: @roles
+      = f.input :name
+      = f.input :card_number
+      .form-group
+        = f.label '省份/城市', class: 'string col-sm-3 control-label', for: :user_province
+        .col-sm-9
+          = f.input_field :province_id, as: :region, collection: @provinces, selected: @user.province_id, sub_region: :city_id, label: false, class: 'form-control', include_blank: '请选择省份'
+          = f.input_field :city_id, as: :region, collection: @cities, selected: @user.city_id, label: false, class: 'form-control', include_blank: '请选择城市'
+      = f.association :grade, include_blank: '请选择职别'
+      = f.input :gender, collection: User.genders.map{|array| [array.first == 'male' ? '男' : '女', array.first]}, include_blank: '请选择性别'
+      = f.input :diet, collection: User.diets.keys, include_blank: '请选择饮食习惯'
+      = f.input :mobile
+      = f.input :email
+
+      .form-group
+        = f.label "微信是否已经绑定", class: 'string col-sm-3'
+        .col-sm-9
+          = @user.uid.present? ? '是' : '否'
+
+      .row
+        .col-sm-12
+          = link_to '取消', :back, class: 'btn btn-default pull-right'
+          = f.submit '保存', class: 'btn btn-primary pull-right', style: 'margin-right: 10px', 'data-loading-text' => '正在保存', autocomplete: 'off'
+
+- content_for :javascript do
+  = js_for_region_ajax

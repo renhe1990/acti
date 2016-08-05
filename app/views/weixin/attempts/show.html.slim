@@ -1,0 +1,30 @@
+- title '感谢参与'
+
+.row
+  .form-group
+    .col-xs-12.text-center
+      h1 感谢参与
+
+- if @survey.display_score
+  .row
+    .form-group
+      .col-xs-12.text-center
+        span.h2= "您的分数是: #{ @attempt.score }"
+
+br
+
+.row
+  .form-group
+    .col-xs-12.text-center
+      = link_to '关闭', "javascript:closeWindow()", class: 'btn btn-primary btn-block'
+
+- content_for :javascript do
+  javascript:
+    function closeWindow() {
+      if(typeof WeixinJSBridge !== 'undefined') {
+        WeixinJSBridge.invoke('closeWindow', {}, function(response) {
+        });
+      } else {
+        window.open('','_self').close();
+      }
+    }

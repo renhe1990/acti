@@ -1,0 +1,13 @@
+= render partial: 'attempts/question_header', locals: { question: question, index: index }
+
+.row
+  .col-xs-12
+    .bar-chart
+      .pull-left.bar-label 回答数量
+      .pull-left.bar style="margin-top: 0px"
+        span= question.answers.count
+        | 人
+      .pull-right.bar-result
+        = link_to '查看详情', weixin_question_answers_url(question)
+
+

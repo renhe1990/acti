@@ -1,0 +1,101 @@
+.calendars {
+  padding-top: 15px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.page .calendars {
+  background: url(asset_path("weixin/calendar-background@2x.jpg")) no-repeat center center;
+}
+
+.calendars .note {
+  font-size: 14px;
+  color: #777777;
+  padding-bottom: 20px;
+}
+
+.note .first-col {
+  width: 50px;
+}
+
+.calendar {
+  background-color: #ffffff;
+  font-family: "Hiragino Sans GB", Helvetica;
+  padding: 0 10px;
+  border: 1px solid #e5e5e5;
+  border-radius: 2px;
+  margin-bottom: 15px;
+}
+
+.calendar .pull-right {
+  color: #777777;
+  font-size: 12px;
+}
+
+.calendar-location {
+  margin-top: -18px;
+}
+
+.calendar hr {
+  border-top: 1px solid #e5e5e5;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.calendar .date {
+  color: #f1617b;
+  font-size: 10px;
+  padding-top: 13px;
+  padding-bottom: 13px
+}
+
+.calendar .item {
+  padding-bottom: 15px;
+}
+
+.calendar .item .name {
+  font-size: 14px;
+}
+
+.calendar .title-block {
+  padding: 12px 0;
+}
+
+.calendar .title {
+  font-size: 16px;
+  color: #000000;
+}
+
+.calendar .detail-link-block {
+  padding: 10px 0;
+}
+
+.calendar .detail-link {
+  color: #008aff;
+  font-size: 14px;
+  margin: 10px 0;
+}
+
+.table > tbody > tr > td {
+  vertical-align: middle;
+}
+
+.campaign {
+  margin-top: 10px
+}
+
+.campaign .seperator {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.campaign .seperator .text-center {
+  line-height: 40px;
+  vertical-align: middle;
+}
+
+.schedule .schedule-title {
+}
+
+.schedule .schedule-hint {
+}

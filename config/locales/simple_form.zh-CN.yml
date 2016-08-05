@@ -1,0 +1,9 @@
+zh-CN:
+  simple_form:
+    yes: '是的'
+    no: '不用'
+    required:
+      text: '必填的'
+      mark: '*'
+    error_notification:
+      default_messages: '请查看下面的错误提示:'

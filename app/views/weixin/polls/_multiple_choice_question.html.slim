@@ -1,0 +1,8 @@
+= render partial: "weixin/polls/question_header", locals: { question: question, index: index }
+
+= render partial: "weixin/polls/options", locals: { question: question }
+
+- unless survey.course.public
+  hr
+
+  = render partial: 'weixin/polls/choice_question_answers', locals: { survey: survey, question: question }

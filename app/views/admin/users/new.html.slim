@@ -1,0 +1,30 @@
+.row
+  .col-sm-4.col-sm-offset-4
+    h1.text-center 添加用户
+    hr.black
+    = simple_form_for [:admin, @user] do |f|
+      = f.input :name, label: false, input_html: { placeholder: '请填写用户姓名' }
+      = f.input :card_number, label: false, input_html: { placeholder: '请填写用户安利号码' }
+      .form-group
+        = f.input_field :province_id, as: :region, collection: @provinces, selected: @user.province_id, sub_region: :city_id, label: false, class: 'form-control', include_blank: '请选择省份'
+        = f.input_field :city_id, as: :region, collection: @cities, selected: @user.city_id, label: false, class: 'form-control', include_blank: '请选择城市'
+      = f.input :email, label: false, input_html: { placeholder: '请填写邮箱' }
+      = f.input :mobile, label: false, input_html: { placeholder: '请输入手机号码' }
+      = f.association :role, collection: @roles, label: false, include_blank: '请选择用户身份'
+      = f.association :grade, collection: @grades, label: false, include_blank: '请选择职别'
+      = f.input :gender, collection: User.genders.map{|array| [array.first == 'male' ? '男' : '女', array.first]}, label: false, include_blank: '请选择性别'
+      = f.input :diet, label: false, collection: User.diets.keys, include_blank: '请选择饮食习惯'
+      = f.input :password, label: false, input_html: { placeholder: '请设置密码' }
+      = f.input :password_confirmation, label: false, input_html: { placeholder: '请确认密码' }
+
+      .row
+        .col-sm-6
+          = f.submit '添加', class: 'btn btn-primary', style: 'width: 100%', 'data-loading-text' => '正在保存...', autocomplete: 'off'
+        .col-sm-6
+          = link_to '取消', :back, class: 'btn btn-default', style: 'width: 100%'
+
+- title '添加用户'
+- breadcrumb :new_admin_user
+
+- content_for :javascript do
+  = js_for_region_ajax

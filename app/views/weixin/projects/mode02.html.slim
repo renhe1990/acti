@@ -1,0 +1,24 @@
+.row
+  .flexslider
+    ul.slides
+      = render partial: 'banner', collection: @banners
+
+.welcome
+  .row
+    - @cells.each_with_index do |cell, index|
+      .col-xs-12.cell
+        = link_to cell_path(cell) do
+          = image_tag cell.icon.url, class: 'icon'
+          div.title class="#{ 'last' if index == @cells.count - 1 }"
+            = cell.title
+          span.glyphicon.pull-right
+            = image_tag 'weixin/mode02enter.png', style: 'width: 10px; height: 17px;'
+
+  .row.copyright
+    .col-xs-12
+      .text-center © 2014安利 (中国) 培训中心
+
+- title '首页'
+
+- content_for :stylesheet do
+  = stylesheet_link_tag "weixin/#{@template}", media: 'all'

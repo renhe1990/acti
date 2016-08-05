@@ -1,0 +1,59 @@
+.row
+  .col-sm-10
+    .row
+      = simple_form_for :users, url: admin_articles_url(params), method: :get, html: { class: 'form-inline' } do |f|
+        .col-sm-8
+          = text_field_tag :keyword, @keyword, class: 'form-control', style: 'width: 100%', placeholder: '营养'
+        .col-sm-2
+          = f.submit '搜索', class: 'btn btn-primary', 'data-loading-text' => '正在搜索...', autocomplete: 'off'
+  .col-sm-2
+    = link_to '创建发布内容', new_admin_text_article_url, class: 'btn btn-primary pull-right'
+
+br
+
+.well.filter
+  .row
+    .col-sm-10 全部分类 >
+    .col-sm-2
+      a data-toggle='collapse' href='#filter-collapse' class='pull-right' 收起
+
+  .collapse.in#filter-collapse
+    br
+    .row
+      .col-sm-1.col-xs-2 分类
+      - @article_categories.each do |article_category|
+        .col-sm-1.col-xs-2
+          = link_to_article_filter article_category.name, :article_category_id, article_category.id
+
+    br
+    .row
+      .col-sm-1.col-xs-2 状态
+      .col-sm-1.col-xs-2
+        = link_to_article_filter '已发布', :status, :published
+      .col-sm-1.col-xs-2
+        = link_to_article_filter '草稿', :status, :draft
+
+br
+
+- if @keyword
+  .row
+    .col-sm-12
+      = "找到 \"#{@keyword}\" 相关内容#{@total}篇"
+  br
+
+.row
+  .col-sm-12
+    table.table.table-striped.table-bordered
+      thead
+        th 标题
+        th 分类
+        th 状态
+        th 操作
+      tbody
+        = render partial: 'article', collection: @articles
+
+  .col-sm-12
+    = paginate @articles, views_prefix: 'admin'
+
+- title '发布内容管理'
+- breadcrumb :admin_articles

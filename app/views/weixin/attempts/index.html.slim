@@ -1,0 +1,15 @@
+.row
+  .col-xs-12
+    h1.title= @survey.name
+
+.row
+  .col-xs-12
+    p
+      = "提交#{ t('activerecord.models.' + @survey.type.underscore) }总数: "
+      strong= @attempts.count
+
+- @survey.questions.each_with_index do |question, index|
+  .well.question
+    = render partial: "weixin/#{@survey.type.tableize}/#{question.type.underscore}", locals: { survey: @survey, question: question, index: index }
+
+- title "#{ t('activerecord.models.' + @survey.type.underscore) }统计"

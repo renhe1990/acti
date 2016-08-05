@@ -1,0 +1,6 @@
+.options-container
+  .row
+    - question.options.each_with_index do |option, index|
+      .col-xs-2
+        = radio_button_tag question.id, option.id
+        = option.text

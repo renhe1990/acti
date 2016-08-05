@@ -1,0 +1,25 @@
+= simple_form_for [:admin, @course, @lucky_draw] do |f|
+  = f.input :title
+  = f.input :description, input_html: { rows: 5 }
+
+  .form-group
+    = f.label :user_ids, '选择特定学员'
+    p
+      = link_to '选择所有', '#', class: 'select-all', 'data-target' => '#lucky_draw_user_ids'
+      | \
+      = link_to '取消所有', '#', class: 'deselect-all', 'data-target' => '#lucky_draw_user_ids'
+
+    == f.input_field :user_ids, collection: @course.users, multiple: true, class: 'multi-select'
+
+  hr
+  p 抽奖奖项设置
+  #lucky_draw_items
+    = f.simple_fields_for :draw_items do |draw_item_fields|
+      = render 'draw_item_fields', f: draw_item_fields
+
+  = link_to_add_association '添加奖项设置', f, :draw_items, 'data-association-insertion-method' => :append,
+                                                            'data-association-insertion-node' => '#lucky_draw_items'
+
+  br
+  br
+  = f.submit '保存抽奖', class: 'btn btn-primary', 'data-loading-text' => '正在保存...', autocomplete: 'off'

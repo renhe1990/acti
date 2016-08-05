@@ -1,0 +1,21 @@
+= simple_form_for [:admin, @course, @debate_draw] do |f|
+  = f.input :title
+  = f.input :description, label: '辩论题目'
+
+  .form-group
+    = f.label :user_ids, '选择特定学员'
+    p
+      = link_to '选择所有', '#', class: 'select-all', 'data-target' => '#debate_draw_user_ids'
+      | \
+      = link_to '取消所有', '#', class: 'deselect-all', 'data-target' => '#debate_draw_user_ids'
+
+    == f.input_field :user_ids, collection: @course.users, multiple: true, class: 'multi-select'
+
+  hr
+  p 辩论抽签设置
+  #debate_draw_items
+    = f.simple_fields_for :draw_items do |debate_draw_item_fields|
+      = render 'draw_item_fields', f: debate_draw_item_fields
+
+  br
+  = f.submit '保存演讲抽签', class: 'btn btn-primary', 'data-loading-text' => '正在保存...', autocomplete: 'off'

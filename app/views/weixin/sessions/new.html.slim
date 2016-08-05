@@ -1,0 +1,13 @@
+h1.text-center 账号登录
+
+.alert.alert-success 用户名由您安利卡后后加一位性别码组成，男性为1，女性为0，以卡号12345为例，男性用户名为123451，女性用户名为123450
+
+= simple_form_for :user, url: weixin_sessions_url do |f|
+  .form-group
+    = render partial: 'shared/messages'
+  = f.input :card_number, placeholder: '请输入您的用户名', label: false
+  = f.input :password, placeholder: '请输入密码 (默认为123)', label: false
+  .form-group
+    = f.submit '登录', class: 'btn btn-primary btn-block', 'data-loading-text' => '正在登录...', autocomplete: 'off'
+
+- title '安利中国培训中心'

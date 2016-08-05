@@ -1,0 +1,10 @@
+.row
+  .col-xs-12
+    .pull-left style="padding-right: 10px" 正确答案
+    .pull-left
+      .row
+        - question.options.each_with_index do |option, index|
+          .col-xs-12
+            = "#{(65 + index).chr}."
+          .col-xs-12
+            = option.text

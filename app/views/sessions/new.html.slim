@@ -1,0 +1,21 @@
+.row
+  .col-sm-5.col-sm-offset-3
+    .row.sign-in-container
+      h1.col-sm-12.text-center 安利励学堂
+      .clearfix
+      = render partial: 'shared/messages'
+      = simple_form_for :user, url: sessions_path, method: :post,  html: { class: 'form-horizontal sign-in-form' }, wrapper: :sign_in_form do |f|
+        = f.input :card_number, label: '用户名', required: false, placeholder: '请输入您的安利卡号或员工号'
+        = f.input :password, label: '密码', required: false, placeholder: '请输入密码'
+
+        .form-group.row
+          .col-sm-7.col-sm-offset-3
+            = f.submit '登录', class: 'btn btn-primary col-sm-6'
+
+          br
+          br
+          br
+          .col-sm-9.col-sm-offset-3
+            = link_to '注册新账号', sign_up_url
+
+- title '登录'

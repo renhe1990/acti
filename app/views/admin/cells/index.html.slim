@@ -1,0 +1,15 @@
+.row
+  .col-sm-12
+    table.table.table-striped.table-bordered
+      thead
+        th
+        th 图标
+        th 名称
+        th 状态
+        th 位置
+        th
+      tbody.sortable data-param_name="cells" data-sort_url="#{sort_admin_project_cells_path(@project)}"
+        = render partial: 'cell', collection: @cells
+
+- title '模块列表'
+- breadcrumb :admin_cells, @project

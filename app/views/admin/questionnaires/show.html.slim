@@ -1,0 +1,22 @@
+h1= @questionnaire.name
+
+.row
+  .col-xs-12
+    .btn-group.pull-right
+      - unless @course.public
+        = link_to '导出', admin_course_questionnaire_url(format: :xls), class: 'btn btn-info'
+      = link_to '编辑', @course.public ? edit_admin_public_course_questionnaire_url(@course, @questionnaire) : [:edit, :admin, @course, @questionnaire], class: 'btn btn-primary'
+      = link_to '删除', @course.public ? admin_public_course_questionnaire_url(@course, @questionnaire) : [:admin, @course, @questionnaire], method: :delete, class: 'btn btn-danger', data: { confirm: '确定要删除吗?' }
+hr
+
+- @questionnaire.questions.each_with_index do |question, index|
+  .well.question
+    = render partial: "weixin/questionnaires/#{question.type.underscore}", locals: { survey: @questionnaire, question: question, index: index }
+
+- unless @course.public
+  .row
+    .col-sm-12
+      = qrcode_tag new_weixin_questionnaire_attempt_url(@questionnaire)
+
+- title '试卷详情'
+- breadcrumb :admin_questionnaire, @course, @questionnaire

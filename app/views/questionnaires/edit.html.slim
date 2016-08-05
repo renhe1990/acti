@@ -1,0 +1,6 @@
+.row
+  .col-sm-12
+    = render partial: 'surveys/form', locals: { url: [@course, @questionnaire], survey: @questionnaire, question_type_options: @question_type_options }
+
+- title '编辑试卷'
+- breadcrumb :edit_questionnaire, @course, @questionnaire

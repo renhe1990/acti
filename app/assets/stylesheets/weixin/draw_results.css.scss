@@ -1,0 +1,18 @@
+.draw_results {
+}
+
+.draw_results ul {
+  list-style-type: none;
+  border-top: solid 1px #000000;
+  border-bottom: solid 1px #000000;
+}
+
+.draw_results ul li {
+  padding: 10px 0;
+  border-bottom: solid 1px #e4e4e4;
+}
+
+.draw_results ul li:last {
+  border-bottom: none;
+}
+

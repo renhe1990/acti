@@ -1,0 +1,25 @@
+.alert.alert-info
+  | 目前自定义菜单最多包括3个一级菜单，每个一级菜单最多包含5个二级菜单。一级菜单最多4个汉字，二级菜单最多7个汉字，多出来的部分将会以“...”代替。请注意，创建自定义菜单后，由于微信客户端缓存，需要24小时微信客户端才会展现出来。
+  hr
+  | 编辑中的菜单需要进行发布才能更新到用户手机上
+
+.row
+  .col-sm-12
+    .btn-group
+      = link_to '新建一级菜单', [:new, :admin, :menu], class: "btn btn-primary  #{'disabled' unless Menu.can_create_root_menu?}"
+      = link_to '发布菜单', [:publish, :admin, :menus], class: 'btn btn-info', method: :post
+br
+
+.row
+  .col-sm-12
+    #menus-container
+      table.table.table-bordered
+        thead
+          th
+          th 名称
+          th
+        tbody.parent-menus
+          = render partial: 'menu', collection: @menus
+
+- title '微信菜单列表'
+- breadcrumb :admin_menus

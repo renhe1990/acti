@@ -1,0 +1,15 @@
+.row
+  .col-xs-12
+    .question-header
+      = "题目#{(question_counter + 1).to_words}(#{ I18n.t('activerecord.models.' + question.type.underscore)})"
+
+.row
+  .col-xs-12
+    .question-header
+      = question.title
+
+.row
+  .col-xs-12
+    = render partial: "surveys/#{question.type.underscore}", locals: { question: question, survey: survey }
+
+hr

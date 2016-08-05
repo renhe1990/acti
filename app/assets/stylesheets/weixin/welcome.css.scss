@@ -1,0 +1,126 @@
+.welcome {
+  padding: 5px 3px;
+}
+
+.welcome .row {
+  margin-bottom: 5px;
+}
+
+.welcome .center-block{
+  text-align: center;
+  color: #fff;
+  line-height: 1.8;
+  font-size: 13px;
+}
+
+.welcome .home-block {
+  padding-left: 2px;
+  padding-right: 2px;
+}
+
+.welcome .home-block img {
+  margin-bottom: 6px;
+}
+
+.welcome .home-block a:hover {
+  text-decoration: none;
+}
+
+.welcome .home-block .center-block {
+  padding: 10px 0;
+}
+
+.weclome .row {
+  padding-bottom: 10px;
+}
+
+.president-block {
+  background-color: #43aae4;
+}
+
+.welcome .row img {
+  width: 60px;
+  height: 60px;
+}
+
+.peking-university-block {
+  background-color: #6d8ade;
+}
+
+.peking-international-block {
+  background-color: #9063DE;
+}
+
+.feature-block {
+  background-color: #83d237;
+}
+
+.calendar-block {
+  background-color: #1bc968;
+}
+
+.study-block {
+  background-color: #f1b635;
+}
+
+.teachers-block {
+  background-color: #fc8953;
+}
+
+.notice-block {
+  background-color: #83d237;
+}
+
+.flexslider {
+}
+
+.flex-viewport {
+}
+
+.flexslider {
+  border-radius: 0px;
+  border: none;
+  margin-bottom: 0px;
+}
+
+.flex-control-nav {
+  background: rgba(0, 0, 0, 0.2);
+  bottom: 0px;
+  height: 18px;
+}
+
+.flex-control-nav li {
+  margin: 0 3px;
+  padding: 6px 0;
+}
+
+.flex-control-paging li a {
+  width: 6px;
+  height: 6px;
+  margin: 0px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+
+}
+
+.flex-control-paging li a.flex-active {
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.copyright-block {
+  margin-top: 20px;
+  font-size: 12px;
+  color: #008aff;
+  padding-bottom: 23px;
+}
+
+.contact-us {
+  border-left: solid 1px #000;
+  margin-left: 12px;
+  padding-left: 12px;
+}
+
+.copyright {
+  color: #111111;
+}

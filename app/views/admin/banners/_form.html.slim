@@ -1,0 +1,4 @@
+== simple_form_for [:admin, @project, @banner] do |f|
+  = f.input :image, as: :image_preview, hint: '图片比例必须是2:1'
+
+  = f.submit '保存', class: 'btn btn-primary', 'data-loading-text' => '正在保存...', autocomplete: 'off'

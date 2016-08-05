@@ -1,0 +1,31 @@
+h1 修改个人信息
+hr
+.row
+  .col-sm-12
+    = simple_form_for @user do |f|
+      = f.association :role, collection: @roles, disabled: true
+      = f.input :card_number, placeholder: '请输入您的安利卡号或员工号'
+      = f.input :name, placeholder: '请输入您的真实姓名'
+      .form-group
+        = f.label '省份/城市', class: 'string control-label', for: :user_province
+        div
+          = f.input_field :province_id, as: :region, collection: @provinces, selected: @user.province_id, sub_region: :city_id, label: false, class: 'form-control', include_blank: '请选择省份'
+          = f.input_field :city_id, as: :region, collection: @cities, selected: @user.city_id, label: false, class: 'form-control', include_blank: '请选择城市'
+
+      = f.input :password, placeholder: '请输入密码'
+      = f.input :password_confirmation, placeholder: '请确认密码'
+      = f.association :grade, include_blank: '请选择职别'
+      = f.input :gender, collection: User.genders.map{|array| [array.first == 'male' ? '男' : '女', array.first]}, include_blank: '请选择性别'
+      = f.input :diet, collection: User.diets.keys, include_blank: '请选择饮食习惯'
+      = f.input :mobile, placeholder: '请输入您的手机号码'
+      = f.input :email, placeholder: '请输入您的工作邮箱', hint: '为了您的账号安全, 请输入您的工作邮箱'
+
+      .form-group
+        = f.label "微信是否已经绑定: #{ @user.uid.present? ? '是' : '否' }"
+
+      = f.submit '更新信息', class: 'btn btn-primary', 'data-loading-text' => '正在提交...', autocomplete: :off
+
+- title '修改个人信息'
+
+- content_for :javascript do
+  = js_for_region_ajax

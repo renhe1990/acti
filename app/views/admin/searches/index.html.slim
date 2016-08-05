@@ -1,0 +1,14 @@
+.row
+  .col-sm-12
+    table.table.table-striped.table-bordered
+      thead
+        tr
+          th 名称
+      tbody
+        = render partial: @type, collection: @searches
+  .col-sm-12
+    = paginate @searches, views_prefix: 'admin'
+
+- title '搜索结果'
+
+- selected @type

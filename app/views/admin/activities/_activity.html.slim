@@ -1,0 +1,10 @@
+tr id="#{dom_id(activity)}"
+  td
+    == "#{l(activity.starts_at)} - #{l(activity.ends_at)}"
+  td= activity.name
+  td= activity.location
+  td
+    .btn-group.pull-right
+      = link_to '详情', [:admin, @schedule, activity], class: 'btn btn-info'
+      = link_to '编辑', [:edit, :admin, @schedule, activity], class: 'btn btn-primary'
+      = link_to '删除', [:admin, @schedule, activity], method: :delete, class: 'btn btn-danger', data: { confirm: '你确认要删除这个活动吗?' }

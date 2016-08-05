@@ -1,0 +1,14 @@
+.row
+  .col-sm-12
+    table.table.table-striped.table-bordered
+      thead
+        th 标题
+        th
+      tbody
+        = render partial: 'page', collection: @pages
+
+  .col-sm-12
+    = paginate @pages, views_prefix: 'admin'
+
+- title '静态页面列表'
+- breadcrumb :admin_pages

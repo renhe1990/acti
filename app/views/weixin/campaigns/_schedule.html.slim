@@ -1,0 +1,18 @@
+.schedule
+  .row
+    .col-sm-12.col-xs-12.schedule-title
+      = l(schedule.date, format: :short)
+      = schedule.title
+  .row
+    .col-sm-12.col-xs-12.schedule-hint
+      = "提示: #{schedule.hint}"
+
+  .row
+    .col-sm-12.col-xs-12
+      table.table.table-bordered
+        thead
+          tr
+            th 时间
+            th 内容
+        tbody
+          = render partial: 'event', collection: schedule.events

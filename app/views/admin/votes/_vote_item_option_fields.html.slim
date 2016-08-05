@@ -1,0 +1,8 @@
+.nested-fields
+  .row
+    .col-sm-9.col-xs-9
+      = f.text_field :text, class: 'form-control typeahead', placeholder: '请输入特定学员/讲师姓名或选项文字'
+      = f.hidden_field :user_id
+    .col-sm-3.col-xs-3
+      = link_to_remove_association '删除', f, class: 'pull-right'
+  hr

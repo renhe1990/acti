@@ -1,0 +1,26 @@
+h1 #{ @index.to_words }号学员 #{ @opinionnaire.reviewees[@index - 1].name}
+
+div 请您从以下几个方面进行评分
+div 优秀     (75~100)
+div 良好     (50~74)
+div 一般     (25~49)
+div 待改进   (0~24)
+
+
+= simple_form_for [:weixin, @opinionnaire, @review], wrapper: :vertical_form do |f|
+  - if @review.new_record?
+    = hidden_field_tag :reviewable_type, @reviewable.class.to_s
+    = hidden_field_tag :reviewable_id, @reviewable.id
+
+    = f.simple_fields_for :answers do |answer_fields|
+      - if @review.new_record?
+        - @opinionnaire.questions.each_with_index do |question, index|
+          = render 'rating_question', question: question, index: index, answer: answer_fields.object
+  - else
+    - @review.answers.each_with_index do |answer, index|
+      = render 'rating_question', question: answer.question, index: index, answer: answer
+
+  br
+  = f.submit '保存', class: 'btn btn-primary btn-block', 'data-loading-text' => '正在保存...', autocomplete: 'off'
+
+- title '课程评分'

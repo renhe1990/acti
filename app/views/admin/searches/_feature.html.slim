@@ -1,0 +1,5 @@
+tr
+  th
+    = link_to feature.title, [:admin, feature.project, feature], target: '_blank'
+    = ' - '
+    = link_to feature.project.name, [:admin, feature.project]

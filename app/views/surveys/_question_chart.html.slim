@@ -1,0 +1,16 @@
+.clear
+  .row
+    .col-xs-10 正确答案: #{ question.options.select(&:correct).map(&:text).join(", ") }
+    - unless survey.started?
+      .col-xs-2
+        span.pull-right 正答率: #{ question.accuracy * 100 }%
+      br
+      br
+      .col-xs-12
+        span 答对人数:
+        span.bar style="width: #{ question.correct_answers_count }px"
+        span= question.correct_answers_count
+      .col-xs-12
+        span 答错人数:
+        span.bar style="width: #{ question.wrong_answers_count }px"
+        span= question.wrong_answers_count

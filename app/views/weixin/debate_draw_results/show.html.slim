@@ -1,0 +1,30 @@
+.row
+  .col-sm-12.col-xs-12
+    h1= @debate_draw.title
+    p
+      - if @draw_result.draw_item
+        | 恭喜您！您抽中的辩论立场为
+        span.red= @draw_result.draw_item.title
+        | !
+        br
+        | 请您提前根据辩论辩题和立场进行准备
+      - else
+        | 很抱歉，您没有抽中辩论
+    p= "辩论题目: #{ @debate_draw.description }"
+
+.row
+  .col-sm-12.col-xs-12
+    = @debate_draw.draw_items.map do |draw_item| "#{draw_item.title}#{draw_item.quantity}人" end.join("、")
+br
+
+.row
+  - @debate_draw.draw_items.each do |draw_item|
+    .col-sm-12.col-xs-12
+      = "#{draw_item.title}: #{draw_item.description}"
+
+br
+.row
+  .col-sm-12.col-xs-12
+    = button_tag '辩论抽签结束', class: 'btn btn-primary btn-block', disabled: true
+
+- title '课程辩论抽签'

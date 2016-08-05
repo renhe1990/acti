@@ -1,0 +1,20 @@
+tr id="user-#{user.id}"
+  td
+    = link_to user.name, admin_user_url(user)
+  td= user.card_number
+  td= user.uid.present? ? '已绑定' : '未绑定'
+  td
+    - if mode != :batch
+      = user.role.try(:name) || '/'
+    - else
+      = select_tag 'user[role_id]', options_from_collection_for_select(roles, :id, :name, user.role.try(:id)), 'data-user_id' => user.id, include_blank: true
+  td.user= user.area.try(:name) || '/'
+  td.grade= user.grade.try(:name) || '/'
+  td.gender= user.gender_to_s
+  td.status= user_status_to_html(user)
+  - if mode == :batch
+    td.operation
+      - if user.destroyed?
+        = link_to '激活账号', [:restore, :admin, user], method: :put, remote: true
+      - else
+        = link_to '冻结账号', [:admin, user], method: :delete, remote: true

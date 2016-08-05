@@ -1,0 +1,11 @@
+.nested-fields
+  = f.input :title, as: :hidden
+  .row
+    .col-sm-12.col-xs-12
+      = f.input :description, label: "#{f.object.title}观点"
+
+  .row
+    .col-sm-12.col-xs-12
+      = f.input :quantity, label: "#{f.object.title}人数"
+
+  hr

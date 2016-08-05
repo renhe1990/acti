@@ -1,0 +1,13 @@
+{
+  "name": "bsmSelect",
+  "homepage": "https://github.com/vicb/bsmSelect",
+  "_release": "16343a3a3e",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "16343a3a3e1147da17f2827b26ffbad1bef1a4e5"
+  },
+  "_source": "https://github.com/vicb/bsmSelect.git",
+  "_target": "master",
+  "_originalSource": "https://github.com/vicb/bsmSelect.git"
+}

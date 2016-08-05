@@ -1,0 +1,47 @@
+doctype transitional
+html
+  head
+    title = yield :title
+    = stylesheet_link_tag 'admin/application', media: 'all'
+    meta http-equiv="X-UA-Compatible" content="IE=edge"
+    = csrf_meta_tags
+  body
+    .container
+      .navbar
+        .navbar-header
+          span.navbar-brand 安利励学堂后台管理系统
+        .collapse.navbar-collapse
+          ul.nav.navbar-nav
+          ul.nav.navbar-nav.navbar-right
+           li.navbar-text
+             = "您好 #{current_user.name}"
+           li
+             = link_to '退出', sign_out_path, method: :delete
+
+    .container#navigation.text-center
+      .navbar.navbar-default
+        .navbar-header
+          button.navbar-toggle data-toggle='collapse' data-target='#navbar-collapse'
+            span.sr-only Toggle navigation
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+        .collapse.navbar-collapse#navbar-collapse
+          = render_navigation context: :admin, expand_all: true, renderer: :bootstrap
+
+    .container
+      = breadcrumbs(pretext: '当前位置: ', separator: '', display_single_fragment: true,
+                    style: :bootstrap, class: 'breadcrumb', current_class: 'active', autoroot: false).to_s
+
+    .container
+      = render partial: 'shared/messages'
+      = global_search_tag(yield(:selected))
+      hr
+      = yield
+
+    = javascript_include_tag 'admin/application'
+    /[if lt IE 9]
+      = javascript_include_tag 'html5shiv'
+      = javascript_include_tag 'respond/src/respond'
+    = yield :javascript
+    = yield :charts_js

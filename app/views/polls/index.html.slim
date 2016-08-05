@@ -1,0 +1,43 @@
+h1 问卷管理
+
+.row
+  .col-sm-12
+    = link_to '新建问卷', new_poll_path, class: 'btn btn-primary pull-right'
+
+hr
+
+.row
+  .col-sm-12
+    .well
+      p 筛选
+      = form_for :poll, url: polls_url, method: :get, html: { class: 'form-inline' } do |f|
+        .form-group
+          = f.label '试卷筛选'
+        .form-group style='margin-left: 10px'
+          = f.text_field :name, name: 'poll_name', class: 'form-control', value: params[:poll_name]
+        .form-group style='margin-left: 10px'
+          = f.submit '查询', class: 'btn btn-primary', 'data-loading-text' => '正在查询...', autocomplete: 'off'
+
+  .col-sm-12
+    table.table.table-bordered.table-striped
+      thead
+        tr
+          th 问卷名称
+          th 浏览次数
+          th 添加时间
+          th 操作
+
+      tbody
+        - @polls.each do |poll|
+          tr
+            td = link_to poll.name, poll
+            td = poll.name
+            td = poll.created_at.strftime("%Y-%m-%d")
+            td
+              = link_to '统计结果', [poll, :attempts]
+.row
+  .col-sm-12
+    = paginate @polls
+
+- title '问卷管理'
+- breadcrumb :polls, @course

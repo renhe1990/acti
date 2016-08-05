@@ -1,0 +1,4 @@
+tr
+  th
+    = link_to lucky_draw.title, [:admin, lucky_draw.course, lucky_draw], target: '_blank'
+    = render 'with_course_suffix', object: lucky_draw

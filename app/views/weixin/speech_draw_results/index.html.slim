@@ -1,0 +1,13 @@
+.row
+  .col-xs-12.col-sm-12
+    h1= @speech_draw.title
+
+br
+#speech_draw_results.draw_results
+  .row
+    .col-xs-12
+      ul
+        - @draw_results.each do |draw_result|
+          li= "#{draw_result.draw_item.position}号. #{draw_result.user.name}"
+
+- title '课程演讲抽奖'

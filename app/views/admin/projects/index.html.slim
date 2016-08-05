@@ -1,0 +1,23 @@
+.row
+  .col-sm-2
+    = link_to '创建项目', new_admin_project_url, class: 'btn btn-primary'
+br
+
+.row
+  .col-sm-12
+    table.table.table-striped.table-bordered
+      thead
+        th
+        th 名称
+        th
+      tbody.sortable data-param_name='projects' data-sort_url="#{ sort_admin_projects_path }"
+        = render partial: 'project', collection: @projects
+
+  .col-sm-12
+    = paginate @projects, views_prefix: 'admin'
+
+- title '项目管理'
+
+- breadcrumb :admin_projects
+
+- selected :project

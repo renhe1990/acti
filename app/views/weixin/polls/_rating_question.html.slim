@@ -1,0 +1,12 @@
+= render partial: "weixin/polls/question_header", locals: { question: question, index: index }
+
+- unless survey.course.public
+  .row
+    .col-xs-12
+      .pull-left 平均分
+      .pull-right.average-rating
+          = question.average_rating.to_i
+  .row
+    - question.statistics.each do |key, value|
+      .col-xs-12
+        = question_bar_chart_option key, question.answers.count == 0 ? 0 : value * 100/question.answers.count, value, class: 'wrong'

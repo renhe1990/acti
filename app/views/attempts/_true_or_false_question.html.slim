@@ -1,0 +1,11 @@
+= render partial: 'attempts/question_header', locals: { question: question, index: index }
+
+.row
+  .col-xs-12
+    .pull-left style="padding-right: 10px" 正确答案
+    .pull-left
+      = render partial: 'attempts/options', locals: { question: question }
+
+hr
+
+= question_bar_chart(question)

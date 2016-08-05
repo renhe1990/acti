@@ -1,0 +1,39 @@
+.row
+  .flexslider
+    ul.slides
+      = render partial: 'banner', collection: @banners
+
+.welcome
+  - if @cells.length > 1
+    .row
+      - @cells[0..1].each_with_index do |cell, index|
+       .col-xs-6.home-block
+          == link_to_cell cell, Cell::COLORS[index]
+
+  - if @cells.length > 4
+    .row
+      - @cells[2..4].each_with_index do |cell, index|
+       .col-xs-4.home-block
+          == link_to_cell cell, Cell::COLORS[index + 2]
+
+  - if @cells.length > 6
+    .row
+      - @cells[5..6].each_with_index do |cell, index|
+       .col-xs-6.home-block
+          == link_to_cell cell, Cell::COLORS[index + 5]
+
+  .row.copyright-block
+    - if @cells[7..8].present?
+      .col-xs-12
+        p.text-center
+          = link_to @cells[7].title, cell_path(@cells[7])
+          - if @cells[8]
+            span.contact-us
+              = link_to @cells[8].title, cell_path(@cells[8])
+
+    p.text-center.copyright © 2014安利 (中国) 培训中心
+
+- title '首页'
+
+- content_for :stylesheet do
+  = stylesheet_link_tag "weixin/#{@project.template}", media: 'all'

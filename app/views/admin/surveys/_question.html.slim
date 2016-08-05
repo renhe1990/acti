@@ -1,0 +1,15 @@
+.row
+  .col-xs-12
+    .question-header
+      = "第#{question_counter + 1}题: #{ I18n.t('activerecord.models.' + question.type.underscore)}"
+
+.row
+  .col-xs-12
+    .question-header
+      = question.title
+
+.row
+  .col-xs-12
+    = render partial: "admin/surveys/#{question.type.underscore}", locals: { question: question }
+
+hr

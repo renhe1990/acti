@@ -1,0 +1,11 @@
+tr id="#{dom_id(feature)}"
+  td width=14
+    span.glyphicon.glyphicon-move
+  td
+    = link_to feature.title, [:admin, @project, feature]
+  td.position
+    = feature.position
+  td
+    .btn-group.pull-right
+      = link_to '编辑', [:edit, :admin, @project, feature], class: 'btn btn-primary'
+      = link_to '删除', [:admin, @project, feature], class: 'btn btn-danger', method: :delete, data: { confirm: '你确定要删除这条花絮吗?' }

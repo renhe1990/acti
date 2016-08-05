@@ -1,0 +1,12 @@
+.row
+  .col-xs-12
+    .pull-left 选项
+    .pull-left style="margin-left: 20px;"
+      .row
+        - question.options.each_with_index do |option, index|
+          .col-xs-12
+            = "#{(65 + index).chr}. #{option.text}"
+
+br
+
+

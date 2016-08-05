@@ -1,0 +1,11 @@
+= render partial: "weixin/surveys/question_header", locals: { question: question, index: index }
+
+.row
+  .col-xs-12
+    .pull-left 平均分
+    .pull-right.average-rating
+        = question.average_rating(reviewable).to_i
+.row
+  - question.statistics(reviewable).each do |key, value|
+    .col-xs-12
+      = question_bar_chart_option key, question.answers.where.not(attempt_id: nil).count == 0 ? 0 : value * 100/question.answers.count, value, class: 'wrong'

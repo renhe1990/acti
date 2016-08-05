@@ -1,0 +1,8 @@
+.row
+  - question.options.each do |option|
+    .col-xs-12
+      .pull-left
+        = f.radio_button :option_id, option.id, name: "survey_attempt[answers_attributes][#{index}][option_id]",
+                                                  id: "survey_attempt_answers_attributes_#{index}_option_id_#{option.id}"
+      .pull-left.option-body
+        = f.label :option_id, option.text, for: "survey_attempt_answers_attributes_#{index}_option_id_#{option.id}", class: 'option-title'

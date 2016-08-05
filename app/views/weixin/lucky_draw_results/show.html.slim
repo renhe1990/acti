@@ -1,0 +1,24 @@
+.row
+  .col-sm-12.col-xs-12
+    h1= @lucky_draw.title
+    p
+      - if @draw_result.draw_item
+        | 恭喜您！您获得了
+        span.red= @draw_result.draw_item.title
+        | !
+      - else
+        | 很抱歉，您没有中奖
+
+.row
+  - @lucky_draw.draw_items.each do |draw_item|
+    .col-sm-12.col-xs-12
+      = "#{draw_item.title}: "
+      span= "#{draw_item.quantity}名"
+      = draw_item.description
+
+br
+.row
+  .col-sm-12.col-xs-12
+    = button_tag '抽奖结束', class: 'btn btn-primary btn-block', disabled: true
+
+- title '课程抽奖'

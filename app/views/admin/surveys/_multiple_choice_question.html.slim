@@ -1,0 +1,6 @@
+.options-container
+  - question.options.each_with_index do |option, index|
+    .option-fields
+      .row
+        .col-xs-12
+          = "#{(index+65).chr}: #{option.text}"

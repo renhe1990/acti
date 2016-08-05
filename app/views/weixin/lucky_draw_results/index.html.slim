@@ -1,0 +1,15 @@
+.row
+  .col-xs-12.col-sm-12
+    h1= @lucky_draw.title
+    br
+
+#lucky_draw_results.draw_results
+  .row
+    .col-xs-12.col-sm-12
+      - @lucky_draw.draw_items.each do |draw_item|
+        p= "#{draw_item.title} (#{draw_item.quantity}名)"
+        ul
+          - draw_item.draw_results.each do |draw_result|
+            li= draw_result.user.name
+
+- title '课程抽奖'

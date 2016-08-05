@@ -1,0 +1,9 @@
+.row
+  .col-xs-12
+    .rating-question
+      = hidden_field_tag "survey_attempt[answers_attributes][#{index}][rating]", nil, class: 'slider', 'data-slider-value' => 0
+      span.rating-label.first 0
+      span.rating-label.second 25
+      span.rating-label.third 50
+      span.rating-label.fourth 75
+      span.rating-label.last 100

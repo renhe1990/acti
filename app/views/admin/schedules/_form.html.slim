@@ -1,0 +1,6 @@
+== simple_form_for [:admin, @campaign, @schedule] do |f|
+  == f.input :date
+  == f.input :title
+  == f.input :hint
+
+  == f.submit '保存', class: 'btn btn-primary', 'data-loading-text' => '正在保存...', autocomplete: 'off'

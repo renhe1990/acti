@@ -1,0 +1,27 @@
+.row
+  .col-sm-12
+    = simple_form_for [:admin, @campaign, @course] do |f|
+      = f.input :name
+      = f.input :description
+      = f.input :starts_at
+      = f.input :ends_at
+
+      .form-group
+        = f.label :lecturer_ids, '选择讲师'
+        p
+          = link_to '选择所有', '#', class: 'select-all', 'data-target' => '#course_lecturer_ids'
+          | \
+          = link_to '取消所有', '#', class: 'deselect-all', 'data-target' => '#course_lecturer_ids'
+
+        == f.input_field :lecturer_ids, collection: @lecturers, multiple: true, class: 'multi-select'
+
+      .form-group
+        = f.label :user_ids, '选择特定学员'
+        p
+          = link_to '选择所有', '#', class: 'select-all', 'data-target' => '#course_user_ids'
+          | \
+          = link_to '取消所有', '#', class: 'deselect-all', 'data-target' => '#course_user_ids'
+
+        == f.input_field :user_ids, collection: @campaign.project.users, multiple: true, class: 'multi-select'
+
+      = f.submit '保存', class: 'btn btn-primary', 'data-loading-text' => '正在保存...', autocomplete: 'off'

@@ -1,0 +1,17 @@
+.row
+  .col-sm-12
+    table.table.table-striped.table-bordered
+      thead
+        tr
+          th 名称
+      tbody
+        - if @type.to_sym == :public_course
+          = render partial: 'course', collection: @searches
+        - else
+          = render partial: @type, collection: @searches
+  .col-sm-12
+    = paginate @searches
+
+- title '搜索结果'
+
+- selected @type

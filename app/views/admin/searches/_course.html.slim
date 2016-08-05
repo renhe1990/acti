@@ -1,0 +1,7 @@
+tr
+  th
+    = link_to course.name, [:admin, course.campaign, course], target: '_blank'
+    = ' - '
+    = link_to course.campaign.name, [:admin, course.campaign.project, course.campaign]
+    = ' - '
+    = link_to course.campaign.project.name, [:admin, course.campaign.project]

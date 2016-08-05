@@ -1,0 +1,8 @@
+.question-body
+  .row
+    .col-sm-12.col-xs-12
+      .pull-left
+        = f.radio_button :vote_item_option_id, vote_item_option.id, name: "vote_result[vote_result_items_attributes][#{index}][vote_item_option_id]"
+      .pull-left.option-body
+        label.option-title for="vote_result_vote_result_items_attributes_#{index}_vote_item_option_id_#{vote_item_option.id}"
+          = vote_item_option.user.try(:name) || vote_item_option.text

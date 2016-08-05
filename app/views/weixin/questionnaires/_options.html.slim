@@ -1,0 +1,18 @@
+.row
+  .col-xs-12
+    .pull-left 选项
+    .pull-left style="margin-left: 20px;"
+      .row
+        - question.options.each_with_index do |option, index|
+          .col-xs-12
+            = "#{(65 + index).chr}. #{option.text}"
+
+br
+
+.row
+  .col-xs-6 正确答案: #{ question.label_of_correct_options }
+  - unless survey.course.public
+    .col-xs-6
+      .pull-right 正答率: #{ question.accuracy * 100 }%
+
+br

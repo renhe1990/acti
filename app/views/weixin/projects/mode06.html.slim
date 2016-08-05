@@ -1,0 +1,44 @@
+.row
+  .flexslider
+    ul.slides
+      = render partial: 'banner', collection: @banners
+
+.welcome
+  .row
+    .col-xs-4.left
+      - if @cells[0]
+        .cell.large
+          = link_to_cell @cells[0], Cell::MODE6_COLORS[0], vertical: true, icon_wrapper: true
+      - if @cells[5]
+        .cell.large
+          = link_to_cell @cells[5], Cell::MODE6_COLORS[1], vertical: true, icon_wrapper: true
+    .col-xs-4.left.right
+      - if @cells[1]
+        .cell.small
+          = link_to_cell @cells[1], Cell::MODE6_COLORS[2], icon_wrapper: true
+      - if @cells[3]
+        .cell.small
+          = link_to_cell @cells[3], Cell::MODE6_COLORS[3], icon_wrapper: true
+      - if @cells[6]
+        .cell.large
+          = link_to_cell @cells[6], Cell::MODE6_COLORS[4], vertical: true, icon_wrapper: true
+    .col-xs-4.right
+      - if @cells[2]
+        .cell.small
+          = link_to_cell @cells[2], Cell::MODE6_COLORS[5], icon_wrapper: true
+      - if @cells[4]
+        .cell.small
+          = link_to_cell @cells[4], Cell::MODE6_COLORS[6], icon_wrapper: true
+      - if @cells[7]
+        .cell.small
+          = link_to_cell @cells[7], Cell::MODE6_COLORS[7], icon_wrapper: true
+      - if @cells[8]
+        .cell.small
+          = link_to_cell @cells[8], Cell::MODE6_COLORS[8], icon_wrapper: true
+  .row
+    .col-xs-12.copyright
+      .text-center © 2014安利 (中国) 培训中心
+
+- title '首页'
+- content_for :stylesheet do
+  = stylesheet_link_tag "weixin/#{@project.template}", media: 'all'

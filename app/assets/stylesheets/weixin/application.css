@@ -1,0 +1,28 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ *= require bootstrap/dist/css/bootstrap
+ *= require flexslider
+ *= require photoswipe
+ *= require surveys
+ *= require iCheck/skins/square/red.css
+ *= require seiyria-bootstrap-slider/css/bootstrap-slider.css
+ *= stub ./mode01.css
+ *= stub ./mode02.css
+ *= stub ./mode03.css
+ *= stub ./mode04.css
+ *= stub ./mode05.css
+ *= stub ./mode06.css
+
+ *= require_directory .
+ *= require_self
+ */

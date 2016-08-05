@@ -1,0 +1,25 @@
+.row
+  .col-sm-12.col-xs-12
+    h1= @debate_draw.title
+    p= "辩论题目: #{ @debate_draw.description }"
+
+.row
+  .col-sm-12.col-xs-12
+    = @debate_draw.draw_items.map do |draw_item| "#{draw_item.title}#{draw_item.quantity}人" end.join("、")
+br
+
+.row
+  - @debate_draw.draw_items.each do |draw_item|
+    .col-sm-12.col-xs-12
+      = "#{draw_item.title}: #{draw_item.description}"
+
+br
+.row
+  .col-sm-12.col-xs-12
+    = simple_form_for @draw_result, url: weixin_debate_draw_debate_draw_results_url(@debate_draw) do |f|
+      = f.submit '抽签', class: 'btn btn-primary btn-block', 'data-loading-text' => '正在提交...', autocomplete: 'off'
+
+br
+br
+
+- title '课程辩论抽签'

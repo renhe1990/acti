@@ -1,0 +1,6 @@
+Rails.application.config.assets.precompile += %w(weixin/application.js weixin/application.css tinymce.js respond/src/respond.js admin/application.js admin/application.css html5shiv.js)
+Rails.application.config.assets.precompile += %w(*.eot *.woff *.ttf *.svg)
+Rails.application.config.assets.precompile += %w(*.gif *.png)
+Rails.application.config.assets.precompile += %w( zeroclipboard/dist/ZeroClipboard.swf )
+Rails.application.config.assets.precompile += %w( video.js/dist/video-js/video-js.swf )
+Rails.application.config.assets.precompile += %w( weixin/mode01.css weixin/mode02.css weixin/mode03.css weixin/mode04.css weixin/mode05.css weixin/mode06.css )

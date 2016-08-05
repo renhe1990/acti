@@ -1,0 +1,9 @@
+tr id="#{dom_id(questionnaire)}"
+  td width=14
+    span.glyphicon.glyphicon-move
+  td= questionnaire.name
+  td
+    .btn-group.pull-right
+      = link_to '详情', @course.public ? admin_public_course_questionnaire_url(@course, questionnaire) : [:admin, @course, questionnaire], class: 'btn btn-info'
+      = link_to '编辑', @course.public ? edit_admin_public_course_questionnaire_url(@course, questionnaire) : [:edit, :admin, @course, questionnaire], class: 'btn btn-primary'
+      = link_to '删除', @course.public ? admin_public_course_questionnaire_url(@course, questionnaire) : [:admin, @course, questionnaire], method: :delete, class: 'btn btn-danger', data: { confirm: '你确定要删除这个试卷吗?' }

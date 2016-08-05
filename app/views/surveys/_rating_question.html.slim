@@ -1,0 +1,8 @@
+.row
+  .col-xs-12 平均分:  #{question.average_rating.to_i}
+.row
+  - question.statistics.each do |key, value|
+    .col-xs-12
+      span style="display: inline-block; min-width: 80px"= key
+      span.bar style="width: #{value}px"
+      = value

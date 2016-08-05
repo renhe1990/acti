@@ -1,0 +1,23 @@
+default: &default
+  adapter: mysql2
+  encoding: utf8
+  pool: 5
+  timeout: 5000
+
+development:
+  <<: *default
+  database: acti_development
+  username: root
+  password:
+
+test:
+  <<: *default
+  database: acti_test
+  username: root
+  password:
+
+production:
+  <<: *default
+  database: acti_production
+  username: root
+  password:

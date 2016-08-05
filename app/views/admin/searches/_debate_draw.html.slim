@@ -1,0 +1,4 @@
+tr
+  th
+    = link_to debate_draw.title, [:admin, debate_draw.course, debate_draw], target: '_blank'
+    = render 'with_course_suffix', object: debate_draw

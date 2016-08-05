@@ -1,0 +1,8 @@
+.clear
+  - question.options.each_with_index do |option, index|
+    .row
+      .col-xs-12
+        = "选#{(index+65).chr}人数: "
+        - count = question.grouped_options[option.id].try(:count) || 0
+        span.bar style="width: #{count}px"
+        = count

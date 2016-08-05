@@ -1,0 +1,21 @@
+.campaign
+  .row
+    .col-sm-12.col-xs-12.campaign-description
+      = @campaign.description
+
+
+  .row.seperator
+    .col-sm-5.col-xs-4
+      hr
+    .col-sm-2.col-xs-4
+      .text-center 日程安排
+    .col-sm-5.col-xs-4
+      hr
+
+  = render partial: 'schedule', collection: @campaign.schedules
+
+  .row
+    .col-sm-12.col-xs-12
+      p 备注: 具体日程安排以当天公布为准
+
+- title @campaign.name

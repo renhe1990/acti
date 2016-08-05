@@ -1,0 +1,44 @@
+h1= @vote.title
+
+.row
+  .col-xs-12
+    .btn-group.pull-right
+      = link_to '导出', admin_course_vote_url(@course, @vote, format: :xls), class: 'btn btn-info'
+      = link_to '编辑', [:edit, :admin, @course, @vote], class: 'btn btn-primary'
+      = link_to '删除', [:admin, @course, @vote], method: :delete, class: 'btn btn-danger', data: { confirm: '确定要删除吗?' }
+hr
+
+.row
+  .col-sm-12.col-xs-12
+    = @vote.title
+.row
+  .col-sm-12.col-xs-12
+    = @vote.description
+
+
+- @vote.vote_items.each_with_index do |vote_item, index|
+  .well
+    .row
+      .col-sm-12.col-xs-12
+        = "#{(index + 1).to_words}. #{vote_item.title}"
+      .col-sm-12.col-xs-12
+        = vote_item.description
+    hr
+    .row
+      - vote_item.vote_item_options.each do |vote_item_option|
+        .col-sm-12.col-xs-12
+          = question_bar_chart_option vote_item_option.display_text,
+                                      @vote.vote_results.count == 0 ? 0 : vote_item_option.vote_result_items.count * 100 / @vote.vote_results.count,
+                                      vote_item_option.vote_result_items.count, class: 'wrong'
+
+- title '投票统计'
+
+.row
+  .col-sm-12
+    = qrcode_tag new_weixin_vote_vote_result_url(@vote)
+
+    - if Rails.env.development?
+      = link_to '课程投票', [:new, :weixin, @vote, :vote_result]
+
+- title '投票详情'
+- breadcrumb :admin_vote, @course, @vote

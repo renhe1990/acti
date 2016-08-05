@@ -1,0 +1,85 @@
+.row
+  .col-sm-12
+    = simple_form_for [:admin, @project, @feature], html: { class: 'feature_form' } do |f|
+      = f.input :title
+      .row
+        .col-sm-12.col-xs-12
+          = f.label :cover
+        - if f.object.cover.present?
+          = image_tag @feature.cover, class: 'col-sm-6 col-xs-6'
+        - else
+          .col-sm-6.col-xs-6
+            p 没有上传任何封面
+        .col-sm-6
+          = f.input :cover, label: false
+          = f.input :remove_cover, as: :boolean, label: '是否删除封面?', wrapper: :vertical_boolean
+      br
+
+      .row
+        .col-sm-12.col-xs-12
+          = f.label :video
+        - if f.object.video.present?
+          video src="#{@feature.video}" controls="controls" class="col-sm-6 col-xs-6"
+        - else
+          .col-sm-6.col-xs-6
+            p 没有上传任何视频
+        .col-sm-6
+          = f.input :video, label: false, hint: '允许的视频最大上传大小为500M'
+          = f.input :remove_video, as: :boolean, label: '是否删除视频?', wrapper: :vertical_boolean
+      br
+
+      .row
+        .col-sm-12.col-xs-12
+          = f.label :video_screenshot
+        - if f.object.video_screenshot.present?
+          = image_tag @feature.video_screenshot, class: 'col-sm-6 col-xs-6'
+        - else
+          .col-sm-6.col-xs-6
+            p 没有上传任何视频截图
+        .col-sm-6
+          = f.input :video_screenshot, label: false, hint: "视频截图的宽高比例必须与视频本身的宽高比例一致"
+          = f.input :remove_video_screenshot, as: :boolean, label: '是否删除视频截图?', wrapper: :vertical_boolean
+      br
+
+      = f.input :columns, collection: [1, 2]
+
+      = f.label '图片'
+      .form-group.photos-container
+        = f.simple_fields_for :photos do |photo|
+          = render 'photo_fields', f: photo
+      br
+
+      = link_to_add_association '添加一张照片', f, :photos, class: 'add-photo-link', 'data-association-insertion-node' => '.photos-container', 'data-association-insertion-method' => 'append'
+      br
+      br
+
+      = f.submit '保存', class: 'btn btn-primary', 'data-loading-text' => '正在保存...', autocomplete: 'off'
+
+- content_for :javascript do
+  javascript:
+    function handleFeatureColumnSelect(context) {
+      if(context == undefined) {
+       context = document;
+      }
+
+      console.log(context);
+
+      var value = $('select#feature_columns').val();
+      console.log(value);
+      if(value == 2) {
+        $('.feature_photos_column', context).show();
+      } else {
+        $('.feature_photos_column', context).val(1);
+        $('.feature_photos_column', context).hide()
+      }
+    }
+
+    $('select#feature_columns').on('change', function() {
+      handleFeatureColumnSelect();
+    });
+
+    $('.feature_form').on('cocoon:after-insert', function(e, insertedItem) {
+      handleFeatureColumnSelect(insertedItem);
+    });
+
+    handleFeatureColumnSelect();

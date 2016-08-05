@@ -1,0 +1,9 @@
+.row
+  .col-sm-12
+    = simple_form_for @public_course, url: @public_course.new_record? ? admin_public_courses_url : admin_public_course_url(@public_course) do |f|
+      = f.input :name
+      = f.input :description
+      = f.input :genre, collection: Course.genre.options
+      = f.input :hour, collection: Course.hour.options
+
+      = f.submit '保存', class: 'btn btn-primary', 'data-loading-text' => '正在保存...', autocomplete: 'off'

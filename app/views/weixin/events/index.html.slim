@@ -1,0 +1,15 @@
+h1 互动活动列表
+
+ul.list-gruop
+  - @events.each do |event|
+    li.list-group-item
+      = render partial: event.class.to_s.underscore, locals: { event: event }
+      = ' - '
+      = event.course.name
+      = ' - '
+      = event.course.campaign.name
+      = ' - '
+      = event.course.campaign.project.name
+
+
+- title '互动活动列表'

@@ -1,0 +1,11 @@
+.nested-fields
+  .row
+    .col-sm-9.col-xs-9
+      = f.input :title
+    .col-sm-3
+      = link_to_remove_association "删除", f, class: 'pull-right'
+  .row
+    .col-sm-12.col-xs-12
+      = f.input :time
+
+  hr

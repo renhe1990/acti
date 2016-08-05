@@ -1,0 +1,3 @@
+var tr = $("#user-<%= @user.id %>");
+
+$(tr).replaceWith("<%=j render partial: 'user', locals: { mode: :batch, roles: @roles, user: @user } %>");

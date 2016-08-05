@@ -1,0 +1,33 @@
+button:
+  -
+    type: 'click'
+    name: '了解项目'
+    key: 'about_menu'
+  -
+    type: 'click'
+    name: '我的励学堂'
+    key: 'my_acti_menu'
+  -
+    type: 'click'
+    name: '联系我们'
+    key: 'contact_menu'
+    sub_button:
+      -
+        type: 'click'
+        name: '联系人'
+        key: 'contact_menu'
+      -
+        type: 'click'
+        name: '培训地址'
+        key: 'address_menu'
+        sub_button:
+          -
+            type: 'click'
+            name: '联系人'
+            key: 'contact_menu'
+          -
+            type: 'click'
+            name: '培训地址'
+            key: 'address_menu'
+
+

@@ -1,0 +1,8 @@
+== simple_form_for [:admin, @project, @campaign] do |f|
+  == f.input :name
+  == f.input :location
+  == f.input :starts_at
+  == f.input :ends_at
+  == f.input :description, input_html: { rows: 15 }
+
+  == f.submit '保存', class: 'btn btn-primary btn-block', 'data-loading-text' => '正在保存...', autocomplete: 'off'

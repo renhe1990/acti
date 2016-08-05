@@ -1,0 +1,83 @@
+- title "课程#{t('activerecord.models.' + @survey.class.to_s.downcase) }"
+
+.row
+  .col-xs-12
+    h1.title= @survey.name
+
+.row
+  .col-xs-12
+    == @survey.description
+
+.row
+  .col-xs-12.text-center.messages
+    = render partial: 'shared/messages'
+
+= simple_form_for @attempt, url: [:weixin, @survey, :attempts], wrapper: :vertical_form do |f|
+  = f.simple_fields_for :answers do |answer_fields|
+    - @survey.questions.each_with_index do |question, index|
+      .question-container data-question-type="#{question.type.underscore}" data-mandatory="#{question.mandatory}"
+        .row class="question" data-question-type="#{question.type.underscore}"
+          .col-xs-12
+            p
+              | 题目
+              = (index + 1).to_words
+              | (
+              = I18n.t("activerecord.models.#{question.type.underscore}")
+              | )
+              - if !@survey.mandatory? && question.mandatory
+                | (必填)
+          .col-xs-12
+            p
+              = question.title
+            hr.low
+
+        = hidden_field_tag "survey_attempt[answers_attributes][#{index}][question_id]", question.id
+
+        .question-body
+          = render "#{question.type.underscore}", f: answer_fields, question: question, index: index
+
+    = f.submit '提交', class: 'btn btn-primary btn-block', 'data-loading-text' => '正在提交...', autocomplete: 'off'
+
+- content_for :javascript do
+  javascript:
+    $('form').submit(function(e) {
+      var submitButton = $("input[type='submit']", e.target).button('loading');
+      var count = 0;
+      $('.question-container').each(function(index, container) {
+        var mandatory = $(container).data('mandatory');
+        switch($(container).data('question-type')) {
+          case 'single_choice_question':
+          case 'true_or_false_question':
+            if(mandatory && $(container).find('input:checked').length == 0) {
+              count +=1;
+              $(container).addClass('alert alert-danger');
+            } else {
+              $(container).removeClass('alert alert-danger');
+            }
+            break;
+          case 'multiple_choice_question':
+            if(mandatory && $(container).find('input:checked').length == 0) {
+              count += 1;
+              $(container).addClass('alert alert-danger');
+            } else {
+              $(container).removeClass('alert alert-danger');
+            }
+            break;
+          case 'text_question':
+            if(mandatory && $(container).find('textarea').val().length == 0) {
+              count += 1;
+              $(container).addClass('alert alert-danger');
+            } else {
+              $(container).removeClass('alert alert-danger');
+            }
+            break;
+          case 'rating_question':
+        }
+      });
+
+      if(count > 0) {
+        alert("很抱歉不能帮您提交，你有题目漏选，请查看红色标示的题目");
+        e.preventDefault();
+        submitButton.button('reset');
+      }
+    });

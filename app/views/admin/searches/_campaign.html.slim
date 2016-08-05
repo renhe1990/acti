@@ -1,0 +1,5 @@
+tr
+  th
+    = link_to campaign.name, [:admin, campaign.project, campaign], target: '_blank'
+    = ' - '
+    = link_to campaign.project.name, [:admin, campaign.project]

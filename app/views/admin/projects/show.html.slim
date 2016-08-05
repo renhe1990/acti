@@ -1,0 +1,25 @@
+.row
+  .col-sm-12
+    .btn-group.pull-right
+      = link_to '模块列表', [:admin, @project, :campaigns], class: 'btn btn-info'
+      = link_to '花絮列表', [:admin, @project, :features], class: 'btn btn-default'
+      = link_to '微信模块列表', [:admin, @project, :cells], class: 'btn btn-success'
+      = link_to '微信Banner列表', [:admin, @project, :banners], class: 'btn btn-default'
+      = link_to '编辑', [:edit, :admin, @project], class: 'btn btn-primary'
+      = link_to '复制', [:copy, :admin, @project], class: 'btn btn-default', method: :post
+      = link_to '删除', [:admin, @project], method: 'delete', class: 'btn btn-danger', data: { confirm: '确定要删除吗?' }
+
+.row
+  .col-sm-12 标题
+  .col-sm-12
+    = @project.name
+br
+
+.row
+  .col-sm-12 微网站地址
+  .col-sm-12
+    = weixin_project_url(@project)
+br
+
+- title '项目详情'
+- breadcrumb :admin_project, @project

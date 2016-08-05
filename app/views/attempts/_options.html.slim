@@ -1,0 +1,7 @@
+.row
+  - question.options.each_with_index do |option, index|
+    - if option.correct
+      .col-xs-12
+        = "#{(65 + index).chr}."
+      .col-xs-12
+        = option.text

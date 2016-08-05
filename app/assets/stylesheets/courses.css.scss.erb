@@ -1,0 +1,142 @@
+#wizard {
+  text-align: center;
+}
+
+#wizard #container {
+  position: relative;
+  display: inline-block;
+  margin: 0 auto;
+}
+
+#wizard .horizontal-line {
+  position: absolute;
+  top: 20px;
+  left: 60px;
+}
+
+#wizard .wizard-item {
+  float: left;
+  width: 100px;
+  margin: 0 10px;
+  text-align: center;
+  z-index: 999;
+}
+
+.wizard-item {
+  position: relative;
+}
+
+.wizard-item span {
+  position: absolute;
+  top: 10px;
+  left: 45px;
+}
+.wizard-item.active span {
+  color: #fff;
+}
+
+.wizard-item .desc {
+  margin-top: 10px;
+}
+
+.buttons {
+  text-align: center;
+}
+
+.buttons .btn {
+  margin-right: 10px;
+}
+
+.buttons .btn:last-child {
+  margin-right: 0px;
+}
+
+.cancel-btn, .preview-btn, .delete-btn {
+  width: 120px;
+  height: 35px;
+  line-height: 35px;
+  border: none;
+  display: inline-block;
+  margin: 0 5px;
+  text-align: center;
+  background-image: url(<%= asset_path 'cancel_button.png' %>);
+  background-color: #fff;
+  color: #424242;
+}
+
+.save-and-next-btn {
+  width: 180px;
+  height: 35px;
+  border: none;
+  margin: 0 5px;
+  background-image: url(<%= asset_path 'save_and_next_button.png' %>);
+  background-color: #fff;
+  color: #BD6600;
+}
+
+.add-btn {
+  display: inline-block;
+  width: 160px;
+  height: 25px;
+  line-height: 25px;
+  background-image: url(<%= asset_path 'add_button.png' %>);
+  margin: 20px 0;
+  color: #424242;
+  text-align: center;
+}
+
+.finish-preview-btn, .edit-btn {
+  display: inline-block;
+  width: 120px;
+  height: 35px;
+  line-height: 35px;
+  background-image: url(<%= asset_path 'finish_preview_button.png' %>);
+  margin: 20px 0;
+  color: #BD6600;
+  text-align: center;
+}
+
+.wizard-title {
+  font-size: 16px;
+  margin: 20px 0;
+}
+
+.course .name {
+  font-size: 18px;
+  line-height: 35px;
+  margin-bottom: 20px;
+}
+
+.course .commands {
+  float: right;
+}
+
+.course .commands a {
+  float: right;
+  margin: 0 10px;
+}
+
+.course .title {
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.course .questionnaires img, .course .polls img {
+  display: block;
+  margin: 10px 0;
+}
+
+.course .questionnaires .commands, .course .polls .commands {
+  margin-right: 100px;
+}
+
+select.time {
+  display: inline;
+  width: auto;
+}
+
+.public_course_filter_tags {
+  .label {
+    margin-left: 10px;
+  }
+}

@@ -1,0 +1,5 @@
+.row
+  .col-xs-12
+    = f.input :text, label: false, placeholder: "请输入答案", input_html: { id: "survey_attemp_answer_attributes_#{index}_text",
+                                                                            name: "survey_attempt[answers_attributes][#{index}][text]",
+                                                                            rows: 5 }

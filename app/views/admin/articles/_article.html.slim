@@ -1,0 +1,9 @@
+tr
+  td
+    = link_to article.title, [:admin, article]
+  td= article.article_category.try(:name)
+  td= article.status_to_s
+  td
+    = link_to '删除', admin_article_url(article), method: 'delete', class: 'pull-right'
+    - if article.draft?
+      = link_to '编辑', [:edit, :admin, article], style: 'margin-right: 10px;', class: 'pull-right'

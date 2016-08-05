@@ -1,0 +1,25 @@
+{
+  "lib": {
+    "name": "bower-rails generated lib assets",
+    "dependencies": {
+    }
+  },
+  "vendor": {
+    "name": "bower-rails generated vendor assets",
+    "dependencies": {
+      "jquery": "1.9.1",
+      "jquery-ujs": "*",
+      "bootstrap": "3.2.0",
+      "jquery-placeholder": "2.0.8",
+      "respond": "1.4.2",
+      "eonasdan-bootstrap-datetimepicker": "3.0.3",
+      "video.js": "4.7.1",
+      "zeroclipboard": "2.0.2",
+      "multiselect": "0.9.12",
+      "iCheck": "1.0.2",
+      "seiyria-bootstrap-slider": "3.1.0",
+      "typeahead.js": "0.10.5",
+      "bsmSelect": "https://github.com/vicb/bsmSelect.git#master"
+    }
+  }
+}

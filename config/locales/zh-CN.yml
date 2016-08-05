@@ -1,0 +1,377 @@
+zh-CN:
+  date:
+    abbr_day_names:
+    - 日
+    - 一
+    - 二
+    - 三
+    - 四
+    - 五
+    - 六
+    abbr_month_names:
+    -
+    - 1月
+    - 2月
+    - 3月
+    - 4月
+    - 5月
+    - 6月
+    - 7月
+    - 8月
+    - 9月
+    - 10月
+    - 11月
+    - 12月
+    day_names:
+    - 星期日
+    - 星期一
+    - 星期二
+    - 星期三
+    - 星期四
+    - 星期五
+    - 星期六
+    formats:
+      default: ! '%Y-%m-%d'
+      long: ! '%Y年%b%d日'
+      short: ! '%b%d日'
+      calendar_title: ! '%Y年%-m月'
+    month_names:
+    -
+    - 一月
+    - 二月
+    - 三月
+    - 四月
+    - 五月
+    - 六月
+    - 七月
+    - 八月
+    - 九月
+    - 十月
+    - 十一月
+    - 十二月
+    order:
+    - :year
+    - :month
+    - :day
+  datetime:
+    distance_in_words:
+      about_x_hours:
+        one: 大约一小时
+        other: 大约 %{count} 小时
+      about_x_months:
+        one: 大约一个月
+        other: 大约 %{count} 个月
+      about_x_years:
+        one: 大约一年
+        other: 大约 %{count} 年
+      almost_x_years:
+        one: 接近一年
+        other: 接近 %{count} 年
+      half_a_minute: 半分钟
+      less_than_x_minutes:
+        one: 不到一分钟
+        other: 不到 %{count} 分钟
+      less_than_x_seconds:
+        one: 不到一秒
+        other: 不到 %{count} 秒
+      over_x_years:
+        one: 一年多
+        other: ! '%{count} 年多'
+      x_days:
+        one: 一天
+        other: ! '%{count} 天'
+      x_minutes:
+        one: 一分钟
+        other: ! '%{count} 分钟'
+      x_months:
+        one: 一个月
+        other: ! '%{count} 个月'
+      x_seconds:
+        one: 一秒
+        other: ! '%{count} 秒'
+    prompts:
+      day: 日
+      hour: 时
+      minute: 分
+      month: 月
+      second: 秒
+      year: 年
+  errors:
+    format: ! '%{attribute}%{message}'
+    messages:
+      not_a_date: "不是日期"
+      after: "必须在%{date}之后"
+      after_or_equal_to: "必须在%{date}之后或者和%{date}相同"
+      before: "必须在%{date}之前"
+      before_or_equal_to: "必须在%{date}之前或者和%{date}相同"
+      between: "必须在%{start_date}和%{end_date}之间"
+      accepted: 必须是可被接受的
+      blank: 不能为空字符
+      present: 必须是空白
+      confirmation: 与确认值不匹配
+      empty: 不能留空
+      equal_to: 必须等于 %{count}
+      even: 必须为双数
+      exclusion: 是保留关键字
+      greater_than: 必须大于 %{count}
+      greater_than_or_equal_to: 必须大于或等于 %{count}
+      inclusion: 不包含于列表中
+      invalid: 是无效的
+      less_than: 必须小于 %{count}
+      less_than_or_equal_to: 必须小于或等于 %{count}
+      not_a_number: 不是数字
+      not_an_integer: 必须是整数
+      odd: 必须为单数
+      record_invalid: ! '验证失败: %{errors}'
+      restrict_dependent_destroy:
+        one: 由於 %{record} 需要此记录，所以无法移除记录
+        many: 由於 %{record} 需要此记录，所以无法移除记录
+      taken: 已经被使用
+      too_long:
+        one: 过长（最长为一个字符）
+        other: 过长（最长为 %{count} 个字符）
+      too_short:
+        one: 过短（最短为一个字符）
+        other: 过短（最短为 %{count} 个字符）
+      wrong_length:
+        one: 长度非法（必须为一个字符）
+        other: 长度非法（必须为 %{count} 个字符）
+      other_than: 长度非法（不可为 %{count} 个字符
+      extension_white_list_error: 无效的文件后缀名
+    template:
+      body: 如下字段出现错误：
+      header:
+        one: 有 1 个错误发生导致「%{model}」无法被保存。
+        other: 有 %{count} 个错误发生导致「%{model}」无法被保存。
+  helpers:
+    select:
+      prompt: 请选择
+    submit:
+      create: 新增%{model}
+      submit: 储存%{model}
+      update: 更新%{model}
+  number:
+    currency:
+      format:
+        delimiter: ! ','
+        format: ! '%u %n'
+        precision: 2
+        separator: .
+        significant: false
+        strip_insignificant_zeros: false
+        unit: CN¥
+    format:
+      delimiter: ! ','
+      precision: 3
+      separator: .
+      significant: false
+      strip_insignificant_zeros: false
+    human:
+      decimal_units:
+        format: ! '%n %u'
+        units:
+          billion: 十亿
+          million: 百万
+          quadrillion: 千兆
+          thousand: 千
+          trillion: 兆
+          unit: ''
+      format:
+        delimiter: ''
+        precision: 1
+        significant: false
+        strip_insignificant_zeros: false
+      storage_units:
+        format: ! '%n %u'
+        units:
+          byte:
+            one: Byte
+            other: Bytes
+          gb: GB
+          kb: KB
+          mb: MB
+          tb: TB
+    percentage:
+      format:
+        delimiter: ''
+    precision:
+      format:
+        delimiter: ''
+  support:
+    array:
+      last_word_connector: ! ', 和 '
+      two_words_connector: ! ' 和 '
+      words_connector: ! ', '
+  time:
+    am: 上午
+    formats:
+      default: ! '%Y年%b%d日 %H:%M'
+      long: ! '%Y年%b%d日 %H:%M'
+      short: ! '%b%d日 %H:%M'
+    pm: 下午
+  activerecord:
+    models:
+      vote: 投票
+      vote_item: 投票项
+      debate_draw: 辩论抽签
+      speech_draw_item: 演讲抽签项
+      speech_draw: 演讲抽签
+      lucky_draw_item: 抽奖奖项
+      lucky_draw: 抽奖
+      poll: 问卷
+      questionnaire: 试卷
+      opinionnaire: 评分
+      single_choice_question: 单选题
+      multiple_choice_question: 多选题
+      true_or_false_question: 判断题
+      text_question: 问答题
+      rating_question: 评分题
+      feature: 花絮
+      project: 项目
+      campaign: 模块
+      activity: 活动
+      cell: 模块
+      menu: 微信菜单
+      schedule: 日程安排
+      course: 课程
+      lesson: 课程安排
+      page: 静态页面
+    attributes:
+      page:
+        title: 标题
+        body: 内容
+      banner:
+        image: 图片
+      schedule:
+        date: 日期
+        title: 标题
+        hint: 提示
+      cell:
+        icon: 图标
+        title: 名称
+        active: 是否激活
+        position: 位置
+        content: 内容
+      menu:
+        name: 名称
+        category: 类型
+        url: 链接
+        title: 标题
+        description: 描述
+        image: 图片
+      activity:
+        name: 名称
+        starts_at: 开始时间
+        ends_at: 结束时间
+        location: 地点
+      campaign:
+        name: 名称
+        location: 培训校区
+        description: 模块介绍
+        starts_at: 开始时间
+        ends_at: 结束时间
+        project: 项目
+      project:
+        template: 微信首页模板
+        wechat_background: 微信首页背景图
+        name: 名称
+        active: 是否激活
+      photo:
+        column: 所在列数
+      feature:
+        columns: 图片显示列数
+        title: 标题
+        cover: 封面
+        video: 视频
+        video_screenshot: 视频截图
+      user:
+        role: 身份
+        gender: 性别
+        diet: 饮食习惯
+        grade: 职级
+        card_number: 安利卡号
+        name: 真实姓名
+        password: 密码
+        password_confirmation: 确认密码
+        mobile: 手机号码
+        email: 电子邮箱
+        province_id: 省份
+      lesson:
+        course: 课程
+        name: 名称
+        description: 简介
+        starts_at: 开始时间
+        ends_at: 结束时间
+        location: 地点
+      course:
+        genre: 授课类型
+        hour: 建议课时
+        location: 地点
+        starts_at_date: 开始日期
+        starts_at_time: 开始时间
+        ends_at_date: 结束日期
+        ends_at_time: 结束时间
+        name: 课程名称
+        description: 课程简介
+        starts_at: 开始时间
+        ends_at: 结束时间
+      questionnaire:
+        name: 试卷名称
+        description: 试卷简介
+        comment: 备注
+        display_score: '是否在用户填写完毕后显示分数？'
+      vote:
+        title: 名称
+        description: 描述
+      vote_item_option:
+        text: 文字
+        user_id: 人员
+      vote_item:
+        title: 名称
+        description: 描述
+      draw_item:
+        title: 名称
+        description: 描述
+        time: 时间
+        quantity: 人数
+      debate_draw:
+        title: 名称
+        description: 描述
+      speech_draw:
+        title: 名称
+        description: 描述
+      speech_draw_item:
+        title: 名称
+        description: 描述
+        time: 演讲时间
+      lucky_draw_item:
+        title: 名称
+        description: 描述
+        quantity: 数量
+      lucky_draw:
+        title: 标题
+        description: 描述
+      poll:
+        name: 问卷名称
+        description: 问卷简介
+        comment: 备注
+        display_score: '是否在用户填写完毕后显示分数?'
+      opinionnaire:
+        lecturer_weight: 讲师评分权重
+        student_weight: 学员评分权重
+        name: 评分名称
+        description: 评分简介
+        comment: 备注
+        display_score: '是否在用户填写完毕后显示分数?'
+      rating_question:
+        description: 描述
+        mandatory: 必填项
+        maximum: '最高分: '
+      single_choice_question:
+        mandatory: 必填项
+      multiple_choice_question:
+        mandatory: 必填项
+      text_question:
+        mandatory: 必填项
+      true_or_false_question:
+        mandatory: 必填项

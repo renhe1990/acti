@@ -1,0 +1,38 @@
+.row
+  .col-sm-12
+    .btn-group.pull-right
+      = link_to '试卷列表', [:admin, @course, :questionnaires], class: 'btn btn-success'
+      = link_to '问卷列表', [:admin, @course, :polls], class: 'btn btn-info'
+      = link_to '评分列表', [:admin, @course, :opinionnaires], class: 'btn btn-default'
+      = link_to '抽奖列表', [:admin, @course, :lucky_draws], class: 'btn btn-default'
+      = link_to '演讲抽签列表', [:admin, @course, :speech_draws], class: 'btn btn-default'
+      = link_to '辩论抽签列表', [:admin, @course, :debate_draws], class: 'btn btn-default'
+      = link_to '投票列表', [:admin, @course, :votes], class: 'btn btn-default'
+      = link_to '编辑', [:edit, :admin, @campaign, @course], class: 'btn btn-primary'
+      = link_to '删除', [:admin, @campaign, @course], method: :delete, class: 'btn btn-danger', data: { confirm: '确定要删除吗?' }
+
+.row
+  .col-sm-12 课程名称
+  .col-sm-12= @course.name
+br
+
+.row
+  .col-sm-12 课程描述
+  .col-sm-12= @course.description
+br
+
+.row
+  .col-sm-12 讲师
+  - @course.lecturers.each do |lecturer|
+    .col-sm-2= lecturer.name
+br
+
+.row
+  .col-sm-12 特定学员
+  - @course.users.each do |user|
+    .col-sm-2= user.name
+
+- title '课程详情'
+
+- breadcrumb :admin_course, @campaign
+

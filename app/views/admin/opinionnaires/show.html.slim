@@ -1,0 +1,18 @@
+h1= @opinionnaire.name
+
+.row
+  .col-xs-12
+    .btn-group.pull-right
+      = link_to '导出', admin_course_opinionnaire_url(@course, @opinionnaire, format: :xls), class: 'btn btn-info'
+      = link_to '编辑', [:edit, :admin, @course, @opinionnaire], class: 'btn btn-primary'
+      = link_to '删除', [:admin, @course, @opinionnaire], method: :delete, class: 'btn btn-danger', data: { confirm: '确定要删除吗?' }
+hr
+
+= render 'weixin/opinionnaires/detail', opinionnaire: @opinionnaire, total_weight: @total_weight
+
+.row
+  .col-sm-12
+    = qrcode_tag weixin_opinionnaire_reviews_url(@opinionnaire)
+
+- title '评分详情'
+- breadcrumb :admin_opinionnaire, @course, @opinionnaire

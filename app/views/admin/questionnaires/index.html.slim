@@ -1,0 +1,22 @@
+.row
+  .col-sm-10
+  .col-sm-2
+    = link_to '创建试卷', @course.public ? new_admin_public_course_questionnaire_url(@course) : [:new, :admin, @course, :questionnaire], class: 'btn btn-primary pull-right'
+br
+
+.row
+  .col-sm-12
+    table.table.table-striped.table-bordered
+      thead
+        tr
+          th
+          th 名称
+          th
+      tbody.sortable data-param_name='questionnaires' data-sort_url="#{ sort_admin_course_questionnaires_path(@course) }"
+        = render partial: 'questionnaire', collection: @questionnaires
+
+  .col-sm-12
+    = paginate @questionnaires, views_prefix: 'admin'
+
+- title '试卷列表'
+- breadcrumb :admin_questionnaires, @course

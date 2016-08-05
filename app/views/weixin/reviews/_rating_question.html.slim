@@ -1,0 +1,22 @@
+.question-container
+  .row class="question"
+    .col-xs-12
+      .pull-left
+        = "#{ (index + 1).to_words }."
+      .pull-left
+        p= question.title
+        p= question.description
+  = hidden_field_tag "review[answers_attributes][#{index}][question_id]", question.id
+
+  .question-body
+    .row
+      .col-xs-12
+        .rating-question
+          - if answer.persisted?
+            = hidden_field_tag "review[answers_attributes][#{index}][id]", answer.id
+          = hidden_field_tag "review[answers_attributes][#{index}][rating]", answer.rating, class: 'slider', 'data-slider-value' => answer.rating || 0
+          span.rating-label.first 0
+          span.rating-label.second 25
+          span.rating-label.third 50
+          span.rating-label.fourth 75
+          span.rating-label.last 100

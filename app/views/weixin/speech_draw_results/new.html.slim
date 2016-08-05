@@ -1,0 +1,12 @@
+.row
+  .col-sm-12.col-xs-12
+    h1= @speech_draw.title
+    p= @speech_draw.description
+
+br
+.row
+  .col-sm-12.col-xs-12
+    = simple_form_for @draw_result, url: weixin_speech_draw_speech_draw_results_url(@speech_draw) do |f|
+      = f.submit '抽签', class: 'btn btn-primary btn-block', 'data-loading-text' => '正在提交...', autocomplete: 'off'
+
+- title '课程演讲抽签'

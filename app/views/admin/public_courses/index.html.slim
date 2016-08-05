@@ -1,0 +1,20 @@
+.row
+  .col-sm-2
+    = link_to '创建公共课程', [:new, :admin, :public_course], class: 'btn btn-primary'
+
+br
+
+.row
+  .col-sm-12
+    table.table.table-striped.table-bordered
+      thead
+        th 名称
+        th
+      tbody
+        = render partial: 'public_course', collection: @public_courses
+
+  .col-sm-12
+    = paginate @public_courses, views_prefix: 'admin'
+
+- title '课程列表'
+- breadcrumb :admin_public_courses

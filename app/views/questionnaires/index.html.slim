@@ -1,0 +1,42 @@
+h1 试卷管理
+.row
+  .col-sm-12
+    = link_to '新建试卷', new_questionnaire_path, class: 'btn btn-primary pull-right'
+
+hr
+
+.row
+  .col-sm-12
+    .well
+      p 筛选
+      = form_for :questionnaire, url: questionnaires_url, method: :get, html: { class: 'form-inline' } do |f|
+        .form-group
+          = f.label '试卷筛选'
+        .form-group style='margin-left: 10px'
+          = f.text_field :name, name: 'questionnaire_name', class: 'form-control', value: params[:questionnaire_name]
+        .form-group style='margin-left: 10px'
+          = f.submit '查询', class: 'btn btn-primary', 'data-loading-text' => '正在查询...', autocomplete: 'off'
+
+  .col-sm-12
+    table.table.table-bordered.table-striped
+      thead
+        tr
+          th 试卷名称
+          th 浏览次数
+          th 添加时间
+          th 操作
+
+      tbody
+        - @questionnaires.each do |questionnaire|
+          tr
+            td = link_to questionnaire.name, questionnaire
+            td = questionnaire.name
+            td = questionnaire.created_at.strftime("%Y-%m-%d")
+            td
+              = link_to '统计结果', [questionnaire, :attempts]
+.row
+  .col-sm-12
+    = paginate @questionnaires
+
+- title '试卷管理'
+- breadcrumb :questionnaires, @course

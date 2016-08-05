@@ -1,0 +1,9 @@
+tr id="#{dom_id(opinionnaire)}"
+  td width=14
+    span.glyphicon.glyphicon-move
+  td= opinionnaire.name
+  td
+    .btn-group.pull-right
+      = link_to '详情', [:admin, @course, opinionnaire], class: 'btn btn-info'
+      = link_to '编辑', [:edit, :admin, @course, opinionnaire], class: 'btn btn-primary'
+      = link_to '删除', [:admin, @course, opinionnaire], method: :delete, class: 'btn btn-danger', data: { confirm: '你确定要删除这个评分吗?' }

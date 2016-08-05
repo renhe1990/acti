@@ -1,0 +1,31 @@
+= render partial: 'shared/messages'
+
+h1= @opinionnaire.name
+
+p= @opinionnaire.description.html_safe
+
+= simple_form_for :attempt, url: weixin_opinionnaire_attempts_url do |f|
+  ul.list-group
+    - @opinionnaire.reviewees.each_with_index do |user, index|
+      li.list-group-item
+        - if review = user.review_from(current_user, @opinionnaire)
+          = link_to edit_weixin_opinionnaire_review_url(@opinionnaire, review, index: index + 1) do
+            div
+              = "#{(index + 1).to_words}号.#{user.name}"
+              .pull-right
+                span
+                  | 已评分
+                  span.glyphicon.glyphicon-chevron-right
+
+        - else
+          = link_to new_weixin_opinionnaire_review_url(@opinionnaire, reviewable_type: 'User', reviewable_id: user.id, index: index + 1) do
+            div
+              = "#{(index + 1).to_words}号.#{user.name}"
+              .pull-right
+                span
+                  | 未评分
+                  span.glyphicon.glyphicon-chevron-right
+
+  = f.submit '提交', class: 'btn btn-primary btn-block', 'data-loading-text' => '正在提交...', autocomplete: 'off'
+
+- title '课程评分'

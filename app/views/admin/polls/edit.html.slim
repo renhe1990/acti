@@ -1,0 +1,6 @@
+.row
+  .col-xs-12
+    = render partial: 'admin/surveys/form', locals: { url: @course.public ? admin_public_course_poll_url(@course, @poll) : [:admin, @course, @poll], survey: @poll, question_type_options: @question_type_options }
+
+- title '编辑问卷'
+- breadcrumb :edit_admin_poll, @course, @poll

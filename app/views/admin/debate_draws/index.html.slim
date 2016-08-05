@@ -1,0 +1,22 @@
+.row
+  .col-sm-10
+  .col-sm-2
+    = link_to '创建辩论抽签', [:new, :admin, @course, :debate_draw], class: 'btn btn-primary pull-right'
+br
+
+.row
+  .col-sm-12
+    table.table.table-striped.table-bordered
+      thead
+        tr
+          th
+          th 名称
+          th
+      tbody.sortable data-param_name='debate_draws' data-sort_url="#{ sort_admin_course_debate_draws_path(@course) }"
+        = render partial: 'debate_draw', collection: @debate_draws
+
+  .col-sm-12
+    = paginate @debate_draws, views_prefix: 'admin'
+
+- title '演讲抽签列表'
+- breadcrumb :admin_debate_draws, @course

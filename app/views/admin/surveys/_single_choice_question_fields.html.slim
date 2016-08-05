@@ -1,0 +1,33 @@
+.nested-fields.question-fields.single_choice_question
+  .row.question-header
+    .col-xs-9.col-sm-10
+      span.glyphicon.glyphicon-move
+      = "第"
+      span.question-number
+        = f.index.to_i + 1
+      = "题: 单选题"
+    .col-xs-3.col-sm-2
+      = link_to_remove_association '删除题目', f, class: 'pull-right'
+  .row.question-body
+    .col-sm-12.question-options
+      = f.input :position, as: :hidden
+      = f.input :type, as: :hidden, input_html: { value: 'SingleChoiceQuestion' }
+      = f.input :title, as: :text, label: false, input_html: { rows: 5 }
+      - if !survey.mandatory?
+        .boolean.optional
+          = f.input_field :mandatory
+          = f.label :mandatory, style: 'margin-left: 10px', label: '必填项'
+
+      - if survey.has_answers?
+        span 将选中的答案设置为正确答案
+
+      .options-container
+        = f.simple_fields_for :options do |option|
+          = render 'admin/surveys/option_fields', f: option, grouped: true, survey: survey
+
+        = link_to_add_association '添加一个答案', f, :options, partial: 'surveys/option_fields', class: 'add-option-link',
+                                                 'data-association-insertion-node' => '.add-option-link',
+                                                 'data-association-insertion-traversal' => 'closest',
+                                                 'data-association-insertion-method' => 'before',
+                                                 render_options: { locals: { grouped: true, survey: survey } }
+

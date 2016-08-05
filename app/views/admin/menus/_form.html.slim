@@ -1,0 +1,17 @@
+= simple_form_for [:admin, @menu] do |f|
+  = f.error :base, class: 'alert alert-danger'
+
+  = f.input :name
+
+  - if @parent
+    = hidden_field_tag :parent_id, @parent.id
+
+  - if !@menu.root? || @parent
+    = f.input :category, as: :select, collection: Menu.categories.keys, include_blank: false
+    = f.input :title, wrapper_html: { class: 'category_detail category_detail_click' }
+    = f.input :description, wrapper_html: { class: 'category_detail category_detail_click' }
+    = f.input :url, wrapper_html: { class: 'category_detail category_detail_view category_detail_click' }
+    = f.input :image, as: :image_preview, wrapper_html: { class: 'category_detail category_detail_click' }
+
+
+  = f.submit @menu.new_record? ? '创建微信菜单' : '更新微信菜单', class: 'btn btn-primary', 'data-loading-text' => '正在提交...', autocomplete: 'off'

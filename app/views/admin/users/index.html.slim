@@ -1,0 +1,112 @@
+.row
+  .col-sm-10
+    .row
+      = simple_form_for :users, url: admin_users_url(params), method: :get, html: { class: 'form-inline' } do |f|
+        .col-sm-8
+          = text_field_tag :keyword, @keyword, class: 'form-control', style: 'width: 100%', placeholder: '请输入用户姓名或安利号码'
+        .col-sm-2
+          = f.submit '搜索', class: 'btn btn-primary', 'data-loading-text' => '正在搜索...', autocomplete: 'off'
+  .col-sm-2
+    = link_to '添加用户', new_admin_user_url, class: 'btn btn-primary pull-right'
+
+br
+
+.well.filter
+  .row
+    .col-sm-10
+      span 全部分类 >
+      span.user_filter_tags
+        = role_filter_tag
+        = area_filter_tag
+        = grade_filter_tag
+        = gender_filter_tag
+        = status_filter_tag
+    .col-sm-2
+      a data-toggle='collapse' href='#filter-collapse' class='pull-right' 收起
+
+  .collapse.in#filter-collapse
+    br
+    .row
+      .col-sm-1.col-xs-2 用户身份
+      - @roles.each do |role|
+        .col-sm-1.col-xs-2
+          = link_to_user_filter role.name, :role_id, role.id
+    br
+    .row
+      .col-sm-1.col-xs-2 区域
+      - @areas.each do |area|
+        .col-sm-1.col-xs-2
+          = link_to_user_filter area.name, :area_id, area.id
+    br
+    .row
+      .col-sm-1.col-xs-2 职级
+      - @grades.each do |grade|
+        .col-sm-1.col-xs-2
+          = link_to_user_filter grade.name, :grade_id, grade.id
+    br
+    .row
+      .col-sm-1.col-xs-2 性别
+      .col-sm-1.col-xs-2
+        = link_to_user_filter '男', :gender, 0
+      .col-sm-1.col-xs-2
+        = link_to_user_filter '女', :gender, 1
+    br
+    .row
+      .col-sm-1.col-xs-2 账号状态
+      .col-sm-1.col-xs-2
+        = link_to_user_filter '正常', :status, :complete
+      .col-sm-1.col-xs-2
+        = link_to_user_filter '缺少信息', :status, :incomplete
+      .col-sm-1.col-xs-2
+        = link_to_user_filter '冻结', :status, :deleted
+
+br
+
+.row
+  .col-sm-12
+    .btn-group.pull-right
+      button.btn.btn-info data-toggle="modal" data-target="#import-modal" 导入用户
+      - if @mode == :batch
+        = link_to '完成批量处理', admin_users_url, class: 'btn btn-primary', id: 'batch-btn'
+      - else
+        = link_to '批量处理', admin_users_url(params.merge(mode: :batch)), class: 'btn btn-primary', id: 'batch-btn'
+
+br
+
+.row
+  .col-sm-12
+    table.table.table-striped.table-bordered
+      thead
+        th 姓名
+        th 安利号码
+        th 微信账号
+        th 身份
+        th 区域
+        th 职级
+        th 性别
+        th 账号状态
+        - if @mode == :batch
+          th 操作
+      tbody
+        = render partial: 'user', collection: @users, locals: { mode: @mode, roles: @roles }
+
+  .col-sm-12
+    = paginate @users, views_prefix: 'admin'
+
+.modal#import-modal
+  .modal-dialog
+    .modal-content
+      = simple_form_for :users, url: [:import, :admin, :users], html: { multipart: true } do |f|
+        .modal-header
+          h4 导入用户
+        .modal-body
+          = f.file_field :file, name: :file, hint: '请上传基于导入用户模板的文件'
+          p.help-block 请上传基于导入用户模板的文件
+          = link_to '导入用户模板下载', asset_path('导入用户模板.xlsx'), target: '_blank'
+        .modal-footer
+          button.btn.btn-default type='button' data-dismiss="modal" 取消
+          button.btn.btn-primary type='submit' 导入用户
+
+
+- title '用户管理'
+- breadcrumb :admin_users

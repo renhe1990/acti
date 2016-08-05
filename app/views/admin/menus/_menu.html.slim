@@ -1,0 +1,24 @@
+tr.parent-menu id="menu_#{menu.id}"
+  td width=14
+    span.glyphicon.glyphicon-move.parent-glyphicon-move
+  td
+    = menu.name
+  td
+    span.btn-group
+      - if menu.root?
+        = link_to '新建二级菜单', new_admin_menu_path(parent_id: menu.id), class: "btn btn-default #{'disabled' unless menu.can_create_child_menu?}"
+      = link_to '编辑', [:edit, :admin, menu], class: 'btn btn-primary'
+      = link_to '删除', [:admin, menu], method: :delete, class: 'btn btn-danger', data: { confirm: '确认要删除此微信菜单?' }
+    br
+    br
+    table.table.table-striped.table-condensed
+      tbody.child-menus
+        - menu.children.each do |child|
+          tr id="menu_#{child.id}" data-parent_id="#{menu.id}"
+            td width=14
+              span.glyphicon.glyphicon-move.glyphicon-move
+            td= child.name
+            td
+              span.pull-right.btn-group
+                = link_to '编辑', [:edit, :admin, child], class: 'btn btn-primary'
+                = link_to '删除', [:admin, child], method: :delete, class: 'btn btn-danger', data: { confirm: '确认要删除此微信菜单?' }

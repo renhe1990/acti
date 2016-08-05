@@ -1,0 +1,25 @@
+- if !@force && @user
+  h1.text-center= "成功绑定#{@user.card_number}"
+
+  br
+  p.text-center 请点击左上角“返回”
+
+  br
+  p.text-center 如绑定的不是您的账号，请点击下方按钮重新绑定账号
+  = link_to '重新绑定账号', new_weixin_binding_url(openid: @openid, force: 1), class: 'btn btn-primary btn-block'
+- else
+  h1.text-center 账号绑定
+
+  .alert.alert-success 用户名由您安利卡后后加一位性别码组成，男性为1，女性为0，以卡号12345为例，男性用户名为123451，女性用户名为123450
+
+  = simple_form_for :user, url: weixin_bindings_url do |f|
+    .form-group
+      = render partial: 'shared/messages'
+    = hidden_field_tag :force, @force
+    = f.input :openid, input_html: { name: :openid, value: @openid }, as: :hidden
+    = f.input :card_number, placeholder: '请输入您的用户名', label: false
+    = f.input :password, placeholder: '请输入密码（默认为123）', label: false
+    .form-group
+      = f.submit '绑定账号', class: 'btn btn-primary btn-block', 'data-loading-text' => '正在绑定...', autocomplete: 'off'
+
+- title '安利中国培训中心'

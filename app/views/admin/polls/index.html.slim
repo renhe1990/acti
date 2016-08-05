@@ -1,0 +1,22 @@
+.row
+  .col-sm-10
+  .col-sm-2
+    = link_to '创建问卷', @course.public ? new_admin_public_course_poll_url(@course) : [:new, :admin, @course, :poll], class: 'btn btn-primary pull-right'
+br
+
+.row
+  .col-sm-12
+    table.table.table-striped.table-bordered
+      thead
+        tr
+          th
+          th 名称
+          th
+      tbody.sortable data-param_name='polls' data-sort_url="#{ sort_admin_course_polls_path(@course) }"
+        = render partial: 'poll', collection: @polls
+
+  .col-sm-12
+    = paginate @polls, views_prefix: 'admin'
+
+- title '试卷问表'
+- breadcrumb :admin_polls, @course

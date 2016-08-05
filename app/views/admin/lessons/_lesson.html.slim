@@ -1,0 +1,10 @@
+tr id="#{dom_id(lesson)}"
+  td
+    == "#{l(lesson.starts_at)} - #{l(lesson.ends_at)}"
+  td= lesson.name
+  td= lesson.location
+  td
+    .btn-group.pull-right
+      = link_to '详情', [:admin, @schedule, lesson], class: 'btn btn-info'
+      = link_to '编辑', [:edit, :admin, @schedule, lesson], class: 'btn btn-primary'
+      = link_to '删除', [:admin, @schedule, lesson], method: :delete, class: 'btn btn-danger', data: { confirm: '你确认要删除这个活动吗?' }

@@ -1,0 +1,7 @@
+.options-container
+  = render partial: "surveys/option", collection: question.options
+
+- if survey.is_a?(Poll)
+  = render partial: "surveys/options_chart", locals: { question: question }
+- else
+  = render partial: "surveys/question_chart", locals: { question: question, survey: survey }

@@ -1,0 +1,46 @@
+.row
+  .col-sm-9
+    .row
+      = simple_form_for :lesson, url: lessons_url, method: :get, wrapper: :horizontal_form, class: 'form-vertical' do |f|
+        = f.input :name, label: false, input_html: { name: :lesson_name, value: params[:lesson_name] }
+        .form-group
+          .col-sm-3
+            = f.submit '搜索', class: 'btn btn-default', 'data-loading-text' => '正在搜索...', autocomplete: 'off'
+
+  .col-sm-3
+    = link_to '发起新课程', new_lesson_url, class: 'btn btn-block btn-primary', style: 'margin-top: 15px;'
+
+br
+ul.nav.nav-tabs
+  li class="#{ 'active' if @state == 'pending' }"
+    = link_to '尚未进行', lessons_url(state: :pending)
+  li class="#{ 'active' if @state == 'completed' }"
+    = link_to '已经完成', lessons_url(state: :completed)
+
+br
+
+.row
+  .col-sm-12
+    table.table.table-bordered.table-condensed.table-striped
+      thead
+        tr
+          th 课程名称
+          th 授课时间
+          th 操作
+
+      tbody
+        - @lessons.each do |lesson|
+          tr
+            td = lesson.name
+            td = lesson_time_label(lesson)
+            td = lesson.created_at.strftime("%Y-%m-%d")
+
+.row
+  .col-sm-12
+    = paginate @lessons, params: { state: params[:state] }
+    - if @lessons.count == 0
+      .alert.alert-success
+        button type='button' class='close' data-dismiss='alert' &times;
+        '您当前还没有创建课程，请在“首页”或“发起课程”页面发起您的新课程。
+
+- title '我的课程'

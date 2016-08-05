@@ -1,0 +1,17 @@
+= simple_form_for @course do |f|
+  .row
+    .col-sm-10
+      .page-title 创建课程
+    .col-sm-2
+      = f.submit '保存', class: 'btn btn-block btn-primary', 'data-loading-text' => '正在保存...', autocomplete: 'off'
+  hr.clearfix
+
+  = f.input :name
+  = f.input :description
+  = f.input :starts_at
+  = f.input :ends_at
+
+  hr.clearfix
+  .row
+    .col-sm-offset-10.col-sm-2
+      = f.submit '保存', class: 'btn btn-block btn-primary', 'data-loading-text' => '正在保存...', autocomplete: 'off'

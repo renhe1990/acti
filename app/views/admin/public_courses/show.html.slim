@@ -1,0 +1,31 @@
+.row
+  .col-sm-12
+    .btn-group.pull-right
+      = link_to '试卷列表', admin_public_course_questionnaires_url(@public_course), class: 'btn btn-success'
+      = link_to '问卷列表', admin_public_course_polls_url(@public_course), class: 'btn btn-info'
+      = link_to '编辑', edit_admin_public_course_url(@public_course), class: 'btn btn-primary'
+      = link_to '删除', admin_public_course_url(@public_course), method: :delete, class: 'btn btn-danger', data: { confirm: '确定要删除吗?' }
+
+.row
+  .col-sm-12 课程名称
+  .col-sm-12= @public_course.name
+br
+
+.row
+  .col-sm-12 课程描述
+  .col-sm-12= @public_course.description
+br
+
+.row
+  .col-sm-12 授课类型
+  .col-sm-12= @public_course.genre
+br
+
+.row
+  .col-sm-12 建议课时
+  .col-sm-12= @public_course.hour
+
+- title '公共课程详情'
+
+- breadcrumb :admin_public_course, @public_course
+

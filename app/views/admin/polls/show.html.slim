@@ -1,0 +1,23 @@
+h1= @poll.name
+
+.row
+  .col-xs-12
+    .btn-group.pull-right
+      - unless @course.public
+        = link_to '导出', admin_course_poll_url(format: :xls), class: 'btn btn-info'
+      = link_to '编辑', @course.public ? edit_admin_public_course_poll_url(@course, @poll) : [:edit, :admin, @course, @poll], class: 'btn btn-primary'
+      = link_to '删除', @course.public ? admin_public_course_poll_url(@course, @poll) : [:admin, @course, @poll], method: :delete, class: 'btn btn-danger', data: { confirm: '确定要删除吗?' }
+hr
+
+- @survey = @poll
+- @survey.questions.each_with_index do |question, index|
+  .well.question
+    = render partial: "weixin/polls/#{question.type.underscore}", locals: { survey: @survey, question: question, index: index }
+
+- unless @course.public
+  .row
+    .col-sm-12
+      = qrcode_tag new_weixin_poll_attempt_url(@poll)
+
+- title '问卷详情'
+- breadcrumb :admin_poll, @course, @poll

@@ -1,0 +1,23 @@
+.row
+  .col-sm-10
+  .col-sm-2
+    = link_to '创建日程安排', [:new, :admin, @campaign, :schedule], class: 'btn btn-primary pull-right'
+br
+
+.row
+  .col-sm-12
+    table.table.table-striped.table-bordered
+      thead
+        th
+        th 日期
+        th 标题
+        th 提示
+        th
+      tbody.sortable data-param_name='schedules' data-sort_url="#{ sort_admin_campaign_schedules_path(@campaign) }"
+        = render partial: 'schedule', collection: @schedules
+
+  .col-sm-12
+    = paginate @schedules, views_prefix: 'admin'
+
+- title '日程安排列表'
+- breadcrumb :admin_schedules, @campaign

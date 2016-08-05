@@ -1,0 +1,7 @@
+= render partial: "weixin/surveys/question_header", locals: { question: question, index: index }
+
+= render partial: "weixin/surveys/options", locals: { question: question }
+
+hr
+
+= question_bar_chart(question)

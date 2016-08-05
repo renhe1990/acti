@@ -1,0 +1,6 @@
+- flash.each do |name, msg|
+  - if msg.is_a?(String)
+    div class="alert alert-#{name.to_sym == :notice ? "success" : "danger"}"
+      = content_tag :div, msg.html_safe, :id => "flash_#{name}"
+
+- title '信息提示'

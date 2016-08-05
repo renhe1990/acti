@@ -1,0 +1,40 @@
+.row
+  .col-sm-12
+    .btn-group.pull-right
+      = link_to '日程安排列表', [:admin, @campaign, :schedules], class: 'btn btn-success'
+      = link_to '课程列表', [:admin, @campaign, :courses], class: 'btn btn-info'
+      = link_to '编辑', [:edit, :admin, @project, @campaign], class: 'btn btn-primary'
+      = link_to '删除', [:admin, @project, @campaign], method: 'delete', class: 'btn btn-danger', data: { confirm: '确定要删除吗?' }
+.row
+  .col-sm-12 名称
+  .col-sm-12
+    = @campaign.name
+br
+
+.row
+  .col-sm-12 培训校区
+  .col-sm-12
+    = @campaign.location
+br
+
+.row
+  .col-sm-12 模块介绍
+  .col-sm-12
+    = @campaign.description
+br
+
+.row
+  .col-sm-12 开始日期
+  .col-sm-12
+    = @campaign.starts_at
+br
+
+.row
+  .col-sm-12 结束日期
+  .col-sm-12
+    = @campaign.ends_at
+br
+
+- title '模块详情'
+
+- breadcrumb :admin_campaign, @project

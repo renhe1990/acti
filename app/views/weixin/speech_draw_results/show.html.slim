@@ -1,0 +1,24 @@
+.row
+  .col-sm-12.col-xs-12
+    h1= @speech_draw.title
+    p
+      - if @draw_result.draw_item
+        | 恭喜您！您的抽签结果为
+        span.red= @draw_result.draw_item.title
+        | !
+        br
+      - else
+        | 很抱歉，您没有抽中演讲
+
+- if @draw_result.draw_item
+  br
+  .row
+    .col-sm-12.col-xs-12
+      p 如需调换时间，请提前一天与举办方联系。
+
+br
+.row
+  .col-sm-12.col-xs-12
+    = button_tag '演讲抽签结束', class: 'btn btn-primary btn-block', disabled: true
+
+- title '课程演讲抽签'

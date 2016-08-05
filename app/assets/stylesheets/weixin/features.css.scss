@@ -1,0 +1,70 @@
+// feature list page
+.features {
+  margin-top: 22px;
+}
+
+.feature {
+  margin-bottom: 10px;
+  border: 1px solid #e5e5e5;
+}
+
+.feature .feature-cover {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.feature a {
+  font-size: 16px;
+  color: #000;
+}
+
+.feature a:hover {
+  text-decoration: none;
+}
+
+.feature-title {
+  padding: 5px;
+}
+
+
+// feature detail page
+.feature-container {
+  padding-top: 22px;
+}
+.feature-video {
+  border: 1px solid #e5e5e5;
+  margin-bottom: 10px;
+}
+
+.feature-video .feature-title {
+  font-size: 14px;
+}
+
+.feature-video video {
+  height: 164px;
+}
+
+.feature-photos {
+  margin-top: 5px;
+}
+
+.col-first {
+  padding-right: 5px;
+}
+
+.col-second {
+  padding-left: 5px;
+}
+
+
+.feature-photos img.col-sm-12, .feature-photos img.col-xs-12 {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.feature-row {
+  margin-bottom: 10px;
+}
+
+.feature-row img {
+  border: 1px solid #e5e5e5;
+}

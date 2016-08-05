@@ -1,0 +1,4 @@
+tr
+  th
+    = link_to speech_draw.title, [:admin, speech_draw.course, speech_draw], target: '_blank'
+    = render 'with_course_suffix', object: speech_draw

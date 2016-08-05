@@ -1,0 +1,29 @@
+== simple_form_for [:admin, @schedule, @activity] do |f|
+  == f.input :name
+
+  .form-group.datetime
+    = f.label :starts_at
+    div
+      = f.input_field :starts_at, class: 'form-control', selected: @schedule.date
+      - if @activity.errors[:starts_at].count > 0
+        .has-error
+          .help-block= @activity.errors[:starts_at].join(", ")
+  .form-group.datetime
+    = f.label :ends_at
+    div
+      = f.input_field :ends_at, class: 'form-control', selected: @schedule.date
+      - if @activity.errors[:ends_at].count > 0
+        .has-error
+          .help-block= @activity.errors[:ends_at].join(", ")
+  == f.input :location
+
+  .form-group
+    = f.label :user_ids, '选择特定学员'
+    p
+      = link_to '选择所有', '#', class: 'select-all', 'data-target' => '#activity_user_ids'
+      | \
+      = link_to '取消所有', '#', class: 'deselect-all', 'data-target' => '#activity_user_ids'
+
+    == f.input_field :user_ids, collection: @schedule.campaign.project.users, multiple: true, class: 'multi-select'
+
+  == f.submit '保存', class: 'btn btn-primary', 'data-loading-text' => '正在保存...', autocomplete: 'off'

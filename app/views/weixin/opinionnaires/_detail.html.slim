@@ -1,0 +1,23 @@
+p
+  | 提交评分总数:
+  = opinionnaire.attempts.count
+p
+  | 评 委 总 数:
+  = opinionnaire.lecturers.count
+p
+  | 学 员 总 数:
+  = opinionnaire.students.count
+
+- opinionnaire.reviewees.each_with_index do |user, index|
+  .well
+    .row
+      .col-xs-12
+        = "#{ (index + 1).to_words }号. #{ user.name }"
+        .pull-right
+          = opinionnaire.weighted_average_rating_for_user(user)
+      hr
+      - opinionnaire.questions.each do |question|
+        .col-xs-12
+          = "#{ question.title } (#{ question.weight * 100 / total_weight }%)"
+          .pull-right
+            = opinionnaire.weighted_average_rating_for_user_and_question(user, question)

@@ -1,0 +1,9 @@
+.nested-fields.well
+  .row
+    = image_tag f.object.image.url, class: 'col-sm-6 col-xs-6'
+    .col-sm-3
+      - unless f.object.image.present?
+        = f.input :image, label: false
+      = f.input :column, collection: [1, 2], include_blank: nil
+      = link_to_remove_association '删除照片', f
+br

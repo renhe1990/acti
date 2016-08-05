@@ -1,0 +1,38 @@
+h1 注册新账号
+hr
+.row.sign-up-container
+  .col-md-8.col-sm-12
+    = render partial: 'shared/messages'
+    = simple_form_for @user, html: { class: 'form-horizontal signup-form' }, wrapper: :horizontal_form do |f|
+      = f.input :card_number, placeholder: '请输入您的安利卡号或员工号'
+      = f.input :name, placeholder: '请输入您的真实姓名'
+      .form-group
+        = f.label '省份/城市', class: 'string col-sm-3 control-label', for: :user_province
+        .col-sm-9
+          = f.input_field :province_id, as: :region, collection: @provinces, selected: @user.province_id, sub_region: :city_id, label: false, class: 'form-control', include_blank: '请选择省份'
+          = f.input_field :city_id, as: :region, collection: @cities, selected: @user.city_id, label: false, class: 'form-control', include_blank: '请选择城市'
+      = f.input :password, placeholder: '请输入密码', required: true
+      = f.input :password_confirmation, placeholder: '请确认密码', required: true
+      = f.input :mobile, placeholder: '请输入您的手机号码'
+      = f.input :email, placeholder: '请输入您的工作邮箱', hint: '为了您的账号安全, 请输入您的工作邮箱'
+
+      .form-group.row
+        .controls.col-sm-offset-3.col-sm-9
+          = f.submit '注册', class: 'btn btn-primary col-sm-4'
+
+  .col-md-4.col-sm-12
+    .row
+      .col-sm-12 我有励学堂账号
+      br
+      br
+      .col-sm-12
+        = link_to '使用已有账号登录', sign_in_url, class: 'btn btn-default'
+
+hr
+
+.text-center 版权为安利(中国)日用品有限公司所有,未经许可不得转载或链接
+
+- title '注册'
+
+- content_for :javascript do
+  = js_for_region_ajax

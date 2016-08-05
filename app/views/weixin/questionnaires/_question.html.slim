@@ -1,0 +1,7 @@
+= render partial: 'weixin/questionnaires/question_header', locals: { question: question, index: index }
+
+= render partial: 'weixin/questionnaires/options', locals: { question: question }
+
+- unless survey.cours.public
+  = render partial: 'weixin/questionnnaires/correct_options', locals: { question: question }
+  = question_bar_chart(question)

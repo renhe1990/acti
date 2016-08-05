@@ -1,0 +1,69 @@
+.row
+  .col-sm-8
+    = "#{@user.role.try(:name)}信息 (#{@user.status_to_s})"
+  .col-sm-4
+    .btn-group.pull-right
+      = link_to '编辑', edit_admin_user_url(@user), class: 'btn btn-primary'
+      - if @user.deleted_at
+        = link_to '激活账号', [:restore, :admin, @user], method: :put, class: 'btn btn-default'
+      - else
+        = link_to '冻结账号', [:admin, @user], method: :delete, class: 'btn btn-default', data: { confirm: '确认要冻结这个用户吗?' }
+      = link_to '直接删除', [:delete, :admin, @user], method: :delete, class: 'btn btn-danger', data: { confirm: '确认要永久删除这个用户吗?' }
+hr.black
+
+- if @user.name.present?
+  .row
+    .col-sm-4 用户姓名
+    .col-sm-8= @user.name
+
+- if @user.card_number.present?
+  .row
+    .col-sm-4 安利号码
+    .col-sm-8= @user.card_number
+
+.row
+  .col-sm-4 微信是否已绑定
+  .col-sm-8= @user.uid.present? ? '是' : '否'
+
+- if @user.province.present?
+  .row
+    .col-sm-4 省份
+    .col-sm-8= @user.province.name
+
+- if @user.city.present?
+  .row
+    .col-sm-4 城市
+    .col-sm-8= @user.city.name
+
+- if @user.grade
+  .row
+    .col-sm-4 职级
+    .col-sm-8= @user.grade.name
+
+- if @user.gender.present?
+  .row
+    .col-sm-4 性别
+    .col-sm-8= @user.gender_to_s
+
+- if @user.diet.present?
+  .row
+    .col-sm-4 饮食习惯
+    .col-sm-8= @user.diet
+
+- if @user.wechat_nickname.present?
+  .row
+    .col-sm-4 微信账号
+    .col-sm-8= @user.wechat_nickname
+
+- if @user.mobile.present?
+  .row
+    .col-sm-4 手机号码
+    .col-sm-8= @user.mobile
+
+- if @user.email.present?
+  .row
+    .col-sm-4 邮箱
+    .col-sm-8= @user.email
+
+- title '用户详情'
+- breadcrumb :admin_user, @user

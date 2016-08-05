@@ -1,0 +1,22 @@
+.row
+  .col-sm-2
+    = link_to '创建活动', [:new, :admin, @schedule, :activity], class: 'btn btn-primary btn-block'
+br
+
+.row
+  .col-sm-12
+    table.table.table-striped.table-bordered
+      thead
+        th 时间
+        th 名称
+        th 地点
+        th
+      tbody
+        = render partial: 'activity', collection: @activities
+
+  .col-sm-12
+    = paginate @activities, views_prefix: 'admin'
+
+- title '活动列表'
+
+- breadcrumb :admin_activities, @schedule

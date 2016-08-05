@@ -1,0 +1,4 @@
+tr
+  th
+    = link_to questionnaire.name, [:admin, questionnaire.course, questionnaire], target: '_blank'
+    = render 'with_course_suffix', object: questionnaire

@@ -1,0 +1,91 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ *= require bootstrap/dist/css/bootstrap
+ *= require framework_and_overrides
+ *= require eonasdan-bootstrap-datetimepicker
+ *= require video.js/dist/video-js/video-js.css
+ *= require multiselect/css/multi-select
+ *= require bootstrap_glyphicons
+
+ *= require select2
+ *= require select2-bootstrap
+
+ *= require_directory .
+ *= require_self
+ */
+
+.chart {
+  border: solid thin #96aad8;
+  background: #e9f2fc;
+}
+
+body.dragging, body.dragging * {
+  cursor: move !important;
+}
+
+.dragged {
+  position: absolute;
+  opacity: 0.5;
+  z-index: 2000;
+}
+
+.calendar thead tr th{
+  text-align: center;
+}
+
+.calendar tbody tr {
+  height: 100px;
+}
+
+.calendar tbody td {
+  width: 14%;
+}
+
+.calendar .calendar-header {
+  padding: 10px 10px;
+  font-size: 18px;
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+}
+
+.templates a {
+  margin-right: 10px;
+  padding: 10px 0;
+}
+
+.green {
+  color: green;
+}
+
+.red {
+  color: red;
+}
+
+.grey {
+  color: grey;
+}
+
+.center-block .btn {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.region_select.form-control {
+  display: inline;
+  width: auto;
+  margin-right: 10px;
+}
+
+.clear {
+  clear: both;
+}

@@ -1,0 +1,42 @@
+== simple_form_for [:admin, @project] do |f|
+  == f.input :name
+  == f.input :active
+  == f.input :template
+  - if @project.persisted?
+    = link_to '预览', '#', 'data-url' => weixin_project_url(@project), id: 'project_template_preview', class: 'btn btn-info'
+    br
+    br
+  == f.input :wechat_background
+  .form-group
+    = f.label :lecturer_ids, '选择讲师'
+    p
+      = link_to '选择所有', '#', class: 'select-all', 'data-target' => '#project_lecturer_ids'
+      | \
+      = link_to '取消所有', '#', class: 'deselect-all', 'data-target' => '#project_lecturer_ids'
+
+    == f.input_field :lecturer_ids, collection: @lecturers, multiple: true, class: 'multi-select'
+
+  .form-group
+    = f.label :user_ids, '选择特定学员'
+    p
+      = link_to '选择所有', '#', class: 'select-all', 'data-target' => '#project_user_ids'
+      | \
+      = link_to '取消所有', '#', class: 'deselect-all', 'data-target' => '#project_user_ids'
+      = ' 或者 '
+      a.btn.btn-info href='#' data-toggle='modal' data-target='#import-modal' 导入特定学员
+    = f.input_field :user_ids, collection: @users, multiple: true, class: 'multi-select'
+
+  == f.submit '保存', class: 'btn btn-primary', 'data-loading-text' => '正在保存...', autocomplete: 'off'
+
+.modal#import-modal
+  .modal-dialog
+    .modal-content
+      = simple_form_for :users, url: [:import, :admin, :users], html: { multipart: true, 'data-type' => :json }, remote: true, authenticity_token: true do |f|
+        .modal-header
+          h4 导入用户
+        .modal-body
+          = f.file_field :file, name: :file
+          = f.hidden_field :role_id, name: :role_id, value: 4
+        .modal-footer
+          button.btn.btn-default type='button' data-dismiss="modal" 取消
+          button.btn.btn-primary type='submit' 导入用户

@@ -1,0 +1,36 @@
+.row
+  .col-sm-8
+  .col-sm-4
+    .btn-group.pull-right
+      = link_to '编辑', [:edit, :admin, @schedule, @activity], class: 'btn btn-primary'
+      = link_to '删除', [:admin, @schedule, @activity], method: 'delete', class: 'btn btn-danger', data: { confirm: '确定要删除吗?' }
+.row
+  .col-sm-12 活动名称
+  .col-sm-12= @activity.name
+br
+
+.row
+  .col-sm-12 开始时间
+  - if @activity.starts_at
+    .col-sm-12= l(@activity.starts_at)
+br
+
+.row
+  .col-sm-12 结束时间
+  - if @activity.ends_at
+    .col-sm-12= l(@activity.ends_at)
+br
+
+.row
+  .col-sm-12 活动地点
+  .col-sm-12= @activity.location
+
+.row
+  .col-sm-12 特定学员
+  - @activity.users.each do |user|
+    .col-sm-1
+      = link_to user.name, [:admin, user]
+br
+
+- title '活动详情'
+- breadcrumb :admin_activity, @schedule, @activity

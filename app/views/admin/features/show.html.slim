@@ -1,0 +1,45 @@
+.row
+  .col-sm-8
+  .col-sm-4
+    .btn-group.pull-right
+      = link_to '编辑', [:edit, :admin, @project, @feature], class: 'btn btn-primary'
+      = link_to '删除', [:admin, @project, @feature], class: 'btn btn-danger', method: :delete, data: { confirm: '你确定要删除这条花絮吗?' }
+.row
+  .col-sm-12 标题
+  .col-sm-12
+    = @feature.title
+br
+
+.row
+  .col-sm-12 封面
+  = image_tag @feature.cover, class: 'col-sm-12 col-xs-12'
+br
+
+- if @feature.video.present?
+  .row
+    .col-sm-12 视频
+    video src="#{@feature.video}" controls="controls" class="col-sm-12 col-xs-12"
+  br
+
+  .row
+    .col-sm-12 视频截图
+    = image_tag @feature.video_screenshot, class: 'col-sm-12 col-xs-12'
+  br
+
+- if @feature.columns == 1
+  - @feature.photos.each do |photo|
+    .row
+      = image_tag photo.image.url, class: 'col-sm-12 col-xs-12'
+- elsif @feature.columns == 2
+  .row
+    .col-sm-6.col-xs-6
+      - @feature.photos.select{|photo| photo.column == 1}.each do |photo|
+        .row
+          = image_tag photo.image.url, class: 'col-sm-12 col-xs-12'
+    .col-sm-6.col-xs-6
+      - @feature.photos.select{|photo| photo.column == 2}.each do |photo|
+        .row
+          = image_tag photo.image.url, class: 'col-sm-12 col-xs-12'
+
+- title '花絮详情'
+- breadcrumb :admin_feature, @project, @feature

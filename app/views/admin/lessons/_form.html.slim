@@ -1,0 +1,25 @@
+== simple_form_for [:admin, @schedule, @lesson] do |f|
+  == f.association :course, collection: @courses
+  == f.input :name
+
+  .form-group.datetime
+    = f.label :starts_at
+    div
+      = f.input_field :starts_at, class: 'form-control', selected: @schedule.date
+      - if @lesson.errors[:starts_at].count > 0
+        .has-error
+          .help-block= @lesson.errors[:starts_at].join(", ")
+  .form-group.datetime
+    = f.label :ends_at
+    div
+      = f.input_field :ends_at, class: 'form-control', selected: @schedule.date
+      - if @lesson.errors[:ends_at].count > 0
+        .has-error
+          .help-block= @lesson.errors[:ends_at].join(", ")
+  == f.input :location
+
+  == f.submit '保存', class: 'btn btn-primary', 'data-loading-text' => '正在保存...', autocomplete: 'off'
+
+- content_for :javascript do
+  javascript:
+    $('.multi-select').multiSelect()

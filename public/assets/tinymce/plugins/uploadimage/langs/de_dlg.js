@@ -1,0 +1,1 @@
+tinyMCE.addI18n("de.uploadimage_dlg",{title:"Bild einf\xfcgen",header:"Bild einf\xfcgen",input:"Bild ausw\xe4hlen",uploading:"Wird geladen...",blank_input:"Datei ausw\xe4hlen",bad_response:"Ung\xfcltige Antwort vom Server",blank_response:"Server antwortet nicht",insert:"Einf\xfcgen",cancel:"Abbrechen",alt_text:"Bildbeschreibung"});

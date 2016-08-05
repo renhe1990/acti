@@ -1,0 +1,19 @@
+== simple_form_for [:admin, @project, @cell] do |f|
+  = f.input :icon, as: :image_preview
+  = f.input :title
+  = f.input :active
+  - if @cell.editable
+    = f.input :content, input_html: { class: 'tinymce', rows: 15 }
+
+  = f.submit '更换模块', class: 'btn btn-primary', 'data-loading-text' => '正在提交...', autocomplete: 'off'
+
+- title '编辑模块'
+- breadcrumb :edit_admin_cell, @project, @cell
+
+- content_for :javascript do
+  = tinymce theme_advanced_buttons1: 'fontsizeselect,|,bold,italic,underline,|,forecolor,backcolor,|,bullist,numlist,|,outdent,indent,alignleft,aligncenter,alignright,|,uploadimage,|,table,|,code',
+            plugins: 'uploadimage,table',
+            object_resizing: 'img table', nowrap: true,
+            theme_advanced_font_sizes: '12px,14px,16px,18px,20px,22px,24px'
+
+

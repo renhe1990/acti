@@ -1,0 +1,66 @@
+.public_course
+  .row
+    .col-sm-12
+      .pull-right
+        = link_to '添加到新课程', copy_public_course_url(@public_course), method: :post, class: 'btn btn-primary'
+
+  .row
+    .col-sm-12
+      .buttons.pull-right
+      .name= "课程名称: #{@public_course.name}"
+
+  hr
+
+  .row
+    .col-sm-12
+      .title 课程简介:
+      = @public_course.description.html_safe
+
+  hr
+
+  .row
+    .col-sm-12
+      .title 上课时间： #{@public_course.starts_at} - #{@public_course.ends_at}
+
+  hr
+  .row
+    .col-sm-12
+      ul.nav.nav-tabs
+        li.active
+          = link_to "试卷 (#{@public_course.questionnaires.count})", '#questionnaires', 'data-toggle' => 'tab'
+        li
+          = link_to "问卷 (#{@public_course.polls.count})", '#polls', 'data-toggle' => 'tab'
+  .row.tab-content
+    .col-sm-12#questionnaires.tab-pane.active
+      table.table
+        thead
+          tr
+            th 课程名称
+            th 最新修改时间
+            th 操作
+        tbody
+          - @public_course.questionnaires.each do |questionnaire|
+            tr
+              td= questionnaire.name
+              td= I18n.l questionnaire.updated_at
+              td
+                .btn-group.pull-right
+                  = link_to '查看详情', public_course_questionnaire_path(@public_course, questionnaire), class: 'btn btn-info'
+    .col-sm-12#polls.tab-pane
+      table.table
+        thead
+          tr
+            th 课程名称
+            th 最新修改时间
+            th 操作
+        tbody
+          - @public_course.polls.each do |poll|
+            tr
+              td= poll.name
+              td= I18n.l poll.updated_at
+              td
+                .btn-group.pull-right
+                  = link_to '查看详情', public_course_poll_path(@public_course, poll), class: 'btn btn-info'
+
+- title '公共课程详情'
+- breadcrumb :public_course, @public_course

@@ -1,0 +1,159 @@
+= simple_form_for(survey, url: defined?(url) ? url : [@lesson, survey], html: { class: 'survey_form' }) do |f|
+  .row
+    .col-sm-12
+      .pull-right.btn-group
+        = f.submit (survey.new_record? ? '创建' : '更新') + I18n.t('activerecord.models.' + f.object.type.underscore), class: 'btn btn-primary', 'data-loading-text' => '正在提交...', autocomplete: 'off'
+        = link_to '取消编辑', :back, class: 'btn btn-default'
+
+  hr
+
+  = f.input :course_id, as: :hidden
+  = f.input :name
+  = f.input :description, input_html: { rows: 5 }
+
+  - if f.object.will_score?
+    .form-group.boolean.optional
+      = f.input_field :display_score
+      = f.label :display_score, style: 'margin-left: 10px'
+
+  = f.simple_fields_for :questions do |question|
+    = render "surveys/#{question.object.type.underscore}_fields", f: question, survey: survey
+    hr
+
+  .row.add-question
+    .col-xs-8.col-sm-3
+      = select_tag :question_type, options_for_select(question_type_options), class: 'form-control'
+    .col-xs-4.col-sm-3
+      = link_to_add_association '添加一道题目', f, :questions, partial: 'surveys/question_fields', class: 'btn btn-primary add-question-link',
+                                                   'data-association-insertion-node' => '.add-question',
+                                                   'data-association-insertion-traversal' => 'closest',
+                                                   render_options: { locals: { survey: survey } }
+
+  br
+  = f.input :comment, input_html: { class: 'tinymce', rows: 5 }
+
+  .row
+    .col-sm-12
+      .pull-right.btn-group
+        = f.submit (survey.new_record? ? '创建' : '更新') + I18n.t('activerecord.models.' + f.object.class.to_s.underscore), class: 'btn btn-primary', 'data-loading-text' => '正在提交...', autocomplete: 'off'
+        = link_to '取消编辑', :back, class: 'btn btn-default'
+
+- content_for :javascript do
+  = tinymce
+  javascript:
+    function registerAfterInsertActions() {
+      $('.survey_form').on('cocoon:after-insert', function(e, insertedItem) {
+        if($(insertedItem).hasClass('question-fields')) {
+          var question_type = $('#question_type').val();
+          $.each($(insertedItem), function(index, item) {
+            if(!$(item).hasClass(question_type)) {
+              $(item).remove();
+            }
+          });
+
+          var totalQuestions = $('.question-fields:visible').length;
+          $(insertedItem).find('.question-number').html(totalQuestions);
+          $(insertedItem).find(".#{ survey.type.underscore }_questions_position input").val(totalQuestions);
+          $(insertedItem).find('textarea').focus();
+
+          $('.survey_form').sortable('refresh');
+        } else if($(insertedItem).hasClass('option-fields')) {
+          var container = $(insertedItem).closest('.question-body');
+          var totalOptions = $(container).find('.option-fields:visible').length;
+          $(insertedItem).find('.option-number').html(String.fromCharCode(96 + totalOptions).toUpperCase());
+          $(insertedItem).find(".#{ survey.type.underscore }_questions_options_position input").val(totalOptions);
+          $(insertedItem).find('input.form-control').focus();
+
+          $('.options-container').sortable('refresh');
+        }
+
+        registerOptions();
+      });
+    }
+
+    function registerAfterRemoveActions() {
+      $('.survey_form').on('cocoon:after-remove', function(e, item) {
+        if($(item).hasClass('question-fields')) {
+          $('.question-fields:visible').each(function(index, question) {
+            $(question).find('.question-number').html(index + 1);
+            $(question).find(".#{ survey.type.underscore }_questions_position input").val(index + 1);
+          });
+        } else if ($(item).hasClass('option-fields')) {
+          $(e.target).find('.option-fields:visible').each(function(index, option) {
+            $(option).find('.option-number').html(String.fromCharCode(97 + index).toUpperCase());
+            $(option).find(".#{ survey.type.underscore }_questions_options_position input").val(index + 1);
+          });
+        }
+      });
+    }
+
+    function registerOptions() {
+      $(".nested-fields input[type='checkbox'], .nested-fields input[type='radio']").on('click', function(e) {
+        var container = $(e.target).closest('.question-body');
+        var grouped = $(e.target).data('grouped');
+        if(grouped) {
+          if($(e.target).prop("checked")) {
+            $.each(container.find("input[type='checkbox'],input[type='radio']"), function(index, input) {
+              $(input).prop("checked", false);
+            });
+            $(e.target).prop("checked", true);
+          }
+        }
+      });
+    }
+
+    function checkQuestions() {
+      $('.question-fields').each(function(index, question) {
+      });
+    }
+
+    function checkOptions(question) {
+      $(question).find('.options-container');
+    }
+
+    registerAfterInsertActions();
+    registerAfterRemoveActions();
+
+    registerOptions();
+
+    // sort questions
+    $('.survey_form').sortable({
+      itemSelector: '.question-fields',
+      handle: 'span.glyphicon-move',
+      placeholder: "<span class='glyphicon glyphicon-arrow-right'/>",
+      onDrop: function($item, container, _super) {
+        $('.survey_form').find('.question-fields').each(function(index, question) {
+          $(question).find('.question-number').html(index + 1);
+          $(question).find('.questionnaire_questions_position input').val(index + 1);
+          console.log($(question).find('.questionnaire_questions_position input'));
+        });
+        _super($item, container);
+      }
+    });
+
+    // sort options
+    $('.options-container').sortable({
+      itemSelector: '.option-fields',
+      placeholder: "<span class='glyphicon glyphicon-arrow-right'/>",
+      onDrop: function($item, container, _super) {
+        var container = $item.closest('.question-body');
+        container.find('.option-fields:visible').each(function(index, option) {
+          $(option).find('.option-number').html(String.fromCharCode(97 + index).toUpperCase());
+          $(option).find('.questionnaire_questions_options_position input').val(index + 1);
+        });
+        _super($item, container);
+      }
+    });
+
+    $('form').submit(function(e) {
+      var submit = true;
+      checkQuestions();
+
+      if(!submit) {
+        e.preventDefault();
+      }
+    });
+
+    $('input').on('click', function(e) {
+      $(e.target).focus();
+    });

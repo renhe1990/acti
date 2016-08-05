@@ -1,0 +1,65 @@
+h1 公共课程列表
+
+.well.filter
+  .row
+    .col-sm-10
+      span 全部分类
+      span.public_course_filter_tags
+        = genre_filter_tag
+        = survey_count_filter_tag
+        = hour_filter_tag
+    .col-sm-2
+      a data-toggle='collapse' href='#filter-collapse' class='pull-right' 收起
+  .collapse.in#filter-collapse
+    br
+    .row
+      .col-sm-1.col-xs-2 授课类型
+      - Course.genre.values.each do |genre|
+        .col-sm-1.col-xs-2
+          = link_to_public_course_filter genre, :genre, genre
+
+    br
+    .row
+      .col-sm-1.col-xs-2 互动活动
+      .col-sm-1.col-xs-2
+        = link_to_public_course_filter '有', :survey_count, 1
+      .col-sm-1.col-xs-2
+        = link_to_public_course_filter '无', :survey_count, 0
+    br
+    .row
+      .col-sm-1.col-xs-2 建议课时
+      - Course.hour.values.each do |hour|
+        .col-sm-1.col-xs-2
+          = link_to_public_course_filter hour, :hour, hour
+
+.row
+  .col-sm-12
+    table.table.table-bordered.table-condensed.table-striped
+      thead
+        tr
+          th 课程名称
+          th 课程类型
+          th 建议课时
+          th 操作
+
+      tbody
+        - @public_courses.each do |public_course|
+          tr
+            td = public_course.name
+            td = public_course.genre
+            td = public_course.hour
+            td
+              .btn-group.pull-right
+                = link_to '查看详情', public_course_url(public_course), class: 'btn btn-info'
+                = link_to '添加到新课程', copy_public_course_url(public_course), method: :post, class: 'btn btn-primary', 'data-loading-text' => '正在添加...'
+.row
+  .col-sm-12
+    = paginate @public_courses
+
+    - if @public_courses.count == 0
+      .alert.alert-success
+        button type='button' class='close' data-dismiss='alert' &times;
+        '您当前还没有创建课程，请在“首页”或“发起课程”页面发起您的新课程。
+
+- title '公共课程列表'
+- breadcrumb :public_courses

@@ -1,0 +1,45 @@
+.row
+  .flexslider
+    ul.slides
+      = render partial: 'banner', collection: @banners
+
+.welcome style="background: url(#{@project.wechat_background.url}) no-repeat center center fixed;"
+  .row
+    - if @cells[0]
+      .col-xs-6.left
+        .cell.large.blur= link_to_cell @cells[0]
+    .col-xs-6
+      .row
+        - if @cells[1]
+          .col-xs-6.left.right
+            .cell.small= link_to_cell @cells[1]
+        - if @cells[2]
+          .col-xs-6.right
+            .cell.small= link_to_cell @cells[2]
+      .row
+        - if @cells[3]
+          .col-xs-6.left.right
+            .cell.small= link_to_cell @cells[3]
+        - if @cells[4]
+          .col-xs-6.right
+            .cell.small= link_to_cell @cells[4]
+    - if @cells[5]
+      .col-xs-6.left
+        .cell.large= link_to_cell @cells[5]
+    - if @cells[6]
+      .col-xs-6.right
+        .cell.large= link_to_cell @cells[6]
+    - if @cells[7]
+      .col-xs-6.left
+        .cell.large= link_to_cell @cells[7]
+    - if @cells[8]
+      .col-xs-6.right
+        .cell.large= link_to_cell @cells[8]
+
+  .row
+    .col-xs-12.copyright
+      .text-center © 2014安利 (中国) 培训中心
+
+- title '首页'
+- content_for :stylesheet do
+  = stylesheet_link_tag "weixin/#{@project.template}", media: 'all'

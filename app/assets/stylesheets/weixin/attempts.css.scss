@@ -1,0 +1,92 @@
+.question-container {
+  border: solid 2px #e0e0e0;
+  margin-top: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.option-body {
+  margin-left: 10px;
+  width: 80%;
+}
+
+.option-body .option-title {
+  padding-top: 2px;
+  line-height: 22px;
+}
+
+.question-container hr.low {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.question-container label, .option-body label {
+  font-weight: normal;
+}
+
+.new_survey_attempt input[type='submit'], form.attempt input[type='submit'] {
+  margin-top: 15px;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.question-body .rating-question {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.rating-question .slider.slider-horizontal {
+  margin-top: 20px;
+  width: 100%;
+}
+
+.rating-question .slider .tooltip-inner {
+  color: #e0e0e0;
+  background-color: transparent;
+  font-size: 20px;
+}
+
+.rating-question .slider .tooltip-arrow {
+  border-top-color: transparent;
+}
+
+.slider-handle.round {
+  background-color: #ff0000;
+  background-image: -webkit-linear-gradient(top, #ff0000 0%, #ff0000 100%);
+  background-image: linear-gradient(to bottom, #ff0000 0%, #ff0000 100%)
+}
+
+.rating-question span.rating-label {
+  height: 20px;
+  width: 25%;
+  float: left;
+  margin-left: -5px;
+}
+
+.rating-question span.rating-label.third  {
+  margin-left: 2px;
+}
+
+.rating-question span.rating-label.fourth {
+  margin-left: -1px;
+}
+
+.rating-question span.rating-label.last {
+  text-align: right;
+  float: right;
+  margin-top: -20px;
+  margin-right: -12px;
+}
+
+.well.question {
+  padding: 10px;
+}
+
+input[type='submit'].btn-primary.btn-block, button.btn-primary.btn-block, a.btn-primary.btn-block {
+  background-color: #ed174b;
+  border-color: #ed174b;
+  height: 40px;
+  color: #ffffff;
+  font-size: 18px;
+}

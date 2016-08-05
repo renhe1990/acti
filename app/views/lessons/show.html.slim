@@ -1,0 +1,67 @@
+.row
+  .col-sm-8
+    .page-title= @lesson.name
+  .col-sm-4
+    .btn-group.pull-right
+      = link_to '编辑', [:edit, @lesson], class: 'btn btn-default'
+      = link_to '删除', @lesson, class: 'btn btn-danger', method: :delete, data: { confirm: '你确认要删除该课程吗?' }
+
+br
+
+.row
+  .col-sm-12
+    label 授课时间
+    - if @lesson.starts_at.present? && @lesson.ends_at.present?
+      p= "#{I18n.l(@lesson.starts_at)} ~ #{I18n.l(@lesson.ends_at)}"
+
+  .col-sm-12
+    label 简介
+    p= @lesson.description
+
+hr
+
+.row
+  .col-sm-6
+    ul.nav.nav-tabs
+      li.active
+        = link_to "试卷 (#{@lesson.course.questionnaires.count})", '#questionnaires', 'data-toggle' => 'tab'
+      li
+        = link_to "问卷 (#{@lesson.course.polls.count})", '#polls', 'data-toggle' => 'tab'
+  .col-sm-3
+    = link_to '创建新试卷', [:new, @lesson, :questionnaire], class: 'btn btn-block btn-primary'
+  .col-sm-3
+    = link_to '创建新问卷', [:new, @lesson, :poll], class: 'btn btn-block btn-primary'
+
+.row.tab-content
+  .col-sm-12#questionnaires.tab-pane.active
+    table.table
+      thead
+        tr
+          th 课程名称
+          th 最新修改时间
+          th 操作
+      tbody
+        - @lesson.course.questionnaires.each do |questionnaire|
+          tr
+            td= questionnaire.name
+            td= I18n.l questionnaire.updated_at
+            td
+              = link_to '查看详情', [@lesson, questionnaire]
+              = link_to '删除', [@lesson, questionnaire], method: :delete, data: { confirm: '你确认要删除该试卷吗?' }
+  .col-sm-12#polls.tab-pane
+    table.table
+      thead
+        tr
+          th 课程名称
+          th 最新修改时间
+          th 操作
+      tbody
+        - @lesson.course.polls.each do |poll|
+          tr
+            td= poll.name
+            td= I18n.l poll.updated_at
+            td
+              = link_to '查看详情', [@lesson, poll]
+              = link_to '删除', [@lesson, poll], method: :delete, data: { confirm: '你确认要删除该问卷吗?' }
+
+- title '课程详情'

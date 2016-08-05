@@ -1,0 +1,134 @@
+// for ldpi Android
+@media only screen and (-webkit-device-pixel-ratio:.75) {
+  // welcome page
+  .welcome .center-block {
+    font-size: 14px;
+  }
+  .copyright-block {
+    font-size: 13px;
+  }
+
+  // features page
+  .feature-video .feature-title {
+    font-size: 15px;
+  }
+  .feature a {
+    font-size: 17px;
+  }
+  .feature-video .feature-title {
+    font-size: 14px;
+  }
+
+  // pages page
+  .calendars .note {
+    font-size: 15px;
+  }
+  .calendar .pull-right {
+    font-size: 13px;
+  }
+  .calendar .date {
+    font-size: 11px;
+  }
+  .calendar .item .name {
+    font-size: 15px;
+  }
+  .calendar .title {
+    font-size: 17px;
+  }
+  .calendar .detail-link {
+    font-size: 15px;
+  }
+}
+
+// for mdpi Android
+@media only screen and (-webkit-device-pixel-ratio: 1) {
+  // welcome page
+  .welcome .center-block {
+    font-size: 14px;
+  }
+  .copyright-block {
+    font-size: 13px;
+  }
+
+  // features page
+  .feature-video .feature-title {
+    font-size: 15px;
+  }
+  .feature a {
+    font-size: 17px;
+  }
+  .feature-video .feature-title {
+    font-size: 14px;
+  }
+
+  // pages page
+  .calendars .note {
+    font-size: 15px;
+  }
+  .calendar .pull-right {
+    font-size: 13px;
+  }
+  .calendar .date {
+    font-size: 11px;
+  }
+  .calendar .item .name {
+    font-size: 15px;
+  }
+  .calendar .title {
+    font-size: 17px;
+  }
+  .calendar .detail-link {
+    font-size: 15px;
+  }
+}
+
+// for hdpi Android
+@media only screen and (-webkit-device-pixel-ratio:1.5) {
+  // welcome page
+  .welcome .center-block {
+    font-size: 14px;
+  }
+  .copyright-block {
+    font-size: 13px;
+  }
+
+  // features page
+  .feature-video .feature-title {
+    font-size: 15px;
+  }
+  .feature a {
+    font-size: 17px;
+  }
+  .feature-video .feature-title {
+    font-size: 14px;
+  }
+
+  // pages page
+  .calendars .note {
+    font-size: 15px;
+  }
+  .calendar .pull-right {
+    font-size: 13px;
+  }
+  .calendar .date {
+    font-size: 11px;
+  }
+  .calendar .item .name {
+    font-size: 15px;
+  }
+  .calendar .title {
+    font-size: 17px;
+  }
+  .calendar .detail-link {
+    font-size: 15px;
+  }
+}
+
+@media only screen and (-webkit-device-pixel-ratio:2) {
+  .welcome .center-block {
+    font-size: 15px;
+  }
+  .welcome .home-block {
+    font-size: 22px;
+  }
+}

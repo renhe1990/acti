@@ -1,0 +1,32 @@
+h1= @questionnaire.name
+
+.row
+  .col-xs-12
+    .btn-group.pull-right
+      - unless @course.public
+        = link_to '导出', course_questionnaire_url(format: :xls), class: 'btn btn-info'
+        = link_to '编辑', [:edit, @course, @questionnaire], class: 'btn btn-default'
+        = link_to '删除', [@course, @questionnaire], class: 'btn btn-danger', method: :delete, data: { confirm: '你确定要删除此试卷吗?' }
+
+.row
+  .col-xs-12 简介
+  .col-xs-12= @questionnaire.description.html_safe
+
+hr
+- unless @course.public
+  .row
+    .col-xs-12 试卷提交份数: #{@questionnaire.attempts.count}
+
+
+- @questionnaire.questions.each_with_index do |question, index|
+  .well.question
+    = render partial: "weixin/questionnaires/#{question.type.underscore}", locals: { survey: @questionnaire, question: question, index: index }
+
+- unless @course.public
+  .row
+    .col-sm-12 试卷二维码
+    .col-sm-12
+      = qrcode_tag new_weixin_questionnaire_attempt_url(@questionnaire)
+
+- title '试卷详情'
+- breadcrumb :show_questionnaire, @course, @questionnaire

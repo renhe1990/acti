@@ -1,0 +1,42 @@
+.feature-container
+  - if @feature.video.present?
+    .row
+      .col-sm-12.col-xs-12
+        .feature-video
+          video src="#{@feature.video.url}" controls="controls" preload="none" poster="#{@feature.video_screenshot.url(:weixin)}" 您的浏览器不支持 video 标签
+          .feature-title= @feature.title
+
+  .feature-photos
+    - if @feature.columns == 1
+      - @feature.photos.each do |photo|
+        .row.feature-row
+          .col-sm-12.col-xs-12
+            == link_to photo.image.url do
+              == image_tag photo.image.url(:weixin), alt: nil
+    - elsif @feature.columns == 2
+      .row
+        .col-sm-6.col-xs-6.col-first
+          - @feature.photos.select{|photo| photo.column == 1}.each_with_index do |photo, index|
+            .row.feature-row
+              .col-sm-12.col-xs-12
+                == link_to photo.image.url, 'data-position' => "#{index*2}" do
+                  == image_tag photo.image.url(:weixin), alt: nil
+        .col-sm-6.col-xs-6.col-second
+          - @feature.photos.select{|photo| photo.column == 2}.each_with_index do |photo, index|
+            .row.feature-row
+              .col-sm-12.col-xs-12
+                == link_to photo.image.url, 'data-position' => "#{index*2 + 1}" do
+                  == image_tag photo.image.url(:weixin), alt: nil
+
+
+- title @feature.title
+
+- content_for :javascript do
+  javascript:
+    $(function() {
+      $(".feature-photos a").sort(function(a, b) {
+        return $(a).data('position') - $(b).data('position');
+      }).photoSwipe({
+        captionAndToolbarHide: true
+      });
+    });

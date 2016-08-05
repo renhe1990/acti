@@ -1,0 +1,18 @@
+.row
+  .col-sm-4
+    .page-title 课程安排
+  .col-sm-3.col-sm-offset-5
+    = link_to '发起新课程', [:new, :course], class: 'btn btn-primary btn-block'
+br
+
+.row
+  .col-sm-12.calendar
+    = month_calendar events: @courses, title: calendar_title,
+                     table: { class: 'table table-bordered' }, header: { class: "calendar-header text-center" },
+                     next_link: calendar_next_link, previous_link: calendar_previous_link  do |date, courses|
+        - if date.month == @start_date.month
+          = date.day
+          - courses.each do |course|
+            div= link_to course.name, course
+
+- title '首页'

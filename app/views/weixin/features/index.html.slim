@@ -1,0 +1,12 @@
+.features
+  - @features.each do |feature|
+    .row
+      .col-sm-12.col-xs-12
+        .feature
+          == link_to [:weixin, @project, feature] do
+            .feature-cover
+              == image_tag feature.cover.url(:weixin)
+            .feature-title
+              = feature.title
+
+- title @title || '精彩花絮'

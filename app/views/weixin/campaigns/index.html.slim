@@ -1,0 +1,33 @@
+.container.calendars
+  - @campaigns.each do |campaign|
+    .container.calendar
+      .row
+        .col-sm-12.col-xs-12
+          .title-block
+            .text-center
+              .title= campaign.name
+            .pull-right.calendar-location= campaign.location
+
+      hr
+
+      .row
+        .col-sm-12.col-xs-12
+          .text-center
+            .date= "#{l(campaign.starts_at.to_date, format: :long)} - #{l(campaign.ends_at.to_date, format: :short)}"
+          - campaign.courses.order("starts_at ASC").select(&:days).each do |course|
+            .row
+              .col-sm-12.col-xs-12.item
+                span.name= "《#{course.name}》"
+                span.pull-right=  "#{course.days}天"
+
+      hr
+      .row
+        .col-sm-12.col-xs-12
+          .text-center.detail-link-block
+            == link_to '查看详情', [:weixin, @project, campaign], class: 'detail-link'
+
+  .container.note
+    .row
+      .col-sm-12.col-xs-12 备注: 第一天为报到时间，最后一天为返程时间，最终的课程安排以开学前公布的课表为准。
+
+- title @title || '日程安排'

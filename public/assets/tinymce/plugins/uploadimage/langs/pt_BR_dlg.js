@@ -1,0 +1,1 @@
+tinyMCE.addI18n("pt_BR.uploadimage_dlg",{title:"Inserir imagem",header:"Inserir imagem",input:"Escolher uma imagem",uploading:"Enviando...",blank_input:"\xc9 necess\xe1rio selecionar um diret\xf3rio",bad_response:"Resposta inesperada do servidor",blank_response:"Servidor n\xe3o est\xe1 respondendo",insert:"Inserir",cancel:"Cancelar",alt_text:"Image description"});

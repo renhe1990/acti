@@ -1,0 +1,48 @@
+h1= @debate_draw.title
+
+.row
+  .col-xs-12
+    .btn-group.pull-right
+      = link_to '导出', admin_course_debate_draw_url(@course, @debate_draw, format: :xls), class: 'btn btn-info'
+      = link_to '编辑', [:edit, :admin, @course, @debate_draw], class: 'btn btn-primary'
+      = link_to '删除', [:admin, @course, @debate_draw], method: :delete, class: 'btn btn-danger', data: { confirm: '确定要删除吗?' }
+hr
+
+
+.row
+  .col-sm-12.col-xs-12
+    p 标题
+    p= @debate_draw.title
+
+.row
+  .col-sm-12.col-xs-12
+    p 描述
+    p= @debate_draw.description
+
+hr
+
+- @debate_draw.draw_items.each do |debate_draw_item|
+  .row
+    .col-sm-12.col-xs-12
+      p 标题
+      p= debate_draw_item.title
+  .row
+    .col-sm-12.col-xs-12
+      p 观点
+      p= debate_draw_item.description
+  .row
+    .col-sm-12.col-xs-12
+      p 学员
+      - debate_draw_item.draw_results.each do |draw_result|
+        p= draw_result.user.name
+
+  hr
+
+hr
+
+.row
+  .col-sm-12
+    = qrcode_tag new_weixin_debate_draw_debate_draw_result_url(@debate_draw)
+
+- title '辩论抽签详情'
+- breadcrumb :admin_debate_draw, @course, @debate_draw
