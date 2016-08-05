@@ -34,6 +34,7 @@ class Poll < Survey::Survey
   end
 
   def create_worksheets(book)
+    puts 'xls导出前时间：' << Time.at(Time.new.to_i).to_s
     sheet = book.create_worksheet
 
     sheet.row(0).push self.name
@@ -43,14 +44,41 @@ class Poll < Survey::Survey
     questions.each do |question|
       sheet.row(3).push question.title
     end
-
-    attempts.each_with_index do |attempt, index|
-      sheet.row(4 + index).push attempt.participant.try(:name)
-      questions.each do |question|
-        sheet.row(4 + index).push survey_answers_in_xls question.answers.where(attempt: attempt)
+#    attempts.each_with_index do |attempt, index|
+#      sheet.row(4 + index).push attempt.participant.try(:name)
+#      questions.each do |question|
+#        sheet.row(4 + index).push survey_answers_in_xls question.answers.where(attempt: attempt)
+#      end
+#    end
+    sql = "SELECT CONCAT_WS('#%',IFNULL(u. NAME,''),(SELECT GROUP_CONCAT(CONCAT(IFNULL((SELECT o.text FROM survey_options o WHERE o.id = ans.option_id),''),IFNULL(ans.text,''),IFNULL(ans.rating,'')) ORDER BY ans.question_id SEPARATOR '#%') FROM survey_answers ans WHERE ans.attempt_id = a.id)) FROM survey_attempts a LEFT JOIN users u ON a.participant_id = u.id WHERE a.survey_id = #{self.id}"
+    results = ActiveRecord::Base.connection().execute(sql)
+    results.each_with_index do |result,index|
+      result[0].split('#%').each do |celldata|
+        sheet.row(4 + index).push celldata
       end
     end
+    puts 'xls导出后时间：' << Time.at(Time.new.to_i).to_s
   end
+
+#  def to_csv
+#    output = CSV.generate do |csv|
+#      csv << Array.new(1){self.name}
+#      csv << Array.new(1){self.description}
+#      csv << Array.new
+#      titles = Array.new
+#      titles << '学员'
+#      questions.each do |question|
+#        titles << question.title
+#      end
+#      csv << titles
+#      sql = "SELECT CONCAT_WS('#%',IFNULL(u. NAME,''),(SELECT GROUP_CONCAT(CONCAT(IFNULL((SELECT o.text FROM survey_options o WHERE o.id = ans.option_id),''),IFNULL(ans.text,''),IFNULL(ans.rating,'')) ORDER BY ans.question_id SEPARATOR '#%') FROM survey_answers ans WHERE ans.attempt_id = a.id)) FROM survey_attempts a LEFT JOIN users u ON a.participant_id = u.id WHERE a.survey_id = #{self.id}"
+#      results = ActiveRecord::Base.connection().execute(sql)
+#      results.each do |result|
+#        csv << result[0].split('#%')
+#      end
+#    end
+#    "\xEF\xBB\xBF" << output.force_encoding("UTF-8")
+#  end
 
   def survey_answers_in_xls(answers)
     return '/' if answers.blank?
