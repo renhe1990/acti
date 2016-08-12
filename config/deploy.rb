@@ -1,9 +1,9 @@
 set :application, 'acti'
-set :repo_url, 'git@bitbucket.org:xinminlabs/acti.git'
+set :repo_url, 'git@github.com:renhe1990/acti.git'
 set :branch, 'develop'
-set :deploy_to, '/home/amwaysite4/rails_apps/acti'
+set :deploy_to, '/home/acti/rails_app'
 set :scm, :git
-set :keep_releases, 10
+set :keep_releases, 5
 
 # Default value for :pty is false
 # set :pty, true
@@ -31,7 +31,7 @@ set :local_assets_dir, 'public'
 set :puma_init_active_record, true
 
 # if you want to work on a specific local environment (default = ENV['RAILS_ENV'] || 'development')
-# set :locals_rails_env, "production"
+set :locals_rails_env, "production"
 
 namespace :deploy do
 
