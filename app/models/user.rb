@@ -143,7 +143,6 @@ class User < ActiveRecord::Base
   end
 
   def self.import(file, options = {})
-    puts 'xls导入前时间：' << Time.at(Time.new.to_i).to_s
     return [] unless file
 
     users = []
@@ -177,7 +176,6 @@ class User < ActiveRecord::Base
         end
       end.compact
     end
-    puts 'xls导入后时间：' << Time.at(Time.new.to_i).to_s
     return users
   end
 

@@ -34,7 +34,6 @@ class Poll < Survey::Survey
   end
 
   def create_worksheets(book)
-    puts 'xls导出前时间：' << Time.at(Time.new.to_i).to_s
     sheet = book.create_worksheet
 
     sheet.row(0).push self.name
@@ -57,7 +56,6 @@ class Poll < Survey::Survey
         sheet.row(4 + index).push celldata
       end
     end
-    puts 'xls导出后时间：' << Time.at(Time.new.to_i).to_s
   end
 
 #  def to_csv
