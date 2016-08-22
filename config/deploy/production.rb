@@ -1,5 +1,5 @@
-server 'minisite4.chinacloudapp.cn', user: 'amwaysite4', roles: %w{web app db},
-  ssh_options: { user: 'amwaysite4', auth_methods: %w(password), password: 'Bri@amway4' }
+server '10.32.50.239', user: 'acti', roles: %w{web app db},
+  ssh_options: { user: 'acti', auth_methods: %w(password), password: '1qaz#EDC' }
 
 # Custom SSH Options
 # ==================

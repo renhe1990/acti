@@ -52,10 +52,17 @@ class Questionnaire < Survey::Survey
       sheet.row(3).push question.title
     end
 
-    attempts.each_with_index do |attempt, index|
-      sheet.row(4 + index).push attempt.participant.try(:name)
-      questions.each do |question|
-        sheet.row(4 + index).push survey_answers_in_xls question.answers.where(attempt: attempt)
+#    attempts.each_with_index do |attempt, index|
+#      sheet.row(4 + index).push attempt.participant.try(:name)
+#      questions.each do |question|
+#        sheet.row(4 + index).push survey_answers_in_xls question.answers.where(attempt: attempt)
+#      end
+#    end
+    sql = "SELECT CONCAT_WS('#%',IFNULL(u. NAME,''),(SELECT GROUP_CONCAT(CONCAT(IFNULL((SELECT o.text FROM survey_options o WHERE o.id = ans.option_id),''),IFNULL(ans.text,''),IFNULL(ans.rating,'')) ORDER BY ans.question_id SEPARATOR '#%') FROM survey_answers ans WHERE ans.attempt_id = a.id)) FROM survey_attempts a LEFT JOIN users u ON a.participant_id = u.id WHERE a.survey_id = #{self.id}"
+    results = ActiveRecord::Base.connection().execute(sql)
+    results.each_with_index do |result,index|
+      result[0].split('#%').each do |celldata|
+        sheet.row(4 + index).push celldata
       end
     end
   end

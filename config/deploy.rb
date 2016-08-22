@@ -1,6 +1,6 @@
 set :application, 'acti'
 set :repo_url, 'git@github.com:renhe1990/acti.git'
-set :branch, 'develop'
+set :branch, 'master'
 set :deploy_to, '/home/amwaysite4/rails_apps/acti'
 set :scm, :git
 set :keep_releases, 10

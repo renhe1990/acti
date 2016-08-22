@@ -154,7 +154,7 @@ class User < ActiveRecord::Base
     end
 
     transaction do
-      3.upto(spreadsheet.last_row).map do |i|
+      users = 3.upto(spreadsheet.last_row).map do |i|
         row = spreadsheet.row(i)
         role_name = row[9].gsub(/\s+/,'').eql?('评委') ? '地方讲师' : row[9]
         if role && role.name != role_name
@@ -176,13 +176,14 @@ class User < ActiveRecord::Base
         end
       end.compact
     end
+    return users
   end
 
   def self.open_spreadsheet(file)
     case File.extname(file.original_filename)
     when ".csv" then Roo::CSV.new(file.path, nil, :ignore)
     when ".xls" then Roo::Excel.new(file.path, nil, :ignore)
-    when ".xlsx" then Roo::Excelx.new(file.path, nil, :ignore)
+    when ".xlsx" then Roo::Spreadsheet.open(file.path, extension: :xlsx)
     else raise "Unknown file type: #{file.original_filename}"
     end
   end

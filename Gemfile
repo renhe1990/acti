@@ -1,4 +1,4 @@
-source 'https://ruby.taobao.org'
+source 'http://gems.ruby-china.org/'
 
 ruby '2.1.5'
 
@@ -6,11 +6,11 @@ ruby '2.1.5'
 gem 'rails', '~> 4.1.4'
 
 # Use MySQL as the database for Active Record
-gem 'mysql2'
+gem 'mysql2','0.3.21'
 
 gem 'jquery-rails', '~> 3.1.0'
 
-gem 'simple_form', '~> 3.1.0.rc1', github: 'plataformatec/simple_form'
+gem 'simple_form', github: 'plataformatec/simple_form'
 
 gem 'turbolinks'
 
@@ -57,7 +57,8 @@ gem 'china_region_fu'
 
 gem 'validates_email_format_of'
 
-gem "wechat-rails", git:"https://github.com/skinnyworm/wechat-rails"
+#gem "wechat-rails", git:"https://github.com/skinnyworm/wechat-rails"
+gem 'wechat',git:'https://github.com/Eric-Guo/wechat'
 
 gem 'actionpack-xml_parser'
 
@@ -129,3 +130,6 @@ gem "omniauth-wechat-oauth2"
 
 gem 'rb-readline'
 gem 'redis-session-store'
+
+#Export CVS
+#gem 'fastercsv'
