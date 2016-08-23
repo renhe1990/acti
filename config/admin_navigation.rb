@@ -64,7 +64,7 @@ SimpleNavigation::Configuration.run do |navigation|
     primary.item :banners, 'Banner管理', [:admin, :banners], highlights_on: %r(/admin/banners)
     primary.item :features, '花絮管理', [:admin, :features], highlights_on: %r(/admin/features)
     primary.item :menus, '微信菜单管理', [:admin, :menus], highlights_on: %r(/admin/menus)
-    primary.item :event_reply , '被添加自动回复', [:admin, :event_reply], highlights_on: %r(/admin/event_reply)
+#    primary.item :event_reply , '被添加自动回复', [:admin, :event_reply], highlights_on: %r(/admin/event_reply)
 
     # works for all levels of the menu
     primary.dom_attributes = { class: 'nav navbar-nav'}
