@@ -1,10 +1,9 @@
-h3 回复内容：
 = simple_form_for(@admin_reply.present? ? @admin_reply : Admin::Reply.new) do |f|
   = f.error_notification
 
   .form-inputs
-    = f.input :category,value: 'event',type: 'hidden'
-    = f.input :data
+    = f.input :category, as: :hidden,input_html:{value:'event'}
+    = f.input :data, label:'回复内容：'
 
   .form-actions
     = f.button :submit,'更新'

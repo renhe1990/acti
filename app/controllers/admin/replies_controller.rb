@@ -30,7 +30,9 @@ class Admin::RepliesController < Admin::BaseController
     @admin_reply = Admin::Reply.new(admin_reply_params)
 
     if @admin_reply.save
-      redirect_to @admin_reply, notice: 'Reply was successfully created.'
+      if @admin_reply.category == 'event'
+        redirect_to event_admin_replies_path, notice: '更新成功'
+      end
     else
       render :new
     end
@@ -41,7 +43,9 @@ class Admin::RepliesController < Admin::BaseController
     if @admin_reply.update(admin_reply_params)
       #redirect_to @admin_reply, notice: 'Reply was successfully updated.'
       #render :event ,notice: '更新成功'
-      redirect_to event_admin_replies_path, notice: '更新成功'
+      if @admin_reply.category == 'event'
+        redirect_to event_admin_replies_path, notice: '更新成功'
+      end
     else
       render :edit
     end
