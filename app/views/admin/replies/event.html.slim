@@ -3,7 +3,7 @@
 
   .form-inputs
     = f.input :category, as: :hidden,input_html:{value:'event'}
-    = f.input :data, label:'回复内容：'
+    = f.input :data, label:'回复内容：', input_html:{class:'tinymce',rows:15}
 
   .form-actions
     = f.button :submit,'更新'
