@@ -1,0 +1,12 @@
+h3 回复内容：
+- if @admin_reply.present?
+ = simple_form_for(@admin_reply) do |f|
+   = f.error_notification
+
+   .form-inputs
+     = f.input :data
+
+   .form-actions
+     = f.button :submit,'更新'
+- title '被添加自动回复'
+- breadcrumb :admin_event_reply

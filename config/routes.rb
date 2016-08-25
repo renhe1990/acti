@@ -174,6 +174,10 @@ Rails.application.routes.draw do
       resources :polls, concerns: [:sortable]
       resources :questionnaires, concerns: [:sortable]
     end
+
+    resources :replies do
+      get 'event' => 'replies#event', :on => :collection
+    end
   end
 
   get '/auth/:provider/callback' => 'sessions#create'

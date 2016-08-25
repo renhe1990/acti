@@ -1,0 +1,9 @@
+= simple_form_for(@admin_reply) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :category
+    = f.input :data
+
+  .form-actions
+    = f.button :submit

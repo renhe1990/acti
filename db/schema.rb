@@ -11,7 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141224065550) do
+ActiveRecord::Schema.define(version: 20160825021223) do
+
+  create_table "admin_replies", force: true do |t|
+    t.string   "category"
+    t.text     "data"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "areas", force: true do |t|
     t.string   "name"
@@ -50,6 +57,63 @@ ActiveRecord::Schema.define(version: 20141224065550) do
   end
 
   add_index "attachments", ["attachable_id", "attachable_type"], name: "index_attachments_on_attachable_id_and_attachable_type", using: :btree
+
+  create_table "auth_group", force: true do |t|
+    t.string "name", limit: 80, null: false
+  end
+
+  add_index "auth_group", ["name"], name: "name", unique: true, using: :btree
+
+  create_table "auth_group_permissions", force: true do |t|
+    t.integer "group_id",      null: false
+    t.integer "permission_id", null: false
+  end
+
+  add_index "auth_group_permissions", ["group_id", "permission_id"], name: "group_id", unique: true, using: :btree
+  add_index "auth_group_permissions", ["group_id"], name: "auth_group_permissions_0e939a4f", using: :btree
+  add_index "auth_group_permissions", ["permission_id"], name: "auth_group_permissions_8373b171", using: :btree
+
+  create_table "auth_permission", force: true do |t|
+    t.string  "name",            limit: 50,  null: false
+    t.integer "content_type_id",             null: false
+    t.string  "codename",        limit: 100, null: false
+  end
+
+  add_index "auth_permission", ["content_type_id", "codename"], name: "content_type_id", unique: true, using: :btree
+  add_index "auth_permission", ["content_type_id"], name: "auth_permission_417f1b1c", using: :btree
+
+  create_table "auth_user", force: true do |t|
+    t.string   "password",     limit: 128, null: false
+    t.datetime "last_login",               null: false
+    t.boolean  "is_superuser",             null: false
+    t.string   "username",     limit: 30,  null: false
+    t.string   "first_name",   limit: 30,  null: false
+    t.string   "last_name",    limit: 30,  null: false
+    t.string   "email",        limit: 75,  null: false
+    t.boolean  "is_staff",                 null: false
+    t.boolean  "is_active",                null: false
+    t.datetime "date_joined",              null: false
+  end
+
+  add_index "auth_user", ["username"], name: "username", unique: true, using: :btree
+
+  create_table "auth_user_groups", force: true do |t|
+    t.integer "user_id",  null: false
+    t.integer "group_id", null: false
+  end
+
+  add_index "auth_user_groups", ["group_id"], name: "auth_user_groups_0e939a4f", using: :btree
+  add_index "auth_user_groups", ["user_id", "group_id"], name: "user_id", unique: true, using: :btree
+  add_index "auth_user_groups", ["user_id"], name: "auth_user_groups_e8701ad4", using: :btree
+
+  create_table "auth_user_user_permissions", force: true do |t|
+    t.integer "user_id",       null: false
+    t.integer "permission_id", null: false
+  end
+
+  add_index "auth_user_user_permissions", ["permission_id"], name: "auth_user_user_permissions_8373b171", using: :btree
+  add_index "auth_user_user_permissions", ["user_id", "permission_id"], name: "user_id", unique: true, using: :btree
+  add_index "auth_user_user_permissions", ["user_id"], name: "auth_user_user_permissions_e8701ad4", using: :btree
 
   create_table "banners", force: true do |t|
     t.string   "image"
@@ -130,6 +194,54 @@ ActiveRecord::Schema.define(version: 20141224065550) do
   add_index "courses", ["schedule_id"], name: "index_courses_on_schedule_id", using: :btree
   add_index "courses", ["user_id"], name: "index_courses_on_user_id", using: :btree
 
+  create_table "districts", force: true do |t|
+    t.string   "name"
+    t.integer  "city_id"
+    t.string   "pinyin"
+    t.string   "pinyin_abbr"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "districts", ["city_id"], name: "index_districts_on_city_id", using: :btree
+  add_index "districts", ["name"], name: "index_districts_on_name", using: :btree
+  add_index "districts", ["pinyin"], name: "index_districts_on_pinyin", using: :btree
+  add_index "districts", ["pinyin_abbr"], name: "index_districts_on_pinyin_abbr", using: :btree
+
+  create_table "django_admin_log", force: true do |t|
+    t.datetime "action_time",                        null: false
+    t.text     "object_id",       limit: 2147483647
+    t.string   "object_repr",     limit: 200,        null: false
+    t.integer  "action_flag",     limit: 2,          null: false
+    t.text     "change_message",  limit: 2147483647, null: false
+    t.integer  "content_type_id"
+    t.integer  "user_id",                            null: false
+  end
+
+  add_index "django_admin_log", ["content_type_id"], name: "django_admin_log_417f1b1c", using: :btree
+  add_index "django_admin_log", ["user_id"], name: "django_admin_log_e8701ad4", using: :btree
+
+  create_table "django_content_type", force: true do |t|
+    t.string "name",      limit: 100, null: false
+    t.string "app_label", limit: 100, null: false
+    t.string "model",     limit: 100, null: false
+  end
+
+  add_index "django_content_type", ["app_label", "model"], name: "django_content_type_app_label_45f3b1d93ec8c61c_uniq", unique: true, using: :btree
+
+  create_table "django_migrations", force: true do |t|
+    t.string   "app",     null: false
+    t.string   "name",    null: false
+    t.datetime "applied", null: false
+  end
+
+  create_table "django_session", primary_key: "session_key", force: true do |t|
+    t.text     "session_data", limit: 2147483647, null: false
+    t.datetime "expire_date",                     null: false
+  end
+
+  add_index "django_session", ["expire_date"], name: "django_session_de54fa62", using: :btree
+
   create_table "draw_items", force: true do |t|
     t.string   "title"
     t.text     "description"
@@ -159,6 +271,12 @@ ActiveRecord::Schema.define(version: 20141224065550) do
     t.datetime "updated_at"
     t.string   "type"
     t.integer  "position"
+  end
+
+  create_table "event_replies", force: true do |t|
+    t.string   "content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "events", force: true do |t|
@@ -448,6 +566,11 @@ ActiveRecord::Schema.define(version: 20141224065550) do
   end
 
   add_index "tags", ["name"], name: "index_tags_on_name", unique: true, using: :btree
+
+  create_table "test", id: false, force: true do |t|
+    t.string "column1", limit: 50
+    t.string "column2", limit: 50
+  end
 
   create_table "users", force: true do |t|
     t.string   "card_number"
