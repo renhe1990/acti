@@ -529,3 +529,7 @@ end
 crumb :admin_event_reply do
   link '被添加自动回复'
 end
+
+crumb :admin_nomatch_reply do
+  link '消息自动回复'
+end

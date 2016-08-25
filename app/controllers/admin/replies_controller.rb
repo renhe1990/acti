@@ -7,6 +7,10 @@ class Admin::RepliesController < Admin::BaseController
     @admin_reply = Admin::Reply.where(:category => "event").first
   end
 
+  def nomatch
+    @admin_reply = Admin::Reply.where(:category => "nomatch").first
+  end
+
   # GET /admin/replies
   def index
     @admin_replies = Admin::Reply.all
@@ -32,6 +36,8 @@ class Admin::RepliesController < Admin::BaseController
     if @admin_reply.save
       if @admin_reply.category == 'event'
         redirect_to event_admin_replies_path, notice: '更新成功'
+      elsif @admin_reply.category == 'nomatch'
+        redirect_to nomatch_admin_replies_path, notice: '更新成功'
       end
     else
       render :new
@@ -45,6 +51,8 @@ class Admin::RepliesController < Admin::BaseController
       #render :event ,notice: '更新成功'
       if @admin_reply.category == 'event'
         redirect_to event_admin_replies_path, notice: '更新成功'
+      elsif @admin_reply.category == 'nomatch'
+        redirect_to nomatch_admin_replies_path, notice: '更新成功'
       end
     else
       render :edit

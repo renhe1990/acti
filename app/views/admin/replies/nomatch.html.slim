@@ -1,0 +1,11 @@
+= simple_form_for(@admin_reply.present? ? @admin_reply : Admin::Reply.new) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :category, as: :hidden,input_html:{value:'nomatch'}
+    = f.input :data, label:'回复内容：', input_html:{class:'tinymce',rows:15}
+
+  .form-actions
+    = f.button :submit,'更新', class:'btn btn-primary'
+- title '消息自动回复'
+- breadcrumb :admin_nomatch_reply
