@@ -11,6 +11,15 @@ class Admin::RepliesController < Admin::BaseController
     @admin_reply = Admin::Reply.where(:category => "nomatch").first
   end
 
+  def text
+    @admin_reply = Admin::Reply.where(:category => "text").first
+    # if @admin_reply.present?
+    #   @text_data = @admin_reply.data
+    # else
+    #   @text_data = Admin::Reply.new.data
+    # end
+  end
+
   # GET /admin/replies
   def index
     @admin_replies = Admin::Reply.all

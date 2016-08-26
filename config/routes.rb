@@ -178,6 +178,7 @@ Rails.application.routes.draw do
     resources :replies do
       get 'event' => 'replies#event', :on => :collection
       get 'nomatch' => 'replies#nomatch', :on => :collection
+      get 'text' => 'replies#text', :on => :collection
     end
   end
 

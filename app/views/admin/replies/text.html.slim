@@ -1,0 +1,15 @@
+= simple_form_for(@admin_reply.present? ? @admin_reply : Admin::Reply.new) do |f|
+  = f.error_notification
+  = f.input :category, as: :hidden,input_html:{value:'text'}
+  - if @admin_reply.data.present?
+    - @admin_reply.data.each do |item|
+      .form-inputs
+        = f.input :item, label:'回复内容：', input_html:{class:'tinymce',rows:15}
+  - else
+    .form-inputs
+      = f.input :data, label:'回复内容：', input_html:{class:'tinymce',rows:15}
+  .form-actions
+    = f.button :button, '新增文本关键词', class: 'btn btn-info'
+    = f.button :submit, '更新', class:'btn btn-primary'
+- title '文本关键词自动回复'
+- breadcrumb :admin_text_reply
