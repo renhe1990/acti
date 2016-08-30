@@ -12,14 +12,29 @@ class Admin::RepliesController < Admin::BaseController
   end
 
   def text
-    @admin_reply = Admin::Reply.where(:category => "text").first
-    # if @admin_reply.present?
-    #   @text_data = @admin_reply.data
-    # else
-    #   @text_data = Admin::Reply.new.data
-    # end
   end
 
+  def gettext
+    @admin_reply = Admin::Reply.where(:category => "text").first
+    if @admin_reply.present?
+      render :json => @admin_reply.data
+    elsif
+      render :json => Admin::Reply.new.data
+    end
+  end
+  
+  def updatetext
+	admin_reply = Admin::Reply.where(:category => "text").first
+	if admin_reply.blank?
+		admin_reply = Admin::Reply.create(:category => "text",:data => "")
+	end
+	if admin_reply.update(:category => params[:category],:data => params[:data])
+		render :json => { :status => "1", :msg => "更新成功"}
+	elsif
+		render :json => {:status => "0", :msg => "更新失败"}
+	end
+  end
+  
   # GET /admin/replies
   def index
     @admin_replies = Admin::Reply.all
