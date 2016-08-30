@@ -26,7 +26,7 @@ form#replyform
 				var keywordObj = {},replyObj = {};
 				var replykeys = $(this).find("input[name='fullkeyword']").val() + "|" +$(this).find("input[name='fuzzykeyword']").val();
 				keywordObj.keyword = replykeys;
-				replyObj.text = "text";
+				replyObj.type = "text";
 				replyObj.content = $(this).find("textarea[name='reply']").val();
 				if(replyObj.content==""){
 					return true;
