@@ -181,6 +181,9 @@ Rails.application.routes.draw do
       get 'text' => 'replies#text', :on => :collection
       get 'gettext' => 'replies#gettext', :on => :collection
 	  put 'updatetext' => 'replies#updatetext', :on => :collection
+	  get 'graphic_text' => 'replies#graphic_text', :on => :collection
+	  get 'get_graphic_text' => 'replies#get_graphic_text', :on => :collection
+	  put 'update_graphic_text' => 'replies#update_graphic_text', :on => :collection
     end
   end
 
