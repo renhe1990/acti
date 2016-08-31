@@ -15,7 +15,7 @@ class WechatsController < ActionController::Base
   		@l = $redis.keys("*"+"#{content}"+"*")
   		#puts @l.length
   		if  @l.length > 0
-  			#@jsonString = '{"keyword":"新闻","reply":{"type":"news","content":[{"title":"新闻标题1","description":"描述1","pic":"http://image.tianjimedia.com/uploadImages/2012/231/59/W19D0E6GL776.jpg","url":"http://www.baidu.com"},{"title":"新闻标题2","description":"描述2","pic":"http://image.tianjimedia.com/uploadImages/2012/231/59/W19D0E6GL776.jpg","url":"http://www.baidu.com"}]}}'
+  			#@jsonString = '{"keyword":"新闻","reply":{"type":"graphic_text","content":[{"title":"新闻标题1","description":"描述1","pic":"http://image.tianjimedia.com/uploadImages/2012/231/59/W19D0E6GL776.jpg","url":"http://www.baidu.com"},{"title":"新闻标题2","description":"描述2","pic":"http://image.tianjimedia.com/uploadImages/2012/231/59/W19D0E6GL776.jpg","url":"http://www.baidu.com"}]}}'
   			#@jsonString = '{"keyword":"信息","reply":{"type":"text","content":"文本回复，文本测试中，"}}'
   			@keyword = @l.first
   			@jsonString = $redis.get(@keyword)
