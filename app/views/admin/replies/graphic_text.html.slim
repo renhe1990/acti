@@ -1,0 +1,107 @@
+form#replyform
+  div class="form-actions"
+    input#add_button type="button" value="新增图文关键词" class="btn btn-default"
+    input#submit_button type="submit" value="更新" class="btn btn-primary" style="margin-left:15px"
+- title '图文关键词自动回复'
+- breadcrumb :admin_graphictext_reply
+- content_for :javascript do
+  javascript:
+    $(function(){
+    	//show the replies
+    	$.ajax({
+		   url: '/admin/replies/get_graphic_text',
+		   type: 'get',
+		   dataType: 'json',
+		   success: function(replies) {
+		     $(replies).each(function(index,data){
+		     	htmlUtil(data);
+		     });
+		   }
+		});
+		//submit button
+		$("#replyform").submit(function(e){
+			e.preventDefault();
+			var keywordArray = new Array();
+			$("#replyform > div.form-inputs").each(function(){
+				var keywordObj = {},replyObj = {};
+				var replykeys = $(this).find("input[name='fullkeyword']").val() + "|" +$(this).find("input[name='fuzzykeyword']").val();
+				keywordObj.keyword = replykeys;
+				replyObj.type = "graphic_text";
+				//replyObj.content = $(this).find("textarea[name='reply']").val();
+				var reply_text = $(this).find("textarea[name='reply']").val();
+				if(reply_text==""){
+					return true;
+				}
+				try{
+					var reply_textArr = reply_text.split("\n\n");
+					var contentArr = new Array();
+					$(reply_textArr).each(function(){
+						if(this==""){
+							return true;
+						}
+						var textArr = this.split("\n");
+						var content = {};
+						content.title = textArr[0];
+						content.description = textArr[1];
+						content.pic = textArr[2];
+						content.url = textArr[3];
+						contentArr.push(content);
+					});
+					replyObj.content = contentArr;
+				}catch(e){
+				}
+				keywordObj.reply = replyObj;
+				keywordArray.push(keywordObj);
+			});
+			$.ajax({
+			   url: '/admin/replies/update_graphic_text',
+			   type: 'PUT',
+			   dataType: 'json',
+			   data:{
+				  "category":"graphic_text",
+				  "data":JSON.stringify(keywordArray),
+			   },
+			   success: function( res ) {
+				 var tiphtml = '<div class="alert alert-success"><div id="flash_notice">'+res.msg+'</div></div>';
+				 $("#flash_notice").parent().remove();
+				 $("form:first").before(tiphtml);
+			   }
+			});
+		});
+		//add button
+		$("#add_button").click(function(){
+			var div_html = '<div class="form-inputs form-group"><label class="control-label text optional">全匹配关键词</label><br><input class="form-control" name="fullkeyword"><br><label class="control-label text optional">模糊匹配关键词</label><br><input class="form-control" name="fuzzykeyword"><br><label class="control-label text optional">回复内容：</label><textarea class="form-control text optional tinymce" name="reply" rows="10" style="resize:none;"></textarea></div>';
+			$(".form-actions").before("<hr>"+div_html);
+		});
+    });
+    function htmlUtil(data){
+    	var keyword = data.keyword || "";
+    	var fullkeyword = "";
+    	var fuzzykeyword = "";
+    	if(keyword.indexOf("|") > -1){
+			var ks = keyword.split("|");
+    		fullkeyword = ks[0];
+    		fuzzykeyword = ks[1];
+    	}else{
+    		fullkeyword = keyword;
+    	}
+		var reply_text = "";
+		try{
+			var contents = data.reply.content;
+			$(contents).each(function(index,text){
+				if(index==contents.length-1){
+					reply_text += this.title + "\n" + this.description + "\n" + this.pic + "\n" + this.url;
+				}else{
+					reply_text += this.title + "\n" + this.description + "\n" + this.pic + "\n" + this.url + "\n\n";
+				}
+			});
+		}catch(e){
+		}
+    	var div_html = '<div class="form-inputs form-group"><label class="control-label text optional">全匹配关键词</label><br><input class="form-control" name="fullkeyword" value="'+fullkeyword+'"><br><label class="control-label text optional">模糊匹配关键词</label><br><input class="form-control" name="fuzzykeyword" value="'+fuzzykeyword+'"><br><label class="control-label text optional">回复内容：</label><textarea class="form-control text optional tinymce" name="reply" rows="10" style="resize:none;">'+reply_text+'</textarea></div>';
+    	if($("#replyform").find(".form-inputs").length>0){
+    		$(".form-actions").before("<hr>"+div_html);
+    	}else{
+    		$(".form-actions").before(div_html);
+    	}
+    	
+    }
