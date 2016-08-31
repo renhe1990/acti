@@ -135,49 +135,53 @@ class Admin::RepliesController < Admin::BaseController
 
     def initRedisData
     @admin_replies = Admin::Reply.all
+    begin
     $redis.flushdb
     #puts @admin_replies.length
-    for t in @admin_replies
-      if t.category == 'event'
-          #puts t.data
-          $redis.set('sys_event',t.data)
-      elsif t.category == 'nomatch'
-          #puts t.data
-          $redis.set('sys_nomatch',t.data)
-      elsif t.category == 'text'
-          #puts t.data
-          @jsonObject = JSON::parse(t.data)
-          if @jsonObject.length > 0 
-              for i in @jsonObject
-                @keywordString = i['keyword']
-                @keywordString = @keywordString.gsub(',','|')
-                #puts @keywordString
-                @keywordArr = @keywordString.split('|')
-                #puts @keywordArr.length
-                for w in @keywordArr
-                  $redis.set(w,i.to_json)
+      for t in @admin_replies
+        if t.category == 'event'
+            #puts t.data
+            $redis.set('sys_event',t.data)
+        elsif t.category == 'nomatch'
+            #puts t.data
+            $redis.set('sys_nomatch',t.data)
+        elsif t.category == 'text'
+            #puts t.data
+            @jsonObject = JSON::parse(t.data)
+            if @jsonObject.length > 0 
+                for i in @jsonObject
+                  @keywordString = i['keyword']
+                  @keywordString = @keywordString.gsub(',','|')
+                  #puts @keywordString
+                  @keywordArr = @keywordString.split('|')
+                  #puts @keywordArr.length
+                  for w in @keywordArr
+                    $redis.set(w,i.to_json)
+                  end
                 end
-              end
-          end
-      elsif t.category == 'graphic_text'
-          #puts t.data
-          @jsonObject = JSON::parse(t.data)
-          if @jsonObject.length > 0 
-              for i in @jsonObject
-                @keywordString = i['keyword']
-                @keywordString = @keywordString.gsub(',','|')
-                #puts @keywordString
-                @keywordArr = @keywordString.split('|')
-                #puts @keywordArr.length
-                for w in @keywordArr
-                  $redis.set(w,i.to_json)
+            end
+        elsif t.category == 'graphic_text'
+            #puts t.data
+            @jsonObject = JSON::parse(t.data)
+            if @jsonObject.length > 0 
+                for i in @jsonObject
+                  @keywordString = i['keyword']
+                  @keywordString = @keywordString.gsub(',','|')
+                  #puts @keywordString
+                  @keywordArr = @keywordString.split('|')
+                  #puts @keywordArr.length
+                  for w in @keywordArr
+                    $redis.set(w,i.to_json)
+                  end
                 end
-              end
-          end
-      else
-          #puts t.data
-      end
+            end
+        else
+            #puts t.data
+        end
       end
       return JSON.parse '{"success":"true"}' 
+    rescue Exception => e
+      return JSON.parse '{"success":"false"}' 
+    end
   end
 end
