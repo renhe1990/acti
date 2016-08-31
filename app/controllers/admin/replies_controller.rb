@@ -3,6 +3,58 @@ class Admin::RepliesController < Admin::BaseController
   skip_after_action :verify_authorized
   before_action :set_admin_reply, only: [:show, :edit, :update, :destroy]
 
+  $redis = Redis.new
+
+  def initRedisData
+
+    @admin_replies = Admin::Reply.all
+    #puts @admin_replies.length
+    for t in @admin_replies
+
+      if t.category == 'event'
+          #puts t.data
+          $redis.set('sys_event',t.data)
+      elsif t.category == 'nomatch'
+          #puts t.data
+          $redis.set('sys_nomatch',t.data)
+      elsif t.category == 'text'
+          #puts t.data
+          @jsonObject = JSON::parse(t.data)
+          if @jsonObject.length > 0 
+              for i in @jsonObject
+                @keywordString = i['keyword']
+                @keywordString = @keywordString.gsub(',','|')
+                #puts @keywordString
+                @keywordArr = @keywordString.split('|')
+                #puts @keywordArr.length
+                for w in @keywordArr
+                  $redis.set(w,i.to_json)
+                end
+              end
+          end
+      elsif t.category == 'graphic_text'
+          #puts t.data
+          @jsonObject = JSON::parse(t.data)
+          if @jsonObject.length > 0 
+              for i in @jsonObject
+                @keywordString = i['keyword']
+                @keywordString = @keywordString.gsub(',','|')
+                #puts @keywordString
+                @keywordArr = @keywordString.split('|')
+                #puts @keywordArr.length
+                for w in @keywordArr
+                  $redis.set(w,i.to_json)
+                end
+              end
+          end
+      else
+          #puts t.data
+      end
+
+    end 
+    render :json => @admin_replies
+  end
+
   def event
     @admin_reply = Admin::Reply.where(:category => "event").first
   end

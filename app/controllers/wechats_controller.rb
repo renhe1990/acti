@@ -15,7 +15,7 @@ class WechatsController < ActionController::Base
   		@l = $redis.keys("*"+"#{content}"+"*")
   		#puts @l.length
   		if  @l.length > 0
-  			#@jsonString = '{"keyword":"新闻","reply":{"type":"news","content":[{"title":"新闻标题1","description":"描述1","pic_url":"http://image.tianjimedia.com/uploadImages/2012/231/59/W19D0E6GL776.jpg","url":"http://www.baidu.com"},{"title":"新闻标题2","description":"描述2","pic_url":"http://image.tianjimedia.com/uploadImages/2012/231/59/W19D0E6GL776.jpg","url":"http://www.baidu.com"}]}}'
+  			#@jsonString = '{"keyword":"新闻","reply":{"type":"news","content":[{"title":"新闻标题1","description":"描述1","pic":"http://image.tianjimedia.com/uploadImages/2012/231/59/W19D0E6GL776.jpg","url":"http://www.baidu.com"},{"title":"新闻标题2","description":"描述2","pic":"http://image.tianjimedia.com/uploadImages/2012/231/59/W19D0E6GL776.jpg","url":"http://www.baidu.com"}]}}'
   			#@jsonString = '{"keyword":"信息","reply":{"type":"text","content":"文本回复，文本测试中，"}}'
   			@keyword = @l.first
   			@jsonString = $redis.get(@keyword)
@@ -29,12 +29,11 @@ class WechatsController < ActionController::Base
   			if @type == 'graphic_text'
   				@jsonObjectContent = @jsonObjectReply['content']
   				request.reply.news(@jsonObjectContent) do |article, n, index| # 回复"articles"
-			    	article.item title: n['title'], description: n['description'], pic_url: n['pic_url'], url: n['url']
+			    	article.item title: n['title'], description: n['description'], pic_url: n['pic'], url: n['url']
 			    end
   			#回复文本信息
   			else
   				@jsonObjectContent = @jsonObjectReply['content']
-
   				request.reply.text @jsonObjectReply['content']
   			end
   		else
@@ -131,7 +130,7 @@ class WechatsController < ActionController::Base
   on :event, with: 'subscribe' do |request|
     logger.info 'user has just subscribed'
     # request.reply.text "请访问这个链接进行绑定：http://acti.amway.com.cn/weixin/bindings/new?openid=#{request['FromUserName']}"
-    request.reply.text "欢迎关注“安利（中国）培训中心ACTI”，如果您是即将参加安利（中国）培训中心培训课程的学员，请您通过底部菜单“互动中心”—“绑定账号”进行绑定，用户名为您的安利卡号，密码为123。绑定成功后，点击“我的课程”—“项目列表”来查看您所参加培训课程的相关信息。如果您还不是我们的学员，欢迎您通过“了解ACTI”来了解安利（中国）培训中心方方面面，点点滴滴！"
+    request.reply.text $redis.get('sys_event')
   end
 
   on :event, with: 'unsubscribe' do |request|
