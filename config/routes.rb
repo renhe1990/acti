@@ -180,6 +180,7 @@ Rails.application.routes.draw do
       get 'nomatch' => 'replies#nomatch', :on => :collection
       get 'text' => 'replies#text', :on => :collection
       get 'gettext' => 'replies#gettext', :on => :collection
+      get 'initRedisData' => 'replies#initRedisData', :on => :collection
 	  put 'updatetext' => 'replies#updatetext', :on => :collection
     end
   end

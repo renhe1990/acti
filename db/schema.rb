@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160825021223) do
+ActiveRecord::Schema.define(version: 20160826073026) do
 
   create_table "admin_replies", force: true do |t|
     t.string   "category"
@@ -649,5 +649,14 @@ ActiveRecord::Schema.define(version: 20160825021223) do
   end
 
   add_index "votes", ["course_id"], name: "index_votes_on_course_id", using: :btree
+
+  create_table "wechat_sessions", force: true do |t|
+    t.string   "openid",     null: false
+    t.string   "hash_store"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "wechat_sessions", ["openid"], name: "index_wechat_sessions_on_openid", unique: true, using: :btree
 
 end

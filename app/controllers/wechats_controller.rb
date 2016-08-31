@@ -1,11 +1,50 @@
-class WechatsController < ApplicationController
+class WechatsController < ActionController::Base
   skip_after_action :verify_authorized,  except: :index
   skip_after_action :verify_policy_scoped, only: :index
 
   skip_before_action :signed_in_required
   skip_before_action :teacher_required, only: [:new, :create]
-
+  # For details on the DSL available within this file, see https://github.com/Eric-Guo/wechat#rails-responder-controller-dsl
   wechat_responder
+
+  $redis=Redis.new
+
+  on :text do |request, content|
+    begin
+		#puts "#{content}"
+  		@l = $redis.keys("*"+"#{content}"+"*")
+  		#puts @l.length
+  		if  @l.length > 0
+  			#@jsonString = '{"keyword":"新闻","reply":{"type":"news","content":[{"title":"新闻标题1","description":"描述1","pic_url":"http://image.tianjimedia.com/uploadImages/2012/231/59/W19D0E6GL776.jpg","url":"http://www.baidu.com"},{"title":"新闻标题2","description":"描述2","pic_url":"http://image.tianjimedia.com/uploadImages/2012/231/59/W19D0E6GL776.jpg","url":"http://www.baidu.com"}]}}'
+  			#@jsonString = '{"keyword":"信息","reply":{"type":"text","content":"文本回复，文本测试中，"}}'
+  			@keyword = @l.first
+  			@jsonString = $redis.get(@keyword)
+  			puts @jsonString
+  			@jsonObject = JSON::parse(@jsonString)
+  			@jsonObjectReply = @jsonObject['reply']		
+  			@type = @jsonObjectReply['type']
+  			#puts @type
+
+  			#回复图文信息
+  			if @type == 'graphic_text'
+  				@jsonObjectContent = @jsonObjectReply['content']
+  				request.reply.news(@jsonObjectContent) do |article, n, index| # 回复"articles"
+			    	article.item title: n['title'], description: n['description'], pic_url: n['pic_url'], url: n['url']
+			    end
+  			#回复文本信息
+  			else
+  				@jsonObjectContent = @jsonObjectReply['content']
+
+  				request.reply.text @jsonObjectReply['content']
+  			end
+  		else
+  			request.reply.text $redis.get('sys_nomatch')	
+  		end
+    rescue Exception => e
+      Rails.logger.error e
+      request.reply.text '无法提供服务，请稍后重试'
+    end
+  end
 
   on :text, with: '账号绑定' do |request, help|
     begin
