@@ -122,18 +122,7 @@ class Admin::RepliesController < Admin::BaseController
     redirect_to admin_replies_url, notice: 'Reply was successfully destroyed.'
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_admin_reply
-      @admin_reply = Admin::Reply.find(params[:id])
-    end
-
-    # Only allow a trusted parameter "white list" through.
-    def admin_reply_params
-      params.require(:admin_reply).permit(:category, :data)
-    end
-
-    def initRedisData
+  def initRedisData
     @admin_replies = Admin::Reply.all
     begin
       if @admin_replies.length < 1
@@ -172,5 +161,16 @@ class Admin::RepliesController < Admin::BaseController
       return JSON.parse '{"success":"false"}' 
     end
   end
+
+  private
+    # Use callbacks to share common setup or constraints between actions.
+    def set_admin_reply
+      @admin_reply = Admin::Reply.find(params[:id])
+    end
+
+    # Only allow a trusted parameter "white list" through.
+    def admin_reply_params
+      params.require(:admin_reply).permit(:category, :data)
+    end
 
 end
