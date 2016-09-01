@@ -14,8 +14,12 @@
 - content_for :javascript do
   javascript:
     $(function(){
-		$(".border-radius").text($(".tinymce").val());
+		var reply_text = $(".tinymce").val();
+		reply_text = reply_text.replace(/\n/g,'<br/>');
+		$(".border-radius").html(reply_text);
     	$(".tinymce").keyup(function(){
-    		$(".border-radius").text($(this).val());
-    	})
+			var reply_text = $(".tinymce").val();
+			reply_text = reply_text.replace(/\n/g,'<br/>');
+    		$(".border-radius").html(reply_text);
+    	});
     });

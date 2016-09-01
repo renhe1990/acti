@@ -85,7 +85,8 @@ form#replyform
     	}else{
     		fullkeyword = keyword;
     	}
-    	var div_html = '<div class="form-inputs form-group clearfix"><div class="event-fl-left event-wh73"><label class="control-label text optional">全匹配关键词</label><br><input class="form-control" name="fullkeyword" value="'+fullkeyword+'"><br><label class="control-label text optional">模糊匹配关键词</label><br><input class="form-control" name="fuzzykeyword" value="'+fuzzykeyword+'"><br><label class="control-label text optional">回复内容：</label><textarea class="form-control text optional tinymce" name="reply" rows="10" style="resize:none;">'+reply+'</textarea></div><div class="event-fr-right event-wh25"><p class="border-radius col-b2cf73 pt6 mt25">'+reply+'</p></div></div>';
+		var yulan_text = reply.replace(/\n/g,"<br/>");
+    	var div_html = '<div class="form-inputs form-group clearfix"><div class="event-fl-left event-wh73"><label class="control-label text optional">全匹配关键词</label><br><input class="form-control" name="fullkeyword" value="'+fullkeyword+'"><br><label class="control-label text optional">模糊匹配关键词</label><br><input class="form-control" name="fuzzykeyword" value="'+fuzzykeyword+'"><br><label class="control-label text optional">回复内容：</label><textarea class="form-control text optional tinymce" name="reply" rows="10" style="resize:none;">'+reply+'</textarea></div><div class="event-fr-right event-wh25"><p class="border-radius col-b2cf73 pt6 mt25">'+yulan_text+'</p></div></div>';
     	if($("#replyform").find(".form-inputs").length>0){
     		$(".form-actions").before("<hr>"+div_html);
     	}else{
@@ -95,5 +96,6 @@ form#replyform
     }
 	//change the preview on the right
 	function changePreview($textarea,reply_text){
+		reply_text = reply_text.replace(/\n/g,"<br/>");
 		$textarea.parent().next().find("p").empty().append(reply_text);
 	}
