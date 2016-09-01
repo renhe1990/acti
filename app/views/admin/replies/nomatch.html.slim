@@ -6,9 +6,17 @@
     = f.input :data, label:'回复内容：', input_html:{class:'tinymce',rows:15},wrapper_html:{class:'event-fl-left event-wh73'}
 	div class="event-fr-right event-wh25 mt25"
 	  p class="border-radius col-b2cf73 pt6"
-	    | 您好，感谢您的关注！安利微刊（AmwayDaily）是安利（中国）建立的综合性企业传讯微信平台，内容覆盖公司最新消息，社会热点话题，及健康、美容、商务、生活类资讯，助力营销伙伴全面把握公司脉搏，悉知社会潮流。 1.安利微刊每天关注不同的话题，输入“内容”，剧透马上登场！ 2.输入安利产品名称关键字或产品编号，查看产品信息。 3.发送当前定位的位置，查看附近的安利店铺信息。
 
   .form-actions
     = f.button :submit,'更新', class:'btn btn-primary'
 - title '消息自动回复'
 - breadcrumb :admin_nomatch_reply
+- content_for :javascript do
+  javascript:
+    $(function(){
+    	$(".border-radius").text($(".tinymce").val())
+
+    	$(".tinymce").keyup(function(){
+    		$(".border-radius").text($(".tinymce").val())
+    	})
+    });
