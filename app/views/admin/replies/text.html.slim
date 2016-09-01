@@ -16,24 +16,38 @@ form#replyform
 		     $(replies).each(function(index,data){
 		     	htmlUtil(data);
 		     });
+			 // listen textarea
+			 $("textarea[name='reply']").on("keyup",function(){
+				changePreview($(this),$(this).val());
+			 });
 		   }
 		});
 		//submit button
 		$("#replyform").submit(function(e){
+			var verifyStatus = true;  //为空校验 true:通过  false:不通过
 			e.preventDefault();
 			var keywordArray = new Array();
 			$("#replyform > div.form-inputs").each(function(){
 				var keywordObj = {},replyObj = {};
 				var replykeys = $(this).find("input[name='fullkeyword']").val() + "|" +$(this).find("input[name='fuzzykeyword']").val();
+				if($.trim(replykeys.replace("|",""))==""){
+					verifyStatus = false;
+					return false;
+				}
 				keywordObj.keyword = replykeys;
 				replyObj.type = "text";
 				replyObj.content = $(this).find("textarea[name='reply']").val();
 				if(replyObj.content==""){
-					return true;
+					verifyStatus = false;
+					return false;
 				}
 				keywordObj.reply = replyObj;
 				keywordArray.push(keywordObj);
 			});
+			if(!verifyStatus){
+				alert("关键词或回复内容不能为空");
+				return;
+			}
 			$.ajax({
 			   url: '/admin/replies/updatetext',
 			   type: 'PUT',
@@ -51,8 +65,12 @@ form#replyform
 		});
 		//add button
 		$("#add_button").click(function(){
-			var div_html = '<div class="form-inputs form-group clearfix"><div class="event-fl-left event-wh73"><label class="control-label text optional">全匹配关键词</label><br><input class="form-control" name="fullkeyword"><br><label class="control-label text optional">模糊匹配关键词</label><br><input class="form-control" name="fuzzykeyword"><br><label class="control-label text optional">回复内容：</label><textarea class="form-control text optional tinymce" name="reply" rows="10" style="resize:none;"></textarea></div><div class="event-fr-right event-wh25"><p class="border-radius col-b2cf73 pt6"></p></div></div>';
+			var div_html = '<div class="form-inputs form-group clearfix"><div class="event-fl-left event-wh73"><label class="control-label text optional">全匹配关键词</label><br><input class="form-control" name="fullkeyword"><br><label class="control-label text optional">模糊匹配关键词</label><br><input class="form-control" name="fuzzykeyword"><br><label class="control-label text optional">回复内容：</label><textarea class="form-control text optional tinymce" name="reply" rows="10" style="resize:none;"></textarea></div><div class="event-fr-right event-wh25"><p class="border-radius col-b2cf73 pt6 mt25"></p></div></div>';
 			$(".form-actions").before("<hr>"+div_html);
+			// listen textarea
+			$("textarea[name='reply']").on("keyup",function(){
+				changePreview($(this),$(this).val());
+			});
 		});
     });
     function htmlUtil(data){
@@ -67,7 +85,7 @@ form#replyform
     	}else{
     		fullkeyword = keyword;
     	}
-    	var div_html = '<div class="form-inputs form-group clearfix"><div class="event-fl-left event-wh73"><label class="control-label text optional">全匹配关键词</label><br><input class="form-control" name="fullkeyword" value="'+fullkeyword+'"><br><label class="control-label text optional">模糊匹配关键词</label><br><input class="form-control" name="fuzzykeyword" value="'+fuzzykeyword+'"><br><label class="control-label text optional">回复内容：</label><textarea class="form-control text optional tinymce" name="reply" rows="10" style="resize:none;">'+reply+'</textarea></div><div class="event-fr-right event-wh25"><p class="border-radius col-b2cf73 pt6"></p></div></div>';
+    	var div_html = '<div class="form-inputs form-group clearfix"><div class="event-fl-left event-wh73"><label class="control-label text optional">全匹配关键词</label><br><input class="form-control" name="fullkeyword" value="'+fullkeyword+'"><br><label class="control-label text optional">模糊匹配关键词</label><br><input class="form-control" name="fuzzykeyword" value="'+fuzzykeyword+'"><br><label class="control-label text optional">回复内容：</label><textarea class="form-control text optional tinymce" name="reply" rows="10" style="resize:none;">'+reply+'</textarea></div><div class="event-fr-right event-wh25"><p class="border-radius col-b2cf73 pt6 mt25">'+reply+'</p></div></div>';
     	if($("#replyform").find(".form-inputs").length>0){
     		$(".form-actions").before("<hr>"+div_html);
     	}else{
@@ -75,3 +93,7 @@ form#replyform
     	}
     	
     }
+	//change the preview on the right
+	function changePreview($textarea,reply_text){
+		$textarea.parent().next().find("p").empty().append(reply_text);
+	}

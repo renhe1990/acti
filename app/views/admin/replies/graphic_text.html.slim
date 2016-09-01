@@ -16,30 +16,43 @@ form#replyform
 		     $(replies).each(function(index,data){
 		     	htmlUtil(data);
 		     });
+			 // listen textarea
+			 $("textarea[name='reply']").on("keyup",function(){
+				changePreview($(this),$(this).val());
+			 });
 		   }
 		});
 		//submit button
 		$("#replyform").submit(function(e){
 			e.preventDefault();
+			var verifyStatus = 0;  //校验 0:通过  1:为空不通过 2：回复内容格式不通过
 			var keywordArray = new Array();
 			$("#replyform > div.form-inputs").each(function(){
 				var keywordObj = {},replyObj = {};
 				var replykeys = $(this).find("input[name='fullkeyword']").val() + "|" +$(this).find("input[name='fuzzykeyword']").val();
+				if($.trim(replykeys.replace("|",""))==""){
+					verifyStatus = 1;
+					return false;
+				}
 				keywordObj.keyword = replykeys;
 				replyObj.type = "graphic_text";
-				//replyObj.content = $(this).find("textarea[name='reply']").val();
 				var reply_text = $(this).find("textarea[name='reply']").val();
 				if(reply_text==""){
-					return true;
+					verifyStatus = 1;
+					return false;
 				}
 				try{
 					var reply_textArr = reply_text.split("\n\n");
 					var contentArr = new Array();
 					$(reply_textArr).each(function(){
 						if(this==""){
-							return true;
+					        return true;
 						}
 						var textArr = this.split("\n");
+						if(textArr.length != 4){
+							verifyStatus = 2;
+					        return false;
+						}
 						var content = {};
 						content.title = textArr[0];
 						content.description = textArr[1];
@@ -53,6 +66,13 @@ form#replyform
 				keywordObj.reply = replyObj;
 				keywordArray.push(keywordObj);
 			});
+			if(verifyStatus==1){
+				alert("关键词或回复内容不能为空");
+				return;
+			}else if(verifyStatus==2){
+				alert("回复内容格式不正确");
+				return;
+			}
 			$.ajax({
 			   url: '/admin/replies/update_graphic_text',
 			   type: 'PUT',
@@ -70,8 +90,12 @@ form#replyform
 		});
 		//add button
 		$("#add_button").click(function(){
-			var div_html = '<div class="form-inputs form-group"><label class="control-label text optional">全匹配关键词</label><br><input class="form-control" name="fullkeyword"><br><label class="control-label text optional">模糊匹配关键词</label><br><input class="form-control" name="fuzzykeyword"><br><label class="control-label text optional">回复内容：</label><textarea class="form-control text optional tinymce" name="reply" rows="10" style="resize:none;"></textarea></div>';
+			var div_html = '<div class="form-inputs form-group clearfix"><div class="event-fl-left event-wh73"><label class="control-label text optional">全匹配关键词</label><br><input class="form-control" name="fullkeyword"><br><label class="control-label text optional">模糊匹配关键词</label><br><input class="form-control" name="fuzzykeyword"><br><label class="control-label text optional">回复内容：</label><textarea class="form-control text optional tinymce" name="reply" rows="10" style="resize:none;"></textarea></div><div class="event-fr-right event-wh25 border-radius5 pt7-pb10 graphic-reply-preview"></div></div>';
 			$(".form-actions").before("<hr>"+div_html);
+			// listen textarea
+			$("textarea[name='reply']").on("keyup",function(){
+			  changePreview($(this),$(this).val());
+			});
 		});
     });
     function htmlUtil(data){
@@ -86,8 +110,20 @@ form#replyform
     		fullkeyword = keyword;
     	}
 		var reply_text = "";
+		var yulan_html = "";
 		try{
 			var contents = data.reply.content;
+			if(contents.length > 1){
+				$(contents).each(function(index,text){
+					if(index==0){
+						yulan_html += '<a class="top-gc " href="'+this.url+'" target="_blank"><h4 class="gtitle">'+this.title+'</h4><img src="'+this.pic+'"></a>';
+					}else{
+						yulan_html += '<a class="other-gc" href="'+this.url+'" target="_blank"><h4 class="gtitle">'+this.title+'</h4><img src="'+this.pic+'"></a>';
+					}
+				});
+			}else{
+				yulan_html = '<a href="'+contents[0].url+'" target="_blank"><h4 class="grap-gtitle">'+contents[0].title+'</h4><img src="'+contents[0].pic+'"><div class="gdescription">'+contents[0].description+'</div><div class="read-article">阅读全文</div></div></a>';
+			}
 			$(contents).each(function(index,text){
 				if(index==contents.length-1){
 					reply_text += this.title + "\n" + this.description + "\n" + this.pic + "\n" + this.url;
@@ -97,7 +133,7 @@ form#replyform
 			});
 		}catch(e){
 		}
-    	var div_html = '<div class="form-inputs form-group"><label class="control-label text optional">全匹配关键词</label><br><input class="form-control" name="fullkeyword" value="'+fullkeyword+'"><br><label class="control-label text optional">模糊匹配关键词</label><br><input class="form-control" name="fuzzykeyword" value="'+fuzzykeyword+'"><br><label class="control-label text optional">回复内容：</label><textarea class="form-control text optional tinymce" name="reply" rows="10" style="resize:none;">'+reply_text+'</textarea></div>';
+    	var div_html = '<div class="form-inputs form-group clearfix"><div class="event-fl-left event-wh73"><label class="control-label text optional">全匹配关键词</label><br><input class="form-control" name="fullkeyword" value="'+fullkeyword+'"><br><label class="control-label text optional">模糊匹配关键词</label><br><input class="form-control" name="fuzzykeyword" value="'+fuzzykeyword+'"><br><label class="control-label text optional">回复内容：</label><textarea class="form-control text optional tinymce" name="reply" rows="10" style="resize:none;">'+reply_text+'</textarea></div><div class="event-fr-right event-wh25 border-radius5 pt7-pb10 graphic-reply-preview">'+yulan_html+'</div></div>';
     	if($("#replyform").find(".form-inputs").length>0){
     		$(".form-actions").before("<hr>"+div_html);
     	}else{
@@ -105,3 +141,46 @@ form#replyform
     	}
     	
     }
+	
+	//change the preview on the right
+	function changePreview($textarea,reply_text){
+		if($.trim(reply_text)==""){
+			return;
+		}
+		try{
+			var reply_textArr = reply_text.split("\n\n");
+			if(reply_textArr.length>1){
+				var yulan_html = "";
+				for(var i=0;i<reply_textArr.length;i++){
+					var tuwen = reply_textArr[i];
+					if($.trim(tuwen)==""){
+						continue;
+					}
+					tuwenArr = tuwen.split("\n");
+					if(tuwenArr.length!=4){
+						continue;
+					}
+					if(i==0){
+						yulan_html += '<a class="top-gc " href="'+tuwenArr[3]+'" target="_blank"><h4 class="gtitle">'+tuwenArr[0]+'</h4><img src="'+tuwenArr[2]+'"></a>';
+					}else{
+						yulan_html += '<a class="other-gc" href="'+tuwenArr[3]+'" target="_blank"><h4 class="gtitle">'+tuwenArr[0]+'</h4><img src="'+tuwenArr[2]+'"></a>';
+					}
+				}
+				if(yulan_html!=""){
+					$textarea.parent().next().empty().append(yulan_html);
+				}
+			}else{
+				var yulan_html = "";
+				var tuwen = reply_textArr[0];
+				if($.trim(tuwen)==""){
+					return;
+				}
+				tuwenArr = tuwen.split("\n");
+				if(tuwenArr.length!=4){
+					return;
+				}
+				yulan_html += '<a href="'+tuwenArr[3]+'" target="_blank"><h4 class="grap-gtitle">'+tuwenArr[0]+'</h4><img src="'+tuwenArr[2]+'"><div class="gdescription">'+tuwenArr[1]+'</div><div class="read-article">阅读全文</div></div></a>';
+				$textarea.parent().next().empty().append(yulan_html);
+			}
+		}catch(e){}
+	}

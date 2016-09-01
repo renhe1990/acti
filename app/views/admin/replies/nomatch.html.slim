@@ -14,9 +14,8 @@
 - content_for :javascript do
   javascript:
     $(function(){
-    	$(".border-radius").text($(".tinymce").val())
-
+    	$(".border-radius").text($(".tinymce").val());
     	$(".tinymce").keyup(function(){
-    		$(".border-radius").text($(".tinymce").val())
+    		$(".border-radius").text($(this).val());
     	})
     });
