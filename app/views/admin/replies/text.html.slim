@@ -24,27 +24,26 @@ form#replyform
 		});
 		//submit button
 		$("#replyform").submit(function(e){
-			var verifyStatus = true;  //为空校验 true:通过  false:不通过
+			var verifyStatus = 0;  //校验 0:通过  1:为空不通过
 			e.preventDefault();
 			var keywordArray = new Array();
 			$("#replyform > div.form-inputs").each(function(){
 				var keywordObj = {},replyObj = {};
 				var replykeys = $(this).find("input[name='fullkeyword']").val() + "|" +$(this).find("input[name='fuzzykeyword']").val();
-				if($.trim(replykeys.replace("|",""))==""){
-					verifyStatus = false;
+				var replytext = $.trim($(this).find("textarea[name='reply']").val());
+				if($.trim(replykeys.replace("|",""))=="" && replytext !="" || $.trim(replykeys.replace("|",""))!="" && replytext ==""){
+					verifyStatus = 1;
 					return false;
+				}else if($.trim(replykeys.replace("|",""))=="" && replytext ==""){
+					return true;
 				}
 				keywordObj.keyword = replykeys;
 				replyObj.type = "text";
-				replyObj.content = $(this).find("textarea[name='reply']").val();
-				if(replyObj.content==""){
-					verifyStatus = false;
-					return false;
-				}
+				replyObj.content = replytext;
 				keywordObj.reply = replyObj;
 				keywordArray.push(keywordObj);
 			});
-			if(!verifyStatus){
+			if(verifyStatus==1){
 				alert("关键词或回复内容不能为空");
 				return;
 			}
