@@ -1,3 +1,42 @@
 // Place all the styles related to the admin/replies controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.event-fl-left{float:left}
+.event-fr-right{float:right}
+.event-wh49{width:49%;}
+.event-wh73{width:73%;}
+.event-wh25{width:25%;}
+.event-wh100{width:100%;}
+.col-b2cf73{background:#b2cf73;}
+.height299{height:299px;}
+.border-radius{border: 1px solid #7aa23f;border-radius: 4px;}
+.pt6{padding: 6px;}
+.mt25{margin-top:25px;}
+.clearfix:after{content:".";display:block;height:0;clear:both;visibility:hidden}
+.border-radius5{border: 1px solid #aeb4b9;border-radius: 5px;}
+.pt7-pb10{padding: 7px 10px;}
+.grap-gtitle{color: #000;font-size: 16px;margin: 0 0 10px 0;font-weight: bold;line-height: 20px;}
+.graphic-reply-preview img {margin: 0 0 10px 0;width: 100%;}
+.gdescription {margin: 0 0 10px 0;color: #000;}
+.read-article {border-top: 1px solid #ccc;padding-top: 10px;}
+
+.other-gc img { height: 50px;margin-top: -25px;position: absolute;right: 10px;top: 50%;width: 50px;}
+.graphic-reply-preview a {color: #333;display: block;}
+.top-gc {position: relative;}
+.graphic-reply-preview {
+    border: 1px solid #aeb4b9;
+    -webkit-box-shadow: 0px 1px 1px #d7d7d7;
+    box-shadow: 0px 1px 1px #d7d7d7;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    background-color: #fafafa;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(1, color-stop(#fefefe, #fafafa)));
+    background: -webkit-linear-gradient(top, color-stop(#fefefe, #fafafa) 100%);
+    background: -moz-linear-gradient(top, color-stop(#fefefe, #fafafa) 100%);
+    background: -o-linear-gradient(top, color-stop(#fefefe, #fafafa) 100%);
+    background: -ms-linear-gradient(top, color-stop(#fefefe, #fafafa) 100%);
+    background: linear-gradient(top, color-stop(#fefefe, #fafafa) 100%);
+    margin-top: 25px;}
+.top-gc .gtitle {background: #000;bottom: 7px;color: #fff;font-size: 16px;opacity: 0.5;filter: alpha(opacity=50);-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";padding: 7px 5px;position: absolute;width: 100%;z-index: 10;font-weight: bold;line-height: 20px;bottom:0}
+.other-gc .gtitle {font-size: 14px;margin-right: 70px;font-weight: bold;line-height: 20px;}
+.other-gc {border-top: 1px solid #ccc; min-height: 60px;padding: 7px 10px;position: relative;}
