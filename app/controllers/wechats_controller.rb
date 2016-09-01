@@ -37,6 +37,10 @@ class WechatsController < ActionController::Base
   				request.reply.text @jsonObjectReply['content']
   			end
   		else
+        if $redis.get('sys_nomatch').nil?
+          @c = Admin::RepliesController.new
+          @c.initRedisData
+        end
   			request.reply.text $redis.get('sys_nomatch')	
   		end
     rescue Exception => e
@@ -130,7 +134,11 @@ class WechatsController < ActionController::Base
   on :event, with: 'subscribe' do |request|
     logger.info 'user has just subscribed'
     # request.reply.text "请访问这个链接进行绑定：http://acti.amway.com.cn/weixin/bindings/new?openid=#{request['FromUserName']}"
-    request.reply.text $redis.get('sys_event')
+      if $redis.get('sys_event').nil?
+          @c = Admin::RepliesController.new
+          @c.initRedisData
+      end
+      request.reply.text $redis.get('sys_event')  
   end
 
   on :event, with: 'unsubscribe' do |request|
