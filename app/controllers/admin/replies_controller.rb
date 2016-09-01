@@ -136,6 +136,9 @@ class Admin::RepliesController < Admin::BaseController
     def initRedisData
     @admin_replies = Admin::Reply.all
     begin
+      if @admin_replies.length < 1
+        return JSON.parse '{"success":"false"}' 
+      end
     $redis.flushdb
     #puts @admin_replies.length
       for t in @admin_replies
@@ -145,22 +148,7 @@ class Admin::RepliesController < Admin::BaseController
         elsif t.category == 'nomatch'
             #puts t.data
             $redis.set('sys_nomatch',t.data)
-        elsif t.category == 'text'
-            #puts t.data
-            @jsonObject = JSON::parse(t.data)
-            if @jsonObject.length > 0 
-                for i in @jsonObject
-                  @keywordString = i['keyword']
-                  @keywordString = @keywordString.gsub(',','|')
-                  #puts @keywordString
-                  @keywordArr = @keywordString.split('|')
-                  #puts @keywordArr.length
-                  for w in @keywordArr
-                    $redis.set(w,i.to_json)
-                  end
-                end
-            end
-        elsif t.category == 'graphic_text'
+        elsif (t.category == 'text' or t.category == 'graphic_text')
             #puts t.data
             @jsonObject = JSON::parse(t.data)
             if @jsonObject.length > 0 
@@ -184,4 +172,5 @@ class Admin::RepliesController < Admin::BaseController
       return JSON.parse '{"success":"false"}' 
     end
   end
+
 end
