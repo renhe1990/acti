@@ -5,12 +5,9 @@ default: &default
   skip_verify_ssl: true
 
 production:
-  appid: <%= ENV['WECHAT_APPID'] %>
-  secret: <%= ENV['WECHAT_APP_SECRET'] %>
-  token:   <%= ENV['WECHAT_TOKEN'] %>
-  access_token: <%= ENV['WECHAT_ACCESS_TOKEN'] %>
-  jsapi_ticket: <%= ENV['WECHAT_JSAPI_TICKET'] %>
-  oauth2_cookie_duration: <%= ENV['WECHAT_OAUTH2_COOKIE_DURATION'] %> # seconds
+  appid: "wx555ddeedd3d7a6e8"
+  secret: "d3773b1998693b34277ec8c409c89333"
+  token:   "actimacre"
 
 development:
   <<: *default
