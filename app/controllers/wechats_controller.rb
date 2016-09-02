@@ -7,22 +7,22 @@ class WechatsController < ActionController::Base
   # For details on the DSL available within this file, see https://github.com/Eric-Guo/wechat#rails-responder-controller-dsl
   wechat_responder
 
-  $redis=Redis.new
 
   on :text do |request, content|
     begin
 		#puts "#{content}"
-      if $redis.get('sys_nomatch').nil?
-        @c = Admin::RepliesController.new
-        @c.initRedisData
+      if Keyword.redis.get('sys_nomatch').nil?
+        # @c = Admin::RepliesController.new
+        # @c.initRedisData
+		Keyword.initRedisData
       end
   	
   		#puts @l.length
-  		if  $redis.get("#{content}").nil?
-  			request.reply.text $redis.get('sys_nomatch') 
+  		if  Keyword.redis.get("#{content}").nil?
+  			request.reply.text Keyword.redis.get('sys_nomatch') 
   		else
   			#@keyword = @l.first
-        @jsonString = $redis.get("#{content}")
+        @jsonString = Keyword.redis.get("#{content}")
         #puts @jsonString
         @jsonObject = JSON::parse(@jsonString)
         @jsonObjectReply = @jsonObject['reply']   
@@ -132,11 +132,12 @@ class WechatsController < ActionController::Base
   on :event, with: 'subscribe' do |request|
     logger.info 'user has just subscribed'
     # request.reply.text "请访问这个链接进行绑定：http://acti.amway.com.cn/weixin/bindings/new?openid=#{request['FromUserName']}"
-      if $redis.get('sys_event').nil?
-          @c = Admin::RepliesController.new
-          @c.initRedisData
+      if Keyword.redis.get('sys_event').nil?
+          # @c = Admin::RepliesController.new
+          # @c.initRedisData
+		  Keyword.initRedisData
       end
-      request.reply.text $redis.get('sys_event')  
+      request.reply.text Keyword.redis.get('sys_event')  
   end
 
   on :event, with: 'unsubscribe' do |request|
