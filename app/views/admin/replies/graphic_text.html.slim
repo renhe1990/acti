@@ -30,17 +30,15 @@ form#replyform
 			$("#replyform > div.form-inputs").each(function(){
 				var keywordObj = {},replyObj = {};
 				var replykeys = $(this).find("input[name='fullkeyword']").val() + "|" +$(this).find("input[name='fuzzykeyword']").val();
-				if($.trim(replykeys.replace("|",""))==""){
+				var reply_text = $(this).find("textarea[name='reply']").val();
+				if($.trim(replykeys.replace("|",""))=="" && reply_text!="" || $.trim(replykeys.replace("|",""))!="" && reply_text==""){
 					verifyStatus = 1;
 					return false;
+				}else if($.trim(replykeys.replace("|",""))=="" && reply_text==""){
+					return true;
 				}
 				keywordObj.keyword = replykeys;
 				replyObj.type = "graphic_text";
-				var reply_text = $(this).find("textarea[name='reply']").val();
-				if(reply_text==""){
-					verifyStatus = 1;
-					return false;
-				}
 				try{
 					var reply_textArr = reply_text.split("\n\n");
 					var contentArr = new Array();
