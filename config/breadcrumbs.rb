@@ -531,7 +531,7 @@ crumb :admin_event_reply do
 end
 
 crumb :admin_nomatch_reply do
-  link '没匹配关键词自动回复'
+  link '消息自动回复'
 end
 
 crumb :admin_text_reply do
