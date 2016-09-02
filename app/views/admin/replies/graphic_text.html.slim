@@ -35,6 +35,8 @@ form#replyform
 					verifyStatus = 1;
 					return false;
 				}else if($.trim(replykeys.replace("|",""))=="" && reply_text==""){
+					$(this).prev().remove();
+					$(this).remove();
 					return true;
 				}
 				keywordObj.keyword = replykeys;
@@ -80,10 +82,19 @@ form#replyform
 				  "data":JSON.stringify(keywordArray),
 			   },
 			   success: function( res ) {
-				 var tiphtml = '<div class="alert alert-success"><div id="flash_notice">'+res.msg+'</div></div>';
-				 $("#flash_notice").parent().remove();
-				 $("form:first").before(tiphtml);
-			   }
+				 //var tiphtml = '<div class="alert alert-success"><div id="flash_notice">'+res.msg+'</div></div>';
+				 //$("#flash_notice").parent().remove();
+				 //$("form:first").before(tiphtml);
+				 var tiphtml = '<div class="pop-main"><div class="mask"></div><div class="pop-box"><div class="pop-text"><p>'+res.msg+'</p></div></div></div>';
+				 $("body").append(tiphtml);
+				 $(".pop-main").fadeIn(function(){
+					setTimeout(function(){
+						$(".pop-main").fadeOut("normal",function(){
+							$(".pop-main").remove();
+						});
+					},2000);
+				 });
+				}
 			});
 		});
 		//add button
