@@ -13,7 +13,7 @@ form#replyform
         dataType: 'text',
         success: function(data) {
           htmlUtil(data);
-          
+
           $(".tinymce").keyup(function(){
             var reply_text = $(".tinymce").val();
             if(reply_text != null){
@@ -43,10 +43,10 @@ form#replyform
            $("body").append(tiphtml);
            $(".pop-main").fadeIn(function(){
             setTimeout(function(){
-              $(".pop-main").fadeOut("normal",function(){
+              $(".pop-main").fadeOut("fast",function(){
                 $(".pop-main").remove();
               });
-            },2000);
+            },1000);
            });
            }
         });
