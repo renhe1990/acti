@@ -43,10 +43,10 @@ form#replyform
            $("body").append(tiphtml);
            $(".pop-main").fadeIn(function(){
             setTimeout(function(){
-              $(".pop-main").fadeOut("normal",function(){
+              $(".pop-main").fadeOut("fast",function(){
                 $(".pop-main").remove();
               });
-            },2000);
+            },1000);
            });
            }
         });
