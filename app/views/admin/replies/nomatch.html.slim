@@ -1,25 +1,63 @@
-= simple_form_for(@admin_reply.present? ? @admin_reply : Admin::Reply.new) do |f|
-  = f.error_notification
-
-  div class=".form-inputs clearfix"
-    = f.input :category, as: :hidden,input_html:{value:'nomatch'}
-    = f.input :data, label:'回复内容：', input_html:{class:'tinymce',rows:15},wrapper_html:{class:'event-fl-left event-wh73'}
-	div class="event-fr-right event-wh25 mt25"
-	  p class="border-radius col-b2cf73 pt6"
-
-  .form-actions
-    = f.button :submit,'更新', class:'btn btn-primary'
+form#replyform
+  div class="form-actions"
+    input#submit_button type="submit" value="更新" class="btn btn-primary" style="margin-left:15px"
 - title '消息自动回复'
 - breadcrumb :admin_nomatch_reply
 - content_for :javascript do
   javascript:
     $(function(){
-    	var reply_text = $(".tinymce").val();
-		reply_text = reply_text.replace(/\n/g,'<br/>');
-		$(".border-radius").html(reply_text);
-    	$(".tinymce").keyup(function(){
-			var reply_text = $(".tinymce").val();
-			reply_text = reply_text.replace(/\n/g,'<br/>');
-    		$(".border-radius").html(reply_text);
-    	});
+      //show the data
+      $.ajax({
+        url: '/admin/replies/getnomatch',
+        type: 'get',
+        dataType: 'text',
+        success: function(data) {
+          htmlUtil(data);
+          
+          $(".tinymce").keyup(function(){
+            var reply_text = $(".tinymce").val();
+            if(reply_text != null){
+              reply_text = reply_text.replace(/\n/g,'<br/>');
+            }
+            $(".border-radius").html(reply_text);
+          });
+        }
+      });
+
+      $("#replyform").submit(function(e){
+        e.preventDefault();
+
+        $.ajax({
+           url: '/admin/replies/updatenomatch',
+           type: 'PUT',
+           dataType: 'json',
+           data:{
+            "category":"nomatch",
+            "data":$(".tinymce").val(),
+           },
+           success: function( res ) {
+           //var tiphtml = '<div class="alert alert-success"><div id="flash_notice">'+res.msg+'</div></div>';
+           //$("#flash_notice").parent().remove();
+           //$("form:first").before(tiphtml);
+           var tiphtml = '<div class="pop-main"><div class="mask"></div><div class="pop-box"><div class="pop-text"><p>'+res.msg+'</p></div></div></div>';
+           $("body").append(tiphtml);
+           $(".pop-main").fadeIn(function(){
+            setTimeout(function(){
+              $(".pop-main").fadeOut("normal",function(){
+                $(".pop-main").remove();
+              });
+            },2000);
+           });
+           }
+        });
+      });
     });
+
+    function htmlUtil(data){
+      if(data != null){
+        var yulan_text = data.replace(/\n/g,"<br/>");
+      }
+      var div_html = '<div class="form-inputs form-group clearfix"><div class="event-fl-left event-wh73"><label class="control-label text optional">回复内容：</label><textarea class="form-control text optional tinymce" name="data" rows="15" style="resize:none;">'+data+'</textarea></div><div class="event-fr-right event-wh25"><p class="border-radius col-b2cf73 pt6 mt25">'+yulan_text+'</p></div></div>';
+      $(".form-actions").before(div_html);  
+    }
+  

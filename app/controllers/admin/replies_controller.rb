@@ -4,14 +4,60 @@ class Admin::RepliesController < Admin::BaseController
   before_action :set_admin_reply, only: [:show, :edit, :update, :destroy]
 
   def event
-    @admin_reply = Admin::Reply.where(:category => "event").first
+    #@admin_reply = Admin::Reply.where(:category => "event").first
   end
 
   def nomatch
-    @admin_reply = Admin::Reply.where(:category => "nomatch").first
+    #@admin_reply = Admin::Reply.where(:category => "nomatch").first
   end
 
   def text
+  end
+
+  def getevent
+    @admin_reply = Admin::Reply.where(:category => "event").first
+    if @admin_reply.present?
+      render :json => @admin_reply.data
+    elsif
+      render :json => Admin::Reply.new.data
+    end
+  end
+
+  def updateevent
+  admin_reply = Admin::Reply.where(:category => "event").first
+  if admin_reply.blank?
+    admin_reply = Admin::Reply.create(:category => "event",:data => "")
+  end
+
+  if admin_reply.update(:category => params[:category],:data => params[:data])
+    @result = Keyword.initRedisData
+    render :json => { :status => "1", :msg => "更新成功"}
+  elsif
+    render :json => {:status => "0", :msg => "更新失败"}
+  end
+  end
+
+  def getnomatch
+    @admin_reply = Admin::Reply.where(:category => "nomatch").first
+    if @admin_reply.present?
+      render :json => @admin_reply.data
+    elsif
+      render :json => Admin::Reply.new.data
+    end
+  end
+
+  def updatenomatch
+  admin_reply = Admin::Reply.where(:category => "nomatch").first
+  if admin_reply.blank?
+    admin_reply = Admin::Reply.create(:category => "nomatch",:data => "")
+  end
+
+  if admin_reply.update(:category => params[:category],:data => params[:data])
+    @result = Keyword.initRedisData
+    render :json => { :status => "1", :msg => "更新成功"}
+  elsif
+    render :json => {:status => "0", :msg => "更新失败"}
+  end
   end
 
   def gettext
