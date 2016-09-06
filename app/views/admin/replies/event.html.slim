@@ -27,6 +27,9 @@ form#replyform
       $("#replyform").submit(function(e){
         e.preventDefault();
 
+            var tiphtml = '<div class="pop-main"><div class="mask"></div><div class="pop-box"><div class="pop-text"></div></div></div>';
+            $("body").append(tiphtml);
+
         $.ajax({
            url: '/admin/replies/updateevent',
            type: 'PUT',
@@ -36,11 +39,8 @@ form#replyform
             "data":$(".tinymce").val(),
            },
            success: function( res ) {
-           //var tiphtml = '<div class="alert alert-success"><div id="flash_notice">'+res.msg+'</div></div>';
-           //$("#flash_notice").parent().remove();
-           //$("form:first").before(tiphtml);
-           var tiphtml = '<div class="pop-main"><div class="mask"></div><div class="pop-box"><div class="pop-text"><p>'+res.msg+'</p></div></div></div>';
-           $("body").append(tiphtml);
+           var tipp = '<p>'+res.msg+'</p>';
+           $(".pop-text").append(tipp);
            $(".pop-main").fadeIn(function(){
             setTimeout(function(){
               $(".pop-main").fadeOut("fast",function(){

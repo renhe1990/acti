@@ -24,6 +24,10 @@ form#replyform
 		});
 		//submit button
 		$("#replyform").submit(function(e){
+
+			var tiphtml = '<div class="pop-main"><div class="mask"></div><div class="pop-box"><div class="pop-text"></div></div></div>';
+            $("body").append(tiphtml);
+
 			var verifyStatus = 0;  //校验 0:通过  1:为空不通过
 			e.preventDefault();
 			var keywordArray = new Array();
@@ -47,6 +51,7 @@ form#replyform
 			});
 			if(verifyStatus==1){
 				alert("关键词或回复内容不能为空");
+				$(".pop-main").remove();
 				return;
 			}
 			$.ajax({
@@ -61,9 +66,9 @@ form#replyform
 				 //var tiphtml = '<div class="alert alert-success"><div id="flash_notice">'+res.msg+'</div></div>';
 				 //$("#flash_notice").parent().remove();
 				 //$("form:first").before(tiphtml);
-				 var tiphtml = '<div class="pop-main"><div class="mask"></div><div class="pop-box"><div class="pop-text"><p>'+res.msg+'</p></div></div></div>';
-				 $("body").append(tiphtml);
-				 $(".pop-main").fadeIn(function(){
+				var tipp = '<p>'+res.msg+'</p>';
+           		$(".pop-text").append(tipp);
+				$(".pop-main").fadeIn(function(){
 					setTimeout(function(){
 						$(".pop-main").fadeOut("fast",function(){
 							$(".pop-main").remove();
