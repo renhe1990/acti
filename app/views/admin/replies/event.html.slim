@@ -54,9 +54,8 @@ form#replyform
     });
 
     function htmlUtil(data){
-      if(data != null){
-        var yulan_text = data.replace(/\n/g,"<br/>");
-      }
+	  data = data=='null'?'':data;
+	  var yulan_text = data.replace(/\n/g,"<br/>");
       var div_html = '<div class="form-inputs form-group clearfix"><div class="event-fl-left event-wh73"><label class="control-label text optional">回复内容：</label><textarea class="form-control text optional tinymce" name="data" rows="15" style="resize:none;">'+data+'</textarea></div><div class="event-fr-right event-wh25"><p class="border-radius col-b2cf73 pt6 mt25">'+yulan_text+'</p></div></div>';
       $(".form-actions").before(div_html);  
     }
