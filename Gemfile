@@ -133,3 +133,5 @@ gem 'redis-session-store'
 
 #Export CVS
 #gem 'fastercsv'
+
+gem "redis"

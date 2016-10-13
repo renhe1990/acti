@@ -525,3 +525,19 @@ crumb :admin_page do |page|
   link '静态页面详情', page
   parent :admin_pages
 end
+
+crumb :admin_event_reply do
+  link '被添加自动回复'
+end
+
+crumb :admin_nomatch_reply do
+  link '消息自动回复'
+end
+
+crumb :admin_text_reply do
+  link '文本关键词自动回复'
+end
+
+crumb :admin_graphictext_reply do
+  link '图文关键词自动回复'
+end

@@ -1,0 +1,11 @@
+p#notice = notice
+p
+  strong Category:
+  = @admin_reply.category
+p
+  strong Data:
+  = @admin_reply.data
+
+= link_to 'Edit', edit_admin_reply_path(@admin_reply)
+'|
+= link_to 'Back', admin_replies_path

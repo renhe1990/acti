@@ -1,0 +1,63 @@
+form#replyform
+  div class="form-actions"
+    input#submit_button type="submit" value="更新" class="btn btn-primary" style="margin-left:15px"
+- title '消息自动回复'
+- breadcrumb :admin_nomatch_reply
+- content_for :javascript do
+  javascript:
+    $(function(){
+      //show the data
+      $.ajax({
+        url: '/admin/replies/getnomatch',
+        type: 'get',
+        dataType: 'text',
+        success: function(data) {
+          htmlUtil(data);
+          
+          $(".tinymce").keyup(function(){
+            var reply_text = $(".tinymce").val();
+            if(reply_text != null){
+              reply_text = reply_text.replace(/\n/g,'<br/>');
+            }
+            $(".border-radius").html(reply_text);
+          });
+        }
+      });
+
+      $("#replyform").submit(function(e){
+        e.preventDefault();
+
+            var tiphtml = '<div class="pop-main"><div class="mask"></div><div class="pop-box"><div class="pop-text"></div></div></div>';
+            $("body").append(tiphtml);
+
+        $.ajax({
+           url: '/admin/replies/updatenomatch',
+           type: 'PUT',
+           dataType: 'json',
+           data:{
+            "category":"nomatch",
+            "data":$(".tinymce").val(),
+           },
+           success: function( res ) {
+
+           var tipp = '<p>'+res.msg+'</p>';
+           $(".pop-text").append(tipp);
+           $(".pop-main").fadeIn(function(){
+            setTimeout(function(){
+              $(".pop-main").fadeOut("fast",function(){
+                $(".pop-main").remove();
+              });
+            },1000);
+           });
+           }
+        });
+      });
+    });
+
+    function htmlUtil(data){
+      data = data=='null'?'':data;
+	  var yulan_text = data.replace(/\n/g,"<br/>");
+      var div_html = '<div class="form-inputs form-group clearfix"><div class="event-fl-left event-wh73"><label class="control-label text optional">回复内容：</label><textarea class="form-control text optional tinymce" name="data" rows="15" style="resize:none;">'+data+'</textarea></div><div class="event-fr-right event-wh25"><p class="border-radius col-b2cf73 pt6 mt25">'+yulan_text+'</p></div></div>';
+      $(".form-actions").before(div_html);  
+    }
+  

@@ -64,6 +64,10 @@ SimpleNavigation::Configuration.run do |navigation|
     primary.item :banners, 'Banner管理', [:admin, :banners], highlights_on: %r(/admin/banners)
     primary.item :features, '花絮管理', [:admin, :features], highlights_on: %r(/admin/features)
     primary.item :menus, '微信菜单管理', [:admin, :menus], highlights_on: %r(/admin/menus)
+    primary.item :replies_event, '被添加自动回复', [:event,:admin, :replies], highlights_on: %r(/admin/replies/event)
+    primary.item :replies_nomatch, '消息自动回复', [:nomatch,:admin, :replies], highlights_on: %r(/admin/replies/nomatch)
+    primary.item :replies_text, '文本关键词自动回复', [:text,:admin, :replies], highlights_on: %r(/admin/replies/text)
+	primary.item :replies_graphic_text, '图文关键词自动回复', [:graphic_text,:admin, :replies], highlights_on: %r(/admin/replies/graphic_text)
 
     # works for all levels of the menu
     primary.dom_attributes = { class: 'nav navbar-nav'}

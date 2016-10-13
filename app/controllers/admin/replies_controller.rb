@@ -1,0 +1,180 @@
+class Admin::RepliesController < Admin::BaseController
+  skip_after_action :verify_policy_scoped
+  skip_after_action :verify_authorized
+  before_action :set_admin_reply, only: [:show, :edit, :update, :destroy]
+
+  def event
+    #@admin_reply = Admin::Reply.where(:category => "event").first
+  end
+
+  def nomatch
+    #@admin_reply = Admin::Reply.where(:category => "nomatch").first
+  end
+
+  def text
+  end
+
+  def getevent
+    @admin_reply = Admin::Reply.where(:category => "event").first
+    if @admin_reply.present?
+      render :json => @admin_reply.data
+    elsif
+      render :json => Admin::Reply.new.data
+    end
+  end
+
+  def updateevent
+  admin_reply = Admin::Reply.where(:category => "event").first
+  if admin_reply.blank?
+    admin_reply = Admin::Reply.create(:category => "event",:data => "")
+  end
+
+  if admin_reply.update(:category => params[:category],:data => params[:data])
+    @result = Keyword.initRedisData
+    render :json => { :status => "1", :msg => "更新成功"}
+  elsif
+    render :json => {:status => "0", :msg => "更新失败"}
+  end
+  end
+
+  def getnomatch
+    @admin_reply = Admin::Reply.where(:category => "nomatch").first
+    if @admin_reply.present?
+      render :json => @admin_reply.data
+    elsif
+      render :json => Admin::Reply.new.data
+    end
+  end
+
+  def updatenomatch
+  admin_reply = Admin::Reply.where(:category => "nomatch").first
+  if admin_reply.blank?
+    admin_reply = Admin::Reply.create(:category => "nomatch",:data => "")
+  end
+
+  if admin_reply.update(:category => params[:category],:data => params[:data])
+    @result = Keyword.initRedisData
+    render :json => { :status => "1", :msg => "更新成功"}
+  elsif
+    render :json => {:status => "0", :msg => "更新失败"}
+  end
+  end
+
+  def gettext
+    @admin_reply = Admin::Reply.where(:category => "text").first
+    if @admin_reply.present?
+      render :json => @admin_reply.data
+    elsif
+      render :json => Admin::Reply.new.data
+    end
+  end
+  
+  def updatetext
+	admin_reply = Admin::Reply.where(:category => "text").first
+	if admin_reply.blank?
+		admin_reply = Admin::Reply.create(:category => "text",:data => "")
+	end
+	if admin_reply.update(:category => params[:category],:data => params[:data])
+    @result = Keyword.initRedisData
+		render :json => { :status => "1", :msg => "更新成功"}
+	elsif
+		render :json => {:status => "0", :msg => "更新失败"}
+	end
+  end
+  
+  def graphic_text
+  end
+  
+  def get_graphic_text
+    @admin_reply = Admin::Reply.where(:category => "graphic_text").first
+    if @admin_reply.present?
+      render :json => @admin_reply.data
+    elsif
+      render :json => Admin::Reply.new.data
+    end
+  end
+  
+
+  def update_graphic_text
+	admin_reply = Admin::Reply.where(:category => "graphic_text").first
+	if admin_reply.blank?
+		admin_reply = Admin::Reply.create(:category => "graphic_text",:data => "")
+	end
+	if admin_reply.update(:category => params[:category],:data => params[:data])
+    @result = Keyword.initRedisData
+		render :json => { :status => "1", :msg => "更新成功"}
+	elsif
+		render :json => {:status => "0", :msg => "更新失败"}
+	end
+  end
+  
+  # GET /admin/replies
+  def index
+    @admin_replies = Admin::Reply.all
+  end
+
+  # GET /admin/replies/1
+  def show
+  end
+
+  # GET /admin/replies/new
+  def new
+    @admin_reply = Admin::Reply.new
+  end
+
+  # GET /admin/replies/1/edit
+  def edit
+  end
+
+  # POST /admin/replies
+  def create
+    @admin_reply = Admin::Reply.new(admin_reply_params)
+
+    if @admin_reply.save
+      if @admin_reply.category == 'event'
+        @result = Keyword.initRedisData
+        redirect_to event_admin_replies_path, notice: '更新成功'
+      elsif @admin_reply.category == 'nomatch'
+        @result = Keyword.initRedisData
+        redirect_to nomatch_admin_replies_path, notice: '更新成功'
+      end
+    else
+      render :new
+    end
+  end
+
+  # PATCH/PUT /admin/replies/1
+  def update
+    if @admin_reply.update(admin_reply_params)
+      #redirect_to @admin_reply, notice: 'Reply was successfully updated.'
+      #render :event ,notice: '更新成功'
+      if @admin_reply.category == 'event'
+        @result = Keyword.initRedisData
+        redirect_to event_admin_replies_path, notice: '更新成功'
+      elsif @admin_reply.category == 'nomatch'
+        @result = Keyword.initRedisData
+        redirect_to nomatch_admin_replies_path, notice: '更新成功'
+      end
+    else
+      render :edit
+    end
+  end
+
+  # DELETE /admin/replies/1
+  def destroy
+    @admin_reply.destroy
+    redirect_to admin_replies_url, notice: 'Reply was successfully destroyed.'
+  end
+
+  private
+    # Use callbacks to share common setup or constraints between actions.
+    def set_admin_reply
+      @admin_reply = Admin::Reply.find(params[:id])
+    end
+
+    # Only allow a trusted parameter "white list" through.
+    def admin_reply_params
+      params.require(:admin_reply).permit(:category, :data)
+    end
+
+end

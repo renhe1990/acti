@@ -174,6 +174,22 @@ Rails.application.routes.draw do
       resources :polls, concerns: [:sortable]
       resources :questionnaires, concerns: [:sortable]
     end
+
+    resources :replies do
+      get 'event' => 'replies#event', :on => :collection
+      get 'nomatch' => 'replies#nomatch', :on => :collection
+      get 'text' => 'replies#text', :on => :collection
+      get 'getevent' => 'replies#getevent', :on => :collection
+      get 'getnomatch' => 'replies#getnomatch', :on => :collection
+      get 'gettext' => 'replies#gettext', :on => :collection
+      get 'initRedisData' => 'replies#initRedisData', :on => :collection
+	  put 'updatetext' => 'replies#updatetext', :on => :collection
+    put 'updatenomatch' => 'replies#updatenomatch', :on => :collection
+    put 'updateevent' => 'replies#updateevent', :on => :collection
+	  get 'graphic_text' => 'replies#graphic_text', :on => :collection
+	  get 'get_graphic_text' => 'replies#get_graphic_text', :on => :collection
+	  put 'update_graphic_text' => 'replies#update_graphic_text', :on => :collection
+    end
   end
 
   get '/auth/:provider/callback' => 'sessions#create'

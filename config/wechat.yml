@@ -1,13 +1,17 @@
 default: &default
-  appid: <%= ENV['WECHAT_APP_ID'] %>
-  secret: <%= ENV['WECHAT_APP_SECRET'] %>
-  token: <%= ENV['WECHAT_APP_TOKEN'] %>
+  appid: "wx555ddeedd3d7a6e8"
+  secret: "d3773b1998693b34277ec8c409c89333"
+  token:  "actimacre"
+  skip_verify_ssl: true
+
+production:
+  appid: "wx555ddeedd3d7a6e8"
+  secret: "d3773b1998693b34277ec8c409c89333"
+  token:   "actimacre"
 
 development:
   <<: *default
+  trusted_domain_fullname: "http://your_dev.proxy.qqbrowser.cc"
 
 test:
-  <<: *default
-
-production:
   <<: *default

@@ -1,11 +1,51 @@
-class WechatsController < ApplicationController
+class WechatsController < ActionController::Base
   skip_after_action :verify_authorized,  except: :index
   skip_after_action :verify_policy_scoped, only: :index
 
   skip_before_action :signed_in_required
   skip_before_action :teacher_required, only: [:new, :create]
-
+  # For details on the DSL available within this file, see https://github.com/Eric-Guo/wechat#rails-responder-controller-dsl
   wechat_responder
+
+
+  on :text do |request, content|
+    begin
+		#puts "#{content}"
+      if Keyword.redis.get('sys_nomatch').nil?
+        # @c = Admin::RepliesController.new
+        # @c.initRedisData
+		Keyword.initRedisData
+      end
+  	
+  		#puts @l.length
+  		if  Keyword.redis.get("#{content}").nil?
+  			request.reply.text Keyword.redis.get('sys_nomatch') 
+  		else
+  			#@keyword = @l.first
+        @jsonString = Keyword.redis.get("#{content}")
+        #puts @jsonString
+        @jsonObject = JSON::parse(@jsonString)
+        @jsonObjectReply = @jsonObject['reply']   
+        @type = @jsonObjectReply['type']
+        #puts @type
+
+        #回复图文信息
+        if @type == 'graphic_text'
+          @jsonObjectContent = @jsonObjectReply['content']
+          request.reply.news(@jsonObjectContent) do |article, n, index| # 回复"articles"
+            article.item title: n['title'], description: n['description'], pic_url: n['pic'], url: n['url']
+          end
+        #回复文本信息
+        else
+          @jsonObjectContent = @jsonObjectReply['content']
+          request.reply.text @jsonObjectReply['content']
+        end
+  		end
+    rescue Exception => e
+      Rails.logger.error e
+      request.reply.text '无法提供服务，请稍后重试'
+    end
+  end
 
   on :text, with: '账号绑定' do |request, help|
     begin
@@ -92,7 +132,12 @@ class WechatsController < ApplicationController
   on :event, with: 'subscribe' do |request|
     logger.info 'user has just subscribed'
     # request.reply.text "请访问这个链接进行绑定：http://acti.amway.com.cn/weixin/bindings/new?openid=#{request['FromUserName']}"
-    request.reply.text "欢迎关注“安利（中国）培训中心ACTI”，如果您是即将参加安利（中国）培训中心培训课程的学员，请您通过底部菜单“互动中心”—“绑定账号”进行绑定，用户名为您的安利卡号，密码为123。绑定成功后，点击“我的课程”—“项目列表”来查看您所参加培训课程的相关信息。如果您还不是我们的学员，欢迎您通过“了解ACTI”来了解安利（中国）培训中心方方面面，点点滴滴！"
+      if Keyword.redis.get('sys_event').nil?
+          # @c = Admin::RepliesController.new
+          # @c.initRedisData
+		  Keyword.initRedisData
+      end
+      request.reply.text Keyword.redis.get('sys_event')  
   end
 
   on :event, with: 'unsubscribe' do |request|
