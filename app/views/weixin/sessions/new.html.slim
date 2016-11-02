@@ -2,7 +2,7 @@ h1.text-center 账号登录
 
 .alert.alert-success 用户名由您安利卡后后加一位性别码组成，男性为1，女性为0，以卡号12345为例，男性用户名为123451，女性用户名为123450
 
-= simple_form_for :user, url: weixin_sessions_path do |f|
+= simple_form_for :user, url: weixin_sessions_url do |f|
   .form-group
     = render partial: 'shared/messages'
   = f.input :card_number, placeholder: '请输入您的用户名', label: false
