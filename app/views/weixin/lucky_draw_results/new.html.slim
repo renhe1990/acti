@@ -13,7 +13,7 @@
 br
 .row
   .col-sm-12.col-xs-12
-    = simple_form_for @draw_result, url: weixin_lucky_draw_lucky_draw_results_url(@lucky_draw) do |f|
+    = simple_form_for @draw_result, url: weixin_lucky_draw_lucky_draw_results_path(@lucky_draw) do |f|
       = f.submit '抽奖', class: 'btn btn-primary btn-block', 'data-loading-text' => '正在提交...', autocomplete: 'off'
 
 br
