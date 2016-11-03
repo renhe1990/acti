@@ -4,7 +4,7 @@ h1= @opinionnaire.name
 
 p= @opinionnaire.description.html_safe
 
-= simple_form_for :attempt, url: weixin_opinionnaire_attempts_url do |f|
+= simple_form_for :attempt, url: weixin_opinionnaire_attempts_path do |f|
   ul.list-group
     - @opinionnaire.reviewees.each_with_index do |user, index|
       li.list-group-item
