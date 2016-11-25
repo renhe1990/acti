@@ -16,7 +16,7 @@ br
 br
 .row
   .col-sm-12.col-xs-12
-    = simple_form_for @draw_result, url: weixin_debate_draw_debate_draw_results_url(@debate_draw) do |f|
+    = simple_form_for @draw_result, url: weixin_debate_draw_debate_draw_results_path(@debate_draw) do |f|
       = f.submit '抽签', class: 'btn btn-primary btn-block', 'data-loading-text' => '正在提交...', autocomplete: 'off'
 
 br

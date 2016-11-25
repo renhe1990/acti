@@ -29,6 +29,7 @@ set :assets_dir, 'public/uploads'
 set :local_assets_dir, 'public'
 
 set :puma_init_active_record, true
+set :puma_workers, 2
 
 # if you want to work on a specific local environment (default = ENV['RAILS_ENV'] || 'development')
 # set :locals_rails_env, "production"
