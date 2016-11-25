@@ -32,7 +32,7 @@ set :puma_init_active_record, true
 set :puma_workers, 2
 
 # if you want to work on a specific local environment (default = ENV['RAILS_ENV'] || 'development')
-set :locals_rails_env, "production"
+#set :locals_rails_env, "production"
 
 namespace :deploy do
 
