@@ -17,7 +17,7 @@
 #   runner "AnotherModel.prune_old_records"
 # end
 every 3.minutes do
-  runner "Admin.Reply.reconnectDatabase"
+  command "curl https://acti.amway.com.cn"
 end
 
 # Learn more: http://github.com/javan/whenever
