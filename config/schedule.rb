@@ -17,7 +17,7 @@
 #   runner "AnotherModel.prune_old_records"
 # end
 every 3.minutes do
-  runner "Blog.parseAll"
+  runner "Admin::Reply.reconnectDatabase"
 end
 
 # Learn more: http://github.com/javan/whenever
