@@ -413,6 +413,7 @@ DEPENDENCIES
   rails (~> 4.1.4)
   rb-readline
   redis
+  whenever
   redis-session-store
   remotipart (~> 1.2)
   rollbar
