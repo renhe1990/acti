@@ -135,3 +135,5 @@ gem 'redis-session-store'
 #gem 'fastercsv'
 
 gem "redis"
+
+gem 'whenever', :require => false
