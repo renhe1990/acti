@@ -266,7 +266,7 @@ GEM
     rake (11.2.2)
     rb-readline (0.5.3)
     redis (3.3.1)
-	whenever (0.9.7)
+    whenever (0.9.7)
     redis-session-store (0.9.1)
       actionpack (>= 3, < 5.1)
       redis (~> 3)
