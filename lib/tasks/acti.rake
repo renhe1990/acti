@@ -33,7 +33,7 @@ namespace :acti do
   end
   task :keep_db_connect => :environment do
     sql = 'SELECT SYSDATE() FROM DUAL'
-    result = ActiveRecord::Base.connection().execute(sql)
-	puts "如果显示这行字就说明task被执行了"
+    results = ActiveRecord::Base.connection().execute(sql)
+	puts "如果显示这行字就说明task被执行了，执行结果：" << results[0].to_s
   end
 end
