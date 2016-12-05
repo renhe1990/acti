@@ -5,7 +5,6 @@
 
 # Example:
 #
- job_type :runner,  "cd :path && rails runner -e :environment ':task' :output"
  set :output, "~/rails_app/shared/log/cron_log.log"
 #
 # every 2.hours do
