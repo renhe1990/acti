@@ -31,4 +31,9 @@ namespace :acti do
       end
     end
   end
+  task :keep_db_connect => :environment do
+    sql = "SELECT 1 FROM DUAL"
+    result = ActiveRecord::Base.connection().execute(sql)
+	puts result
+  end
 end

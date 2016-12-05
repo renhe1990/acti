@@ -19,7 +19,8 @@
 # end
 every 3.minutes do
   #command "curl https://acti.amway.com.cn"
-  runner "KeepDbConnect.connectdb"
+  #runner "KeepDbConnect.connectdb"
+  rake "acti:keep_db_connect"
 end
 
 # Learn more: http://github.com/javan/whenever
