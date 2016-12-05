@@ -32,8 +32,8 @@ namespace :acti do
     end
   end
   task :keep_db_connect => :environment do
-    sql = "SELECT 1 FROM DUAL"
+    sql = 'SELECT SYSDATE() FROM DUAL'
     result = ActiveRecord::Base.connection().execute(sql)
-	puts result
+	puts result.to_s
   end
 end
