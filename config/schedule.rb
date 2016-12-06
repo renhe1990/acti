@@ -16,7 +16,7 @@
 # every 4.days do
 #   runner "AnotherModel.prune_old_records"
 # end
-every 3.minutes do
+every 1.minutes do
   #command "curl http://10.32.50.239"
   rake "acti:keep_db_connect"
 end
