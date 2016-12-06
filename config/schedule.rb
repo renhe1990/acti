@@ -17,9 +17,9 @@
 #   runner "AnotherModel.prune_old_records"
 # end
 every 3.minutes do
-  #command "curl https://acti.amway.com.cn"
+  command "curl https://10.32.50.239"
   #runner "KeepDbConnect.connectdb"
-  rake "acti:keep_db_connect"
+  #rake "acti:keep_db_connect"
 end
 
 # Learn more: http://github.com/javan/whenever
