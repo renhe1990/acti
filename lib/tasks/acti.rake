@@ -36,6 +36,6 @@ namespace :acti do
     #results = ActiveRecord::Base.connection().execute(sql)
 	#puts "如果显示这行字就说明task被执行了，执行结果：" << results.first.to_s
     results = Role.all
-	puts "如果显示这行字就说明task被执行了，执行结果：" << results.first.has_key?(:id).to_s
+	puts "如果显示这行字就说明task被执行了，执行结果：" << results.to_s
   end
 end
