@@ -34,8 +34,8 @@ namespace :acti do
   task :keep_db_connect => :environment do
     #sql = 'SELECT SYSDATE() FROM DUAL'
     #results = ActiveRecord::Base.connection().execute(sql)
-	#puts "如果显示这行字就说明task被执行了，执行结果：" << results.first.to_s
+	#puts "keep_db_connect task被执行了，执行结果：" << results.first.to_s
     results = Role.all
-	puts Time.new.strftime("%Y-%m-%d %H:%M:%S") << "如果显示这行字就说明task被执行了，执行结果：" << results.to_a.first.id.to_s
+	puts "时间："Time.new.strftime("%Y-%m-%d %H:%M:%S") << "keep_db_connect task被执行了，执行结果：" << results.to_a.first.id.to_s
   end
 end
