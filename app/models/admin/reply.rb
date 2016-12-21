@@ -1,2 +1,2 @@
-class Admin::Reply < ActiveRecord::Base
+class Admin::Reply < DatabaseConnection
 end
