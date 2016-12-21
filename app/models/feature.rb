@@ -1,4 +1,4 @@
-class Feature < ActiveRecord::Base
+class Feature < DatabaseConnection
   default_scope { order("features.position ASC") }
 
   scope :by_keyword, ->(keyword) { where("LOWER(title) LIKE ? AND project_id IS NOT NULL", "%#{keyword.downcase}%") }

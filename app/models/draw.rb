@@ -1,4 +1,4 @@
-class Draw < ActiveRecord::Base
+class Draw < DatabaseConnection
   include Interactiveable
 
   default_scope { order("draws.position ASC") }

@@ -1,4 +1,4 @@
-class Grade < ActiveRecord::Base
+class Grade < DatabaseConnection
   has_many :users
 
   validates :name, presence: true, uniqueness: true

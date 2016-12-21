@@ -1,4 +1,4 @@
-class Course < ActiveRecord::Base
+class Course < DatabaseConnection
   default_scope { order("courses.position ASC") }
 
   extend Enumerize

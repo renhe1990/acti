@@ -1,4 +1,4 @@
-class Project < ActiveRecord::Base
+class Project < DatabaseConnection
   has_ancestry orphan_strategy: :rootify
 
   include Searchable

@@ -1,4 +1,4 @@
-class Banner < ActiveRecord::Base
+class Banner < DatabaseConnection
   acts_as_list scope: :project
 
   belongs_to :project

@@ -1,3 +1,3 @@
-class City < ActiveRecord::Base
+class City < DatabaseConnection
   belongs_to :province
 end

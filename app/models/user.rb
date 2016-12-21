@@ -1,4 +1,4 @@
-class User < ActiveRecord::Base
+class User < DatabaseConnection
   acts_as_paranoid
 
   enum gender: { male: 0, female: 1 }

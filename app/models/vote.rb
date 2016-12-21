@@ -1,4 +1,4 @@
-class Vote < ActiveRecord::Base
+class Vote < DatabaseConnection
   include Interactiveable
 
   belongs_to :course

@@ -1,4 +1,4 @@
-class Event < ActiveRecord::Base
+class Event < DatabaseConnection
   default_scope { order("starts_at ASC") }
 
   validates :name, presence: true

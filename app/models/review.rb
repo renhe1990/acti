@@ -1,4 +1,4 @@
-class Review < ActiveRecord::Base
+class Review < DatabaseConnection
   belongs_to :context, polymorphic: true
   belongs_to :reviewable, polymorphic: true
   belongs_to :reviewer, polymorphic: true

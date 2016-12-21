@@ -1,4 +1,4 @@
-class Campaign < ActiveRecord::Base
+class Campaign < DatabaseConnection
   default_scope { order("campaigns.position ASC") }
   scope :by_keyword, ->(keyword) { where("LOWER(campaigns.name) LIKE ?", "%#{keyword.downcase}%") }
 

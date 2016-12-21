@@ -1,6 +1,6 @@
 # Used by wechat gems, do not rename WechatSession to other name,
 # Feel free to inherit from other class like ActiveModel::Model
-class WechatSession < ActiveRecord::Base
+class WechatSession < DatabaseConnection
   validates :openid, presence: true, uniqueness: true
   serialize :hash_store, Hash
 

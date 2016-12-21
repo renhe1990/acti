@@ -1,4 +1,4 @@
-class Article < ActiveRecord::Base
+class Article < DatabaseConnection
   enum status: { draft: 0, published: 1 }
 
   validates :title, presence: true

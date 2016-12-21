@@ -1,4 +1,4 @@
-class Photo < ActiveRecord::Base
+class Photo < DatabaseConnection
   mount_uploader :image, ImageUploader
 
   belongs_to :photoable, polymorphic: true

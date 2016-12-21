@@ -1,4 +1,4 @@
-class ProjectLecturer < ActiveRecord::Base
+class ProjectLecturer < DatabaseConnection
   acts_as_list
 
   belongs_to :course

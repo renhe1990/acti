@@ -1,4 +1,4 @@
-class VoteItemOption < ActiveRecord::Base
+class VoteItemOption < DatabaseConnection
   belongs_to :vote_item
   belongs_to :user
 

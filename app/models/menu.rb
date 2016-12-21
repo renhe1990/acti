@@ -1,4 +1,4 @@
-class Menu < ActiveRecord::Base
+class Menu < DatabaseConnection
   mount_uploader :image, IconUploader
 
   default_scope { order('position ASC') }

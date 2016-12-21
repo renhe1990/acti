@@ -1,4 +1,4 @@
-class VoteItem < ActiveRecord::Base
+class VoteItem < DatabaseConnection
   acts_as_list scope: :vote
   belongs_to :vote
 

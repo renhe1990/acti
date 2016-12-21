@@ -1,4 +1,4 @@
-class ArticleCategory < ActiveRecord::Base
+class ArticleCategory < DatabaseConnection
   validates :name, presence: true, uniqueness: true
 
   has_many :articles

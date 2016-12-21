@@ -1,4 +1,4 @@
-class OpinionnaireReviewee < ActiveRecord::Base
+class OpinionnaireReviewee < DatabaseConnection
   default_scope { order('position ASC') }
   acts_as_list scope: :opinionnaire
 

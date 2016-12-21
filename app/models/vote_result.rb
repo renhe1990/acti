@@ -1,4 +1,4 @@
-class VoteResult < ActiveRecord::Base
+class VoteResult < DatabaseConnection
   belongs_to :vote
   belongs_to :user
 

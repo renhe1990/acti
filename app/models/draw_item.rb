@@ -1,4 +1,4 @@
-class DrawItem < ActiveRecord::Base
+class DrawItem < DatabaseConnection
   validates :title, presence: true
   belongs_to :draw
   has_many :draw_results

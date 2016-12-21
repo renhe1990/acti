@@ -1,4 +1,4 @@
-class DrawResult < ActiveRecord::Base
+class DrawResult < DatabaseConnection
   belongs_to :user
   belongs_to :draw
   belongs_to :draw_item

@@ -1,4 +1,4 @@
-class Cell < ActiveRecord::Base
+class Cell < DatabaseConnection
   default_scope { order("cells.position ASC") }
 
   acts_as_list scope: :project
