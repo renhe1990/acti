@@ -6,7 +6,7 @@
 # Example:
 #
  #set :output, "~/rails_app/shared/log/cron_log.log"
- set :output, "/home/actiadmin/rails_apps/acti/shared/log/cron_log.log"
+ #set :output, "/home/actiadmin/rails_apps/acti/shared/log/cron_log.log"
  #set :output, "/home/amwaysite4/rails_apps/acti/shared/log/cron_log.log"
 #
 # every 2.hours do
@@ -18,11 +18,11 @@
 # every 4.days do
 #   runner "AnotherModel.prune_old_records"
 # end
-every 3.minutes do
+# every 3.minutes do
   #command "curl http://10.32.50.239"
-  command "curl https://acti-qa.amway.com.cn"
+  #command "curl https://acti-qa.amway.com.cn"
   #command "curl https://acti.amway.com.cn"
   #rake "acti:keep_db_connect"
-end
+# end
 
 # Learn more: http://github.com/javan/whenever
