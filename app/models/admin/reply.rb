@@ -1,2 +1,2 @@
-class Admin::Reply < DBConn::DatabaseConnection
+class Admin::Reply < DatabaseConnection
 end
